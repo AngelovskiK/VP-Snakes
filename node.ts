@@ -28,7 +28,7 @@ class ProblemNode {
     expand(problem: Problem) {
         let result = [];
         for (let action of problem.actions(this.state)) {
-            result.push(this.child_node(problem, this.action))
+            result.push(this.child_node(problem, action))
         }
         return result
     }

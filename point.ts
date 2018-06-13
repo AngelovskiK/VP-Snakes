@@ -14,4 +14,8 @@ class Point {
     equals(that: Point) {
         return this.x === that.x && this.y === that.y;
     }
+
+    static equalsTwo(one: Point, two: Point) {
+        return one.x === two.x && one.y === two.y;
+    }
 }

@@ -22,23 +22,36 @@ class Traversal {
     // };
 
     breadth_first_tree_search(problem: Problem) {
+
         let queue = [];
         let visited = [];
         queue.push(new ProblemNode(problem.state));
         console.log("Problem", problem);
         //visited.push(new ProblemNode(problem.state));
+        //while (queue.length > 0) {
+        let i: number = 0;
+        //|| i < 1000000
         while (queue.length > 0) {
-            console.log("Queue", queue);
+
+            for (let item of queue) {
+                console.log("Queue", item.state[0]);
+            }
+            for (let item of visited) {
+                console.log("Visited", item[0]);
+            }
             let node: ProblemNode = queue.shift();
             //console.log("node", node);
             //console.log("node.state", node.state);
             if (problem.goal_test(node.state)) {
                 return node;
             }
-            if (!Problem.contains_node(node, visited)){
-                visited.push(node);
+            // console.log("Node State", node.state[0]);
+            // console.log("Condition", !Problem.contains_node_state(node.state, visited));
+            if (!Problem.contains_node_state(node.state, visited)) {
+                visited.push(node.state);
                 queue.push.apply(queue, node.expand(problem));
             }
+            i += 1;
         }
         return null;
     }
@@ -62,11 +75,12 @@ class Traversal {
                 return node;
             }
 
-            visited.push(node);
+            visited.push(node.state);
             for (let child of node.expand(problem)) {
-                if (visited.indexOf(child.state) >= 0 && !queue.contains(child.state)) {
+                if (!Problem.contains_node_state(child.state, visited) &&
+                    !Problem.contains_node(child, queue._heap)) {
                     queue.push(child);
-                } else if (queue.contains(child.state)) {
+                } else if (Problem.contains_node(child, queue._heap)) {
                     let existing: ProblemNode = queue.find(child);
                     if (compute(child) < compute(existing)) {
                         queue.remove(existing);

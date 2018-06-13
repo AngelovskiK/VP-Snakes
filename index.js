@@ -6,9 +6,6 @@ function main() {
     let test = new Test(1);
     test.main();
 
-    let point = new Point(3,4);
-    console.log(point.toString());
-    breadth_first_search(0);
 }
 
 main();
