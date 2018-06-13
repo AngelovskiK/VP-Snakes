@@ -12,13 +12,15 @@ class Test {
     }
 
     main() {
-        let comparator = (a, b) => a < b;
-        let queue: PriorityQueue = new PriorityQueue(comparator);
-        queue.push(10, 20, 30, 40, 50);
-        queue.push(33, 13, 41, 34);
-        while (!queue.isEmpty()) {
-            console.log(queue.pop()); //=> 40, 30, 20, 10
-        }
+        let traversal = new Traversal();
+
+        let player: Point = new Point(0, 0);
+        let food: Array<Point> = [new Point(3, 3), new Point(3,2)];
+        let obstacles: Array<Point> = [new Point(1, 1), new Point(2, 1), new Point(2, 2)];
+        let problem: Problem = new Problem(player, food, obstacles, 3, 3);
+        let answer = traversal.breadth_first_tree_search(problem);
+        console.log(answer);
+        console.log(answer.solution());
     }
 
 }

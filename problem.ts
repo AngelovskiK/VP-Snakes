@@ -20,10 +20,25 @@ class Problem {
     grid: Array<Point>;
 
     constructor(player: Point, food: Array<Point>, obstacles: Array<Point>,
-                goal: Point,
                 hSize: number, vSize: number) {
         this.state = [player, food, obstacles];
-        this.goal = goal;
+
+        //this.goal = food[0];
+        let min = Number.MAX_VALUE;
+        for (let item of food) {
+            let current = Problem.manhattan_distance(player, item);
+            if (current < min) {
+                min = current;
+                this.goal = item;
+            }
+        }
+
+        // let smallest = food
+        //     .map((item) => [item, Problem.manhattan_distance(player, item)])
+        //     .reduce((a, b) => a[1] < b[1] ? a : b)[0];
+        // this.goal = new Point(smallest.x, smallest.y);
+        console.log(this.goal.toString());
+
         this.grid = [];
 
         for (let i = 0; i < vSize; i++) {
@@ -35,6 +50,7 @@ class Problem {
     }
 
     goal_test(state) {
+        console.log("goal_test state:", state);
         let player: Point = state[0];
         return player.equals(this.goal);
     }
@@ -47,39 +63,42 @@ class Problem {
 
         let modified_player: Point = null;
 
+        // console.log("Player in grid: ", this.grid.indexOf(player) >= 0);
+        // console.log("Player contained in grid: ", Problem.contains(player, this.grid));
+
         // if player is in grid
-        if (this.grid.indexOf(player) >= 0) {
+        if (Problem.contains(player, this.grid)) {
             // UP
             modified_player = new Point(player.x - 1, player.y);
-            if (this.grid.indexOf(modified_player) >= 0 &&
-                !(obstacles.indexOf(modified_player) >= 0)) {
+            if (Problem.contains(modified_player, this.grid) &&
+                !(Problem.contains(modified_player, obstacles))) {
                 let new_state = [modified_player, food, obstacles];
                 successors["UP"] = new_state;
             }
             // DOWN
             modified_player = new Point(player.x + 1, player.y);
-            if (this.grid.indexOf(modified_player) >= 0 &&
-                !(obstacles.indexOf(modified_player) >= 0)) {
+            if (Problem.contains(modified_player, this.grid) &&
+                !(Problem.contains(modified_player, obstacles))) {
                 let new_state = [modified_player, food, obstacles];
                 successors["DOWN"] = new_state;
             }
             // LEFT
             modified_player = new Point(player.x, player.y - 1);
-            if (this.grid.indexOf(modified_player) >= 0 &&
-                !(obstacles.indexOf(modified_player) >= 0)) {
+            if (Problem.contains(modified_player, this.grid) &&
+                !(Problem.contains(modified_player, obstacles))) {
                 let new_state = [modified_player, food, obstacles];
                 successors["LEFT"] = new_state;
             }
             // RIGHT
             modified_player = new Point(player.x, player.y + 1);
-            if (this.grid.indexOf(modified_player) >= 0 &&
-                !(obstacles.indexOf(modified_player) >= 0)) {
+            if (Problem.contains(modified_player, this.grid) &&
+                !(Problem.contains(modified_player, obstacles))) {
                 let new_state = [modified_player, food, obstacles];
                 successors["RIGHT"] = new_state;
             }
         }
 
-        console.log(successors);
+        console.log("successors", successors);
         return successors;
     }
 
@@ -107,5 +126,25 @@ class Problem {
         //     keys.push(key);
         // }
         return Object.keys(this.successor(state));
+    }
+
+    static contains(object: Point, list: Array<Point>): boolean {
+        //console.log("Problem.contains:", object, list);
+        for (let item of list) {
+            if (object.equals(item)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    static contains_node(object: ProblemNode, list: Array<ProblemNode>): boolean {
+        //console.log("Problem.contains:", object, list);
+        for (let item of list) {
+            if (object.equals(item)) {
+                return true;
+            }
+        }
+        return false;
     }
 }
