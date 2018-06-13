@@ -12,11 +12,13 @@ class Test {
     }
 
     main() {
-        let target = 'c';
-        let list = ['a', 'b', 'c'];
-        console.log(target);
-        console.log(target in list);
-        console.log(list.indexOf(target) >= 0)
+        let comparator = (a, b) => a < b;
+        let queue: PriorityQueue = new PriorityQueue(comparator);
+        queue.push(10, 20, 30, 40, 50);
+        queue.push(33, 13, 41, 34);
+        while (!queue.isEmpty()) {
+            console.log(queue.pop()); //=> 40, 30, 20, 10
+        }
     }
 
 }

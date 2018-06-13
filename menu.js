@@ -534,6 +534,173 @@ let Menu = function () {
         }
     }
 
+    function ShowAISnake(container) {
+        // start game, set up canvas, and create quit button
+        let traversal = new Traversal();
+
+        isPaused = false;
+        let cycle;
+
+        container.innerHTML = '';
+        let canvas = document.createElement("canvas");
+        canvas.setAttribute('width', WIDTH);
+        canvas.setAttribute('height', HEIGHT);
+        canvas.id = 'game';
+        container.appendChild(canvas);
+        let quitButton = document.createElement("button");
+        quitButton.className = 'quit';
+        quitButton.appendChild(document.createTextNode("✖"));
+        quitButton.addEventListener("click", () => ShowMenu(container));
+
+        container.appendChild(quitButton);
+
+        let ctx = canvas.getContext("2d");
+        ctx.font = "22px Arial";
+
+        //initialize the player
+        let player = [];
+        let px = 5;
+        let py = 5;
+        let length = 5;
+        let dx = 1;
+        let dy = 0;
+
+        //initialize the apple
+        let apple = createApple(player);
+        let appleimg = document.getElementById("apple");
+        let sApple;
+        setInterval(createSpecialApple(player, (a) => {
+            sApple = a;
+        }), 15000);
+
+        let interval = 60;
+        document.addEventListener("keydown", (e) => {
+            //handle direction changes and pauses
+            switch (e.keyCode) {
+                //left
+                case 37:
+                    dx = -1;
+                    dy = 0;
+                    break;
+                //up
+                case 38:
+                    dx = 0;
+                    dy = -1;
+                    break;
+                //right
+                case 39:
+                    dx = 1;
+                    dy = 0;
+                    break;
+                //down
+                case 40:
+                    dx = 0;
+                    dy = 1;
+                    break;
+                //pause
+                case 80:
+                    isPaused = !isPaused;
+                    if (isPaused)
+                        clearInterval(cycle);
+                    else
+                        cycle = setInterval(game, interval);
+                    break;
+            }
+        });
+
+        cycle = setInterval(game, interval);
+
+        function game() {
+            //refresh
+            ctx.fillStyle = '#000000';
+            ctx.fillRect(0, 0, WIDTH, HEIGHT);
+
+            //draw head and apple
+            ctx.fillStyle = "#0000FF";
+            ctx.fillRect(10 + px * BLOCK_SIZE, 40 + py * BLOCK_SIZE, 15, 15);
+            ctx.drawImage(appleimg, 10 + apple.x * BLOCK_SIZE, 40 + apple.y * BLOCK_SIZE);
+
+            ctx.fillStyle = "#FF00FF";
+            ctx.fillRect(10 + sApple.x * BLOCK_SIZE, 40 + sApple.y * BLOCK_SIZE, 15, 15);
+
+            //check death
+            if (check(px, py, player)) {
+                //create body and draw it
+                player.push({x: px, y: py});
+                while (player.length > length)
+                    player.shift();
+
+                drawPlayer(ctx, player, '#0000FF');
+                //move player
+                px += dx;
+                py += dy;
+
+                //wrap screen
+                if (px === hSize)
+                    px = 0;
+                else if (px === -1)
+                    px = hSize - 1;
+                if (py === vSize)
+                    py = 0;
+                else if (py === -1)
+                    py = vSize - 1;
+
+                //check if apple is eaten
+                if (px === apple.x && py === apple.y) {
+                    length++;
+                    if (length % 5 === 0) {
+                        //speed game up every 5th apple
+                        clearInterval(cycle);
+                        interval *= 0.985;
+                        cycle = setInterval(game, interval);
+                    }
+                    apple = createApple(player);
+                }
+                if (px === sApple.x && py === sApple.y) {
+                    switch (sApple.type) {
+                        case "big":
+                            length += 2;
+                            break;
+                        case "minimize":
+                            length -= Math.round(length / 10);
+                            break;
+                        case "speed":
+                            interval *= 0.945;
+                            clearInterval(cycle);
+                            cycle = setInterval(game, interval);
+                            setTimeout(() => {
+                                interval *= 1 / 0.945;
+                                clearInterval(cycle);
+                                cycle = setInterval(game, interval);
+                            }, 5000);
+                            break;
+                        case "slow":
+                            interval *= 1.055;
+                            clearInterval(cycle);
+                            cycle = setInterval(game, interval);
+                            setTimeout(() => {
+                                interval *= 1 / 1.055;
+                                clearInterval(cycle);
+                                cycle = setInterval(game, interval);
+                            }, 5000);
+                            break;
+                    }
+                    createSpecialApple(player, function (a) {
+                        sApple = a;
+                    })
+                }
+
+                ctx.fillText("Player 1 - Length: " + length + " Speed: " + interval, 15, 18);
+            } else {
+                getName(canvas, ctx, "Enter name: ", function (name) {
+                    addHighScore(length, name);
+                    ShowMenu(container);
+                });
+                clearInterval(cycle);
+            }
+        }
+    }
+
     return {
         ShowMenu: ShowMenu,
     }
