@@ -1,23 +1,43 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Document</title>
-  <link rel="stylesheet" href="style.css">
-  <script src="gamelogic.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Serpent Works</title>
+
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
+          integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="style.css">
+
 </head>
 <body>
-  <div id="container">
-  </div>
+<div id="container" class="container">
+    <div class="col-md-2" id="left_column"></div>
+    <div class="col-md-8" id="center_column"></div>
+    <div class="col-md-2" id="right_column"></div>
+</div>
 
-  <script>
-    var container = document.getElementById("container");
+<img src="apple.png" id="apple" alt="">
+<img src="apple2.png" id="apple2" alt="">
 
-    ShowMenu(container);
-  </script>
-  <img src="apple.png" id="apple" alt="">
-  <img src="apple2.png" id="apple2" alt="">
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+        integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+        crossorigin="anonymous"></script>
+
+<script src="game.js"></script>
+<script src="menu.js"></script>
+<script src="index.js"></script>
+
+
 </body>
 </html>
