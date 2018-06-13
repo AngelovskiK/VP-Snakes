@@ -42,12 +42,19 @@ let Menu = function () {
             ShowTwoPlayerHighScores(container);
         });
 
+        let btnAISnake = document.createElement("button");
+        btnAISnake.appendChild(document.createTextNode("AI Snake"));
+        btnAISnake.className = 'btn btn-block btn-danger menuItem';
+        btnAISnake.addEventListener("click", (e) => {
+            ShowAISnake(container);
+        });
 
         menu.appendChild(lblTitle);
         menu.appendChild(btnSinglePlayer);
         menu.appendChild(btnTwoPlayer);
         menu.appendChild(btnSinglePlayerHighScores);
         menu.appendChild(btnTwoPlayerHighScores);
+        menu.appendChild(btnAISnake);
 
         container.appendChild(left_column);
         container.appendChild(menu);
@@ -56,43 +63,41 @@ let Menu = function () {
     function StartSinglePlayer(container) {
         // start game, set up canvas, and create quit button
         isPaused = false;
-        var cycle;
+        let cycle;
 
         container.innerHTML = '';
-        var canvas = document.createElement("canvas");
+        let canvas = document.createElement("canvas");
         canvas.setAttribute('width', WIDTH);
         canvas.setAttribute('height', HEIGHT);
         canvas.id = 'game';
         container.appendChild(canvas);
-        var quitButton = document.createElement("button");
+        let quitButton = document.createElement("button");
         quitButton.className = 'quit';
         quitButton.appendChild(document.createTextNode("✖"));
-        quitButton.addEventListener("click", () => {
-            ShowMenu(container)
-        });
+        quitButton.addEventListener("click", () => ShowMenu(container));
 
         container.appendChild(quitButton);
 
-        var ctx = canvas.getContext("2d");
+        let ctx = canvas.getContext("2d");
         ctx.font = "22px Arial";
 
         //initialize the player
-        var player = [];
-        var px = 5;
-        var py = 5;
-        var length = 5;
-        var dx = 1;
-        var dy = 0;
+        let player = [];
+        let px = 5;
+        let py = 5;
+        let length = 5;
+        let dx = 1;
+        let dy = 0;
 
         //initialize the apple
-        var apple = createApple(player);
-        var appleimg = document.getElementById("apple");
-        var sApple;
+        let apple = createApple(player);
+        let appleimg = document.getElementById("apple");
+        let sApple;
         setInterval(createSpecialApple(player, (a) => {
             sApple = a;
         }), 15000);
 
-        var interval = 60;
+        let interval = 60;
         document.addEventListener("keydown", (e) => {
             //handle direction changes and pauses
             switch (e.keyCode) {
@@ -157,7 +162,7 @@ let Menu = function () {
                 //wrap screen
                 if (px === hSize)
                     px = 0;
-                else if (px == -1)
+                else if (px === -1)
                     px = hSize - 1;
                 if (py === vSize)
                     py = 0;
@@ -224,14 +229,14 @@ let Menu = function () {
         //initalize game canas, same as single player
         isPaused = false;
         container.innerHTML = '';
-        var canvas = document.createElement("canvas");
+        let canvas = document.createElement("canvas");
         canvas.setAttribute('width', WIDTH);
         canvas.setAttribute('height', HEIGHT);
         canvas.id = 'game';
-        var ctx = canvas.getContext("2d");
+        let ctx = canvas.getContext("2d");
         ctx.font = "22px Tahoma";
 
-        var quitButton = document.createElement("button");
+        let quitButton = document.createElement("button");
         quitButton.className = 'quit red';
         quitButton.appendChild(document.createTextNode("✖"));
         quitButton.addEventListener("click", () => {
@@ -242,29 +247,29 @@ let Menu = function () {
         container.appendChild(canvas);
 
         //set up both players starting stats
-        var player1 = [];
-        var p1x = 5;
-        var p1y = 5;
-        var length1 = 5;
-        var player2 = [];
-        var p2x = 15;
-        var p2y = 15;
-        var length2 = 5;
+        let player1 = [];
+        let p1x = 5;
+        let p1y = 5;
+        let length1 = 5;
+        let player2 = [];
+        let p2x = 15;
+        let p2y = 15;
+        let length2 = 5;
 
         //create and set up each player's apple
-        var apple1 = createApple2(player1, player2);
-        var apple2 = createApple2(player1, player2);
-        var apple1img = document.getElementById("apple");
-        var apple2img = document.getElementById("apple2");
-        var sApple;
+        let apple1 = createApple2(player1, player2);
+        let apple2 = createApple2(player1, player2);
+        let apple1img = document.getElementById("apple");
+        let apple2img = document.getElementById("apple2");
+        let sApple;
         setInterval(createSpecialApple2(player1, player2, (a) => {
             sApple = a;
         }), 15000);
 
-        var d1x = 1;
-        var d1y = 0;
-        var d2x = -1;
-        var d2y = 0;
+        let d1x = 1;
+        let d1y = 0;
+        let d2x = -1;
+        let d2y = 0;
         document.addEventListener("keydown", (e) => {
             // change either player's direction or pause
             switch (e.keyCode) {
@@ -310,7 +315,7 @@ let Menu = function () {
             }
         })
 
-        var interval = 60;
+        let interval = 60;
 
         cycle = setInterval(game, interval);
 
@@ -348,30 +353,30 @@ let Menu = function () {
                 p2y += d2y;
 
                 //wrap both players
-                if (p1x == hSize)
+                if (p1x === hSize)
                     p1x = 0;
-                else if (p1x == -1)
+                else if (p1x === -1)
                     p1x = hSize - 1;
-                if (p1y == vSize)
+                if (p1y === vSize)
                     p1y = 0;
-                else if (p1y == -1)
+                else if (p1y === -1)
                     p1y = vSize - 1;
-                if (p2x == hSize)
+                if (p2x === hSize)
                     p2x = 0;
-                else if (p2x == -1)
+                else if (p2x === -1)
                     p2x = hSize - 1;
-                if (p2y == vSize)
+                if (p2y === vSize)
                     p2y = 0;
-                else if (p2y == -1)
+                else if (p2y === -1)
                     p2y = vSize - 1;
 
 
                 //if any of them has eaten an apple, grow them
-                if (p1x == apple1.x && p1y == apple1.y) {
+                if (p1x === apple1.x && p1y === apple1.y) {
                     length1++;
                     apple1 = createApple(player1);
                 }
-                if (p1x == sApple.x && p1y == sApple.y) {
+                if (p1x === sApple.x && p1y === sApple.y) {
                     switch (sApple.type) {
                         case "big":
                             length1 += 2;
@@ -404,11 +409,11 @@ let Menu = function () {
                         sApple = a;
                     })
                 }
-                if (p2x == apple2.x && p2y == apple2.y) {
+                if (p2x === apple2.x && p2y === apple2.y) {
                     l0ength2++;
                     apple2 = createApple(player2);
                 }
-                if (p2x == sApple.x && p2y == sApple.y) {
+                if (p2x === sApple.x && p2y === sApple.y) {
                     switch (sApple.type) {
                         case "big":
                             length2 += 2;
@@ -463,10 +468,10 @@ let Menu = function () {
 
         let menu = document.createElement("div");
         menu.className = "col-md-8";
-        for (var score in HighScores) {
+        for (let score in HighScores) {
             container.innerHTML += (parseInt(score) + 1) + '. ' + HighScores[score].name + ' - ' + HighScores[score].score + '<br/>';
         }
-        var backButton = document.createElement("button");
+        let backButton = document.createElement("button");
         backButton.appendChild(document.createTextNode("Go Back"));
         backButton.addEventListener("click", () => ShowMenu(container));
         backButton.className = 'btn btn-block btn-danger menuItem';
@@ -483,10 +488,10 @@ let Menu = function () {
 
         let menu = document.createElement("div");
         menu.className = "col-md-8";
-        for (var score in TwoPlayerHighScores) {
+        for (let score in TwoPlayerHighScores) {
             container.innerHTML += (parseInt(score) + 1) + '. ' + TwoPlayerHighScores[score].name + ' - ' + TwoPlayerHighScores[score].score + '<br/>';
         }
-        var backButton = document.createElement("button");
+        let backButton = document.createElement("button");
         backButton.appendChild(document.createTextNode("Go Back"));
         backButton.addEventListener("click", () => ShowMenu(container));
         backButton.className = 'btn btn-block btn-danger menuItem';
@@ -498,7 +503,7 @@ let Menu = function () {
 
     function getName(canvas, ctx, text, cb) {
         //setup screen
-        var name = '';
+        let name = '';
 
         ctx.fillStyle = 'white';
         ctx.fillRect(100, 180, 440, 60);
