@@ -20,7 +20,7 @@ class Problem {
     grid: Array<Point>;
 
     constructor(player: Point, food: Array<Point>, obstacles: Array<Point>,
-                hSize: number, vSize: number) {
+                vSize: number, hSize: number) {
         this.state = [player, food, obstacles];
 
         //this.goal = food[0];
@@ -37,7 +37,7 @@ class Problem {
         //     .map((item) => [item, Problem.manhattan_distance(player, item)])
         //     .reduce((a, b) => a[1] < b[1] ? a : b)[0];
         // this.goal = new Point(smallest.x, smallest.y);
-        console.log(this.goal.toString());
+        console.log("Goal: ", this.goal.toString());
 
         this.grid = [];
 
@@ -46,10 +46,10 @@ class Problem {
                 this.grid.push(new Point(i, j));
             }
         }
-        console.log(this.grid);
+        console.log("Grid: ", this.grid);
     }
 
-    goal_test(state) {
+    goal_test(state): boolean {
         console.log("goal_test state:", state);
         let player: Point = state[0];
         return player.equals(this.goal);
@@ -113,6 +113,7 @@ class Problem {
 
     result(state: any, action: any) {
         let possible = this.successor(state);
+        console.log("successor state result", possible, possible[action]);
         return possible[action];
     }
 
@@ -147,4 +148,15 @@ class Problem {
         }
         return false;
     }
+
+    static contains_node_state(state: any, states: Array<any>): boolean {
+        //console.log("Problem.contains:", object, list);
+        for (let item of states) {
+            if (Point.equalsTwo(state[0], item[0])) {
+                return true;
+            }
+        }
+        return false;
+    }
+
 }

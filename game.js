@@ -14,42 +14,6 @@ let SNAKE_WIDTH = BLOCK_SIZE - 4;
 
 let appleTypes = ['big', 'speed', 'slow', 'minimize'];
 
-// function tree_search(problem, fringe) {
-//     fringe.append(Node(problem.initial))
-//     while (fringe.length > 0) {
-//         node = fringe.
-//     }
-// }
-//
-function breadth_first_search(start, goal) {
-    visited = [];
-    queue = [start];
-    while (queue.length > 0) {
-        node = queue.shift();
-        if (start === goal) {
-            return node;
-        }
-        queue.extend()
-    }
-}
-
-function other_breadth_first_search(start) {
-    let listToExplore = [start];
-
-    nodes[start].visited = true;
-
-    while (listToExplore.length > 0) {
-        console.log(listToExplore);
-        let nodeIndex = listToExplore.shift();
-        nodes[nodeIndex].links.forEach(function (childIndex) {
-            if (!nodes[childIndex].visited) {
-                nodes[childIndex].visited = true;
-                listToExplore.push(childIndex);
-            }
-        });
-    }
-};
-
 function createSpecialApple(player, cb) {
     let type = appleTypes[Math.floor(Math.random() * appleTypes.length)];
     let pos = createApple(player);

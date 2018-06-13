@@ -20,7 +20,7 @@ class PriorityQueue {
     }
 
     contains(item){
-        return this._heap.indexOf(item) >= 0;
+        return Problem.contains_node_state(item, this._heap);
     }
 
     find(item){

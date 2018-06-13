@@ -9,6 +9,9 @@ var Point = /** @class */ (function () {
     Point.prototype.equals = function (that) {
         return this.x === that.x && this.y === that.y;
     };
+    Point.equalsTwo = function (one, two) {
+        return one.x === two.x && one.y === two.y;
+    };
     return Point;
 }());
 //# sourceMappingURL=point.js.map
