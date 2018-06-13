@@ -8,11 +8,13 @@ var Test = /** @class */ (function () {
         return "(" + this.x + ", " + this.y + ")";
     };
     Test.prototype.main = function () {
-        var target = 'c';
-        var list = ['a', 'b', 'c'];
-        console.log(target);
-        console.log(target in list);
-        console.log(list.indexOf(target) >= 0);
+        var comparator = function (a, b) { return a < b; };
+        var queue = new PriorityQueue(comparator);
+        queue.push(10, 20, 30, 40, 50);
+        queue.push(33, 13, 41, 34);
+        while (!queue.isEmpty()) {
+            console.log(queue.pop()); //=> 40, 30, 20, 10
+        }
     };
     return Test;
 }());

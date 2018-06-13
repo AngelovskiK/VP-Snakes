@@ -83,8 +83,9 @@ class Problem {
         return successors;
     }
 
-    heuristic(point: Point) {
-        return Problem.manhattan_distance(point, this.goal);
+    heuristic(node: ProblemNode) {
+        let player: Point = node.state[0]
+        return Problem.manhattan_distance(player, this.goal);
     }
 
     static manhattan_distance(start: Point, end: Point) {

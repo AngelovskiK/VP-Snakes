@@ -32,7 +32,53 @@ class Traversal {
             }
             queue.push.apply(queue, node.expand(problem));
         }
+    }
 
+    best_first_graph_search(problem: Problem, compute) {
+
+        let node: ProblemNode = new ProblemNode(problem.state);
+        if (problem.goal_test(node.state)) {
+            return node;
+        }
+        // Min Queue
+        let comparator = (a, b) => a < b;
+        let queue: PriorityQueue = new PriorityQueue(comparator);
+        queue.push(node);
+        let visited = [];
+
+        while (!queue.isEmpty()) {
+            let node: ProblemNode = queue.pop();
+            // console.log(node.state);
+            if (problem.goal_test(node.state)) {
+                return node;
+            }
+
+            visited.push(node);
+            for (let child of node.expand(problem)) {
+                if (visited.indexOf(child.state) >= 0 && !queue.contains(child.state)) {
+                    queue.push(child);
+                } else if (queue.contains(child.state)) {
+                    let existing: ProblemNode = queue.find(child);
+                    if (compute(child) < compute(existing)) {
+                        queue.remove(existing);
+                        queue.push(child);
+                    }
+                }
+            }
+        }
+
+        return null;
+    }
+
+
+    greedy_best_first_graph_search(problem) {
+        return this.best_first_graph_search(problem,
+            (node) => problem.heuristic(node));
+    }
+
+    astar_graph_search(problem) {
+        return this.best_first_graph_search(problem,
+            (node) => node.path_cost + problem.heuristic(node));
     }
 
     // breadth_first_search(start: Point, goal: Point) {

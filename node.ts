@@ -30,4 +30,32 @@ class ProblemNode {
         }
         return result
     }
+
+    path() {
+        let result = [];
+        let node: ProblemNode = this;
+        while (node) {
+            result.push(node);
+            node = node.parent;
+        }
+        return result.reverse();
+    }
+
+    solution() {
+        /* Return the sequence of actions to go from the root to this node. */
+        let result = [];
+        for (let node of this.path()) {
+            result.push(node.action);
+        }
+        return result;
+    }
+
+    solve() {
+        /* Return the sequence of states to go from the root to this node. */
+        let result = [];
+        for (let node of this.path()) {
+            result.push(node.state);
+        }
+        return result;
+    }
 }
