@@ -9,11 +9,13 @@ class ProblemNode {
 
     constructor(state: any, parent: ProblemNode = null, action: any = null, path_cost: number = 0) {
         this.state = state;
+        console.log("Node state", this.state);
         this.parent = parent;
         this.action = action;
         this.path_cost = path_cost;
         this.depth = 0;
-        if (typeof this.parent != undefined) {
+        console.log("Parent", parent);
+        if (this.parent != null) {
             this.depth = parent.depth + 1
         }
     }
@@ -57,5 +59,9 @@ class ProblemNode {
             result.push(node.state);
         }
         return result;
+    }
+
+    equals(that: ProblemNode) {
+        return this.state == that.state;
     }
 }

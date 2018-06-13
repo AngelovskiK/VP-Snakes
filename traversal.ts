@@ -23,15 +23,24 @@ class Traversal {
 
     breadth_first_tree_search(problem: Problem) {
         let queue = [];
+        let visited = [];
         queue.push(new ProblemNode(problem.state));
+        console.log("Problem", problem);
+        //visited.push(new ProblemNode(problem.state));
         while (queue.length > 0) {
+            console.log("Queue", queue);
             let node: ProblemNode = queue.shift();
-            console.log(node.state);
+            //console.log("node", node);
+            //console.log("node.state", node.state);
             if (problem.goal_test(node.state)) {
                 return node;
             }
-            queue.push.apply(queue, node.expand(problem));
+            if (!Problem.contains_node(node, visited)){
+                visited.push(node);
+                queue.push.apply(queue, node.expand(problem));
+            }
         }
+        return null;
     }
 
     best_first_graph_search(problem: Problem, compute) {

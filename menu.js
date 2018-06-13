@@ -608,6 +608,8 @@ let Menu = function () {
             }
         });
 
+        let a_player = new Point(px, py);
+        let problem = new Problem(a_player, );
         cycle = setInterval(game, interval);
 
         function game() {
