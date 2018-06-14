@@ -1,9 +1,24 @@
 var Board = /** @class */ (function () {
-    function Board(container, width, height) {
+    function Board(container, width, height, type) {
         this.container = container;
         this.width = width;
         this.height = height;
-        this.block_size = 80;
+        var common_divisior = this.common_divisors(width, height).reverse();
+        switch (type) {
+            // easy
+            case 0: {
+                this.block_size = common_divisior[1];
+                break;
+            }
+            case 1: {
+                this.block_size = common_divisior[2];
+                break;
+            }
+            case 2: {
+                this.block_size = common_divisior[3];
+                break;
+            }
+        }
         console.log(this.common_divisors(width, height));
         var block_size_float = parseFloat(this.block_size.toString());
         this.ten_percent = (block_size_float * 0.01);

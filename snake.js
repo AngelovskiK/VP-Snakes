@@ -10,7 +10,7 @@ var Snake = /** @class */ (function () {
     }
     Snake.prototype.get_next_move = function (food_point, vSize, hSize) {
         var problem = new Problem(this.head, this.direction, [food_point], this.trail, vSize, hSize);
-        var answer = this.traversal.astar_graph_search(problem);
+        var answer = this.traversal.breadth_first_tree_search(problem);
         var solution = answer.solution();
         var solve = answer.solve();
         var playerMovements = solve.map(function (state) { return state[0]; });
