@@ -22,7 +22,6 @@ class Traversal {
     // };
 
     breadth_first_tree_search(problem: Problem) {
-
         let queue = [];
         let visited = [];
         queue.push(new ProblemNode(problem.state));
@@ -33,12 +32,13 @@ class Traversal {
         //|| i < 1000000
         while (queue.length > 0) {
 
-            for (let item of queue) {
-                console.log("Queue", item.state[0]);
-            }
-            for (let item of visited) {
-                console.log("Visited", item[0]);
-            }
+            // for (let item of queue) {
+            //     console.log("Queue", item.state[0]);
+            // }
+            // for (let item of visited) {
+            //     console.log("Visited", item[0]);
+            // }
+
             let node: ProblemNode = queue.shift();
             //console.log("node", node);
             //console.log("node.state", node.state);

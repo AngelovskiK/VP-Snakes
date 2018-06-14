@@ -18,4 +18,13 @@ class Point {
     static equalsTwo(one: Point, two: Point) {
         return one.x === two.x && one.y === two.y;
     }
+
+    static isInList(target:Point, list: Array<Point>){
+        for(let point of list){
+            if(target.equals(point)){
+                return true;
+            }
+        }
+        return false;
+    }
 }
