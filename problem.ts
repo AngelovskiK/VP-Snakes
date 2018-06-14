@@ -1,3 +1,10 @@
+enum Direction {
+    Up = 0,
+    Down = 1,
+    Left = 2,
+    Right = 3,
+}
+
 class Problem {
 
     /**
@@ -19,25 +26,9 @@ class Problem {
     goal: Point;
     grid: Array<Point>;
 
-    constructor(player: Point, food: Array<Point>, obstacles: Array<Point>,
+    constructor(player: Point, direction: Direction, food: Array<Point>, obstacles: Array<Point>,
                 vSize: number, hSize: number) {
-        this.state = [player, food, obstacles];
-
-        //this.goal = food[0];
-        let min = Number.MAX_VALUE;
-        for (let item of food) {
-            let current = Problem.manhattan_distance(player, item);
-            if (current < min) {
-                min = current;
-                this.goal = item;
-            }
-        }
-
-        // let smallest = food
-        //     .map((item) => [item, Problem.manhattan_distance(player, item)])
-        //     .reduce((a, b) => a[1] < b[1] ? a : b)[0];
-        // this.goal = new Point(smallest.x, smallest.y);
-        console.log("Goal: ", this.goal.toString());
+        this.state = [player, food, obstacles, direction];
 
         this.grid = [];
 
@@ -46,11 +37,31 @@ class Problem {
                 this.grid.push(new Point(i, j));
             }
         }
-        console.log("Grid: ", this.grid);
+        // console.log("Grid: ", this.grid);
+
+
+        //this.goal = food[0];
+        let min = Number.MAX_VALUE;
+        for (let item of food) {
+            if (Problem.contains(item, this.grid)) {
+                let current = Problem.manhattan_distance(player, item);
+                if (current < min) {
+                    min = current;
+                    this.goal = item;
+                }
+            }
+        }
+
+        // let smallest = food
+        //     .map((item) => [item, Problem.manhattan_distance(player, item)])
+        //     .reduce((a, b) => a[1] < b[1] ? a : b)[0];
+        // this.goal = new Point(smallest.x, smallest.y);
+
+        console.log("Goal: ", this.goal.toString());
     }
 
     goal_test(state): boolean {
-        console.log("goal_test state:", state);
+        //console.log("goal_test state:", state);
         let player: Point = state[0];
         return player.equals(this.goal);
     }
@@ -60,8 +71,18 @@ class Problem {
         let player: Point = state[0];
         let food: Array<Point> = state[1];
         let obstacles: Array<Point> = state[2];
+        let direction: Direction = state[3];
 
         let modified_player: Point = null;
+        let modified_obstacles: Array<Point> = [];
+        modified_obstacles.push.apply(modified_obstacles, obstacles);
+
+        let previous_move: Point = this.getPreviousMove(player, direction);
+        // console.log("previous_move", previous_move);
+        // modified_obstacles.push(previous_move);
+        modified_obstacles.push.apply(modified_obstacles, [previous_move]);
+        // console.log("modified_obstacles", modified_obstacles);
+
 
         // console.log("Player in grid: ", this.grid.indexOf(player) >= 0);
         // console.log("Player contained in grid: ", Problem.contains(player, this.grid));
@@ -71,34 +92,34 @@ class Problem {
             // UP
             modified_player = new Point(player.x - 1, player.y);
             if (Problem.contains(modified_player, this.grid) &&
-                !(Problem.contains(modified_player, obstacles))) {
-                let new_state = [modified_player, food, obstacles];
+                !(Problem.contains(modified_player, modified_obstacles))) {
+                let new_state = [modified_player, food, obstacles, Direction.Up];
                 successors["UP"] = new_state;
             }
             // DOWN
             modified_player = new Point(player.x + 1, player.y);
             if (Problem.contains(modified_player, this.grid) &&
-                !(Problem.contains(modified_player, obstacles))) {
-                let new_state = [modified_player, food, obstacles];
+                !(Problem.contains(modified_player, modified_obstacles))) {
+                let new_state = [modified_player, food, obstacles, Direction.Down];
                 successors["DOWN"] = new_state;
             }
             // LEFT
             modified_player = new Point(player.x, player.y - 1);
             if (Problem.contains(modified_player, this.grid) &&
-                !(Problem.contains(modified_player, obstacles))) {
-                let new_state = [modified_player, food, obstacles];
+                !(Problem.contains(modified_player, modified_obstacles))) {
+                let new_state = [modified_player, food, obstacles, Direction.Left];
                 successors["LEFT"] = new_state;
             }
             // RIGHT
             modified_player = new Point(player.x, player.y + 1);
             if (Problem.contains(modified_player, this.grid) &&
-                !(Problem.contains(modified_player, obstacles))) {
-                let new_state = [modified_player, food, obstacles];
+                !(Problem.contains(modified_player, modified_obstacles))) {
+                let new_state = [modified_player, food, obstacles, Direction.Right];
                 successors["RIGHT"] = new_state;
             }
         }
 
-        console.log("successors", successors);
+        // console.log("successors", successors);
         return successors;
     }
 
@@ -113,7 +134,7 @@ class Problem {
 
     result(state: any, action: any) {
         let possible = this.successor(state);
-        console.log("successor state result", possible, possible[action]);
+        // console.log("successor state result", possible, possible[action]);
         return possible[action];
     }
 
@@ -127,6 +148,30 @@ class Problem {
         //     keys.push(key);
         // }
         return Object.keys(this.successor(state));
+    }
+
+    getPreviousMove(player: Point, direction: Direction): Point {
+        switch (direction) {
+            // This returns the opposite
+            // If you're going up, you'll get the down position
+            case Direction.Up: {
+                return new Point(player.x + 1, player.y);
+            }
+            case Direction.Down: {
+                return new Point(player.x - 1, player.y);
+            }
+            case Direction.Left: {
+                return new Point(player.x, player.y + 1);
+            }
+            case Direction.Right: {
+                return new Point(player.x, player.y - 1);
+            }
+            default: {
+                break;
+            }
+        }
+
+        return player;
     }
 
     static contains(object: Point, list: Array<Point>): boolean {

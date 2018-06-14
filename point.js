@@ -12,6 +12,15 @@ var Point = /** @class */ (function () {
     Point.equalsTwo = function (one, two) {
         return one.x === two.x && one.y === two.y;
     };
+    Point.isInList = function (target, list) {
+        for (var _i = 0, list_1 = list; _i < list_1.length; _i++) {
+            var point = list_1[_i];
+            if (target.equals(point)) {
+                return true;
+            }
+        }
+        return false;
+    };
     return Point;
 }());
 //# sourceMappingURL=point.js.map
