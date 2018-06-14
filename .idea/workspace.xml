@@ -5,24 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="62db97e7-74d5-4b1c-a936-8dd99fa4f1c7" name="Default" comment="">
-      <change beforePath="" afterPath="$PROJECT_DIR$/board.ts" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/game.ts" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/index.php" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/menu.ts" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/snake.ts" />
-      <change beforePath="$PROJECT_DIR$/.idea/typescript-compiler.xml" afterPath="$PROJECT_DIR$/.idea/typescript-compiler.xml" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/game.js" afterPath="$PROJECT_DIR$/game.js" />
-      <change beforePath="$PROJECT_DIR$/index.html" afterPath="$PROJECT_DIR$/index.html" />
-      <change beforePath="$PROJECT_DIR$/index.js" afterPath="$PROJECT_DIR$/index.js" />
-      <change beforePath="$PROJECT_DIR$/menu.js" afterPath="$PROJECT_DIR$/menu.js" />
-      <change beforePath="$PROJECT_DIR$/node.ts" afterPath="$PROJECT_DIR$/node.ts" />
-      <change beforePath="$PROJECT_DIR$/point.js" afterPath="$PROJECT_DIR$/point.js" />
-      <change beforePath="$PROJECT_DIR$/point.ts" afterPath="$PROJECT_DIR$/point.ts" />
-      <change beforePath="$PROJECT_DIR$/problem.ts" afterPath="$PROJECT_DIR$/problem.ts" />
-      <change beforePath="$PROJECT_DIR$/test.js" afterPath="$PROJECT_DIR$/test.js" />
-      <change beforePath="$PROJECT_DIR$/test.ts" afterPath="$PROJECT_DIR$/test.ts" />
-      <change beforePath="$PROJECT_DIR$/traversal.ts" afterPath="$PROJECT_DIR$/traversal.ts" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -133,8 +116,8 @@
       <file leaf-file-name="snake.ts" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/snake.ts">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="224">
-              <caret line="45" column="43" lean-forward="false" selection-start-line="45" selection-start-column="43" selection-end-line="45" selection-end-column="43" />
+            <state relative-caret-position="413">
+              <caret line="52" column="18" lean-forward="true" selection-start-line="52" selection-start-column="18" selection-end-line="52" selection-end-column="18" />
               <folding />
             </state>
           </provider>
@@ -258,6 +241,11 @@
             <path>
               <item name="VP-Snakes" type="b2602c69:ProjectViewProjectNode" />
               <item name="VP-Snakes" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="board.ts" type="620a8d5e:NestingTreeNode" />
+            </path>
+            <path>
+              <item name="VP-Snakes" type="b2602c69:ProjectViewProjectNode" />
+              <item name="VP-Snakes" type="2a2b976b:PhpTreeStructureProvider$1" />
               <item name="game.ts" type="620a8d5e:NestingTreeNode" />
             </path>
             <path>
@@ -321,7 +309,7 @@
       <workItem from="1528822154149" duration="5844000" />
       <workItem from="1528892205263" duration="32451000" />
       <workItem from="1528933016727" duration="121000" />
-      <workItem from="1528956911909" duration="24960000" />
+      <workItem from="1528956911909" duration="25113000" />
     </task>
     <task id="LOCAL-00001" summary="Modularization, Refactoring, Bootstrap">
       <created>1528892659918</created>
@@ -358,11 +346,25 @@
       <option name="project" value="LOCAL" />
       <updated>1528931378825</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="[A* still doesn't go up]&#10;Developed OOP Architecture: &#10;Added Board class, &#10;Menu class, &#10;Snake class">
+      <created>1528995972773</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1528995972773</updated>
+    </task>
+    <task id="LOCAL-00007" summary="[A* still doesn't go up] Developed OOP Architecture: Added Board class, Menu class, Snake class">
+      <created>1528996091035</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1528996091035</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="63376000" />
+    <option name="totallyTimeSpent" value="63529000" />
   </component>
   <component name="TodoView" selected-index="2">
     <todo-panel id="selected-file">
@@ -378,7 +380,7 @@
     <editor active="true" />
     <layout>
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32934782" sideWeight="0.4978678" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="PHP-CGI Server" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32934782" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="PHP-CGI Server" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32934782" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32934782" sideWeight="0.5042644" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32934782" sideWeight="0.4978678" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -484,7 +486,8 @@
     <MESSAGE value="test.ts testing traversal, bug fixing (trying)" />
     <MESSAGE value="BFS fixed and A* seems to work. Ready for visualization" />
     <MESSAGE value="[A* still doesn't go up]&#10;Developed OOP Architecture: &#10;Added Board class, &#10;Menu class, &#10;Snake class" />
-    <option name="LAST_COMMIT_MESSAGE" value="[A* still doesn't go up]&#10;Developed OOP Architecture: &#10;Added Board class, &#10;Menu class, &#10;Snake class" />
+    <MESSAGE value="[A* still doesn't go up] Developed OOP Architecture: Added Board class, Menu class, Snake class" />
+    <option name="LAST_COMMIT_MESSAGE" value="[A* still doesn't go up] Developed OOP Architecture: Added Board class, Menu class, Snake class" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -893,8 +896,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/snake.ts">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="224">
-          <caret line="45" column="43" lean-forward="false" selection-start-line="45" selection-start-column="43" selection-end-line="45" selection-end-column="43" />
+        <state relative-caret-position="413">
+          <caret line="52" column="18" lean-forward="true" selection-start-line="52" selection-start-column="18" selection-end-line="52" selection-end-column="18" />
           <folding />
         </state>
       </provider>
