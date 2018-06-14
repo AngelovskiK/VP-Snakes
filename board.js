@@ -14,7 +14,7 @@ var Board = /** @class */ (function () {
         this.traversal = new Traversal();
         this.FOOD_COLOR = "red";
         this.food_exists = false;
-        this.food_point = new Point(0, 0);
+        this.food_point = new Point(0, 1);
     }
     Board.prototype.gcd = function (a, b) {
         return (b === 0) ? a : this.gcd(b, a % b);
@@ -48,7 +48,7 @@ var Board = /** @class */ (function () {
         ctx.font = "22px Arial";
         this.draw(ctx);
         var snake = new Snake(2, 2, Direction.Right, "blue");
-        var interval = 60 * 3;
+        var interval = 60 * 10;
         // this uses a lambda wrapper function
         var cycle = setInterval(function () { return _this.animate(ctx, snake, interval); }, interval);
     };
@@ -94,7 +94,7 @@ var Board = /** @class */ (function () {
     };
     Board.prototype.drawFood = function (ctx, point, color) {
         ctx.fillStyle = color;
-        ctx.fillRect(point.x * this.block_size + this.ten_percent, point.y * this.block_size + this.ten_percent, this.block_size - 2 * this.ten_percent, this.block_size - 2 * this.ten_percent);
+        ctx.fillRect(point.y * this.block_size + this.ten_percent, point.x * this.block_size + this.ten_percent, this.block_size - 2 * this.ten_percent, this.block_size - 2 * this.ten_percent);
     };
     Board.prototype.getRandomPointNotInList = function (obstacles) {
         // create an apple on a random tile until it doesn't overlap player

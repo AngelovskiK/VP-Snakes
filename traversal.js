@@ -73,7 +73,11 @@ var Traversal = /** @class */ (function () {
                     queue.push(child);
                 }
                 else if (Problem.contains_node(child, queue._heap)) {
+                    console.log("Problem.contains_node(child, queue._heap)");
                     var existing = queue.find(child);
+                    if (!existing)
+                        continue;
+                    console.log("Compute", child, existing);
                     if (compute(child) < compute(existing)) {
                         queue.remove(existing);
                         queue.push(child);

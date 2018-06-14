@@ -41,7 +41,7 @@ class Board {
 
         this.FOOD_COLOR = "red";
         this.food_exists = false;
-        this.food_point = new Point(0,0);
+        this.food_point = new Point(0,1);
     }
 
     gcd(a, b) {
@@ -82,7 +82,7 @@ class Board {
 
         let snake: Snake = new Snake(2, 2, Direction.Right, "blue");
 
-        let interval: number = 60 * 3;
+        let interval: number = 60 * 10;
         // this uses a lambda wrapper function
         let cycle = setInterval(() => this.animate(ctx, snake, interval), interval);
 
@@ -140,7 +140,7 @@ class Board {
 
     drawFood(ctx, point: Point, color: string) {
         ctx.fillStyle = color;
-        ctx.fillRect(point.x * this.block_size + this.ten_percent, point.y * this.block_size + this.ten_percent, this.block_size - 2 * this.ten_percent, this.block_size - 2 * this.ten_percent);
+        ctx.fillRect(point.y * this.block_size + this.ten_percent, point.x * this.block_size + this.ten_percent, this.block_size - 2 * this.ten_percent, this.block_size - 2 * this.ten_percent);
     }
 
     getRandomPointNotInList(obstacles: Array<Point>): Point {

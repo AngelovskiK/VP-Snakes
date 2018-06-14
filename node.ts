@@ -62,6 +62,8 @@ class ProblemNode {
     }
 
     equals(that: ProblemNode) {
-        return this.state == that.state;
+        let player:Point = this.state[0];
+        let other_player:Point = that.state[0];
+        return player.equals(other_player);
     }
 }
