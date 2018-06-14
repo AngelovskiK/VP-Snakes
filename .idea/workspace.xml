@@ -5,24 +5,26 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="62db97e7-74d5-4b1c-a936-8dd99fa4f1c7" name="Default" comment="">
-      <change beforePath="" afterPath="$PROJECT_DIR$/board.ts" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/game.ts" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/index.php" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/menu.ts" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/snake.ts" />
-      <change beforePath="$PROJECT_DIR$/.idea/typescript-compiler.xml" afterPath="$PROJECT_DIR$/.idea/typescript-compiler.xml" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/.idea/php.xml" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/board.js" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/board.js.map" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/game.js.map" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/graph.js" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/graph.js.map" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/menu.js.map" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/node.js" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/node.js.map" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/point.js.map" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/priority_queue.js" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/priority_queue.js.map" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/problem.js" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/problem.js.map" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/snake.js" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/snake.js.map" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/test.js.map" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/traversal.js" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/traversal.js.map" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/game.js" afterPath="$PROJECT_DIR$/game.js" />
-      <change beforePath="$PROJECT_DIR$/index.html" afterPath="$PROJECT_DIR$/index.html" />
-      <change beforePath="$PROJECT_DIR$/index.js" afterPath="$PROJECT_DIR$/index.js" />
-      <change beforePath="$PROJECT_DIR$/menu.js" afterPath="$PROJECT_DIR$/menu.js" />
-      <change beforePath="$PROJECT_DIR$/node.ts" afterPath="$PROJECT_DIR$/node.ts" />
-      <change beforePath="$PROJECT_DIR$/point.js" afterPath="$PROJECT_DIR$/point.js" />
-      <change beforePath="$PROJECT_DIR$/point.ts" afterPath="$PROJECT_DIR$/point.ts" />
-      <change beforePath="$PROJECT_DIR$/problem.ts" afterPath="$PROJECT_DIR$/problem.ts" />
-      <change beforePath="$PROJECT_DIR$/test.js" afterPath="$PROJECT_DIR$/test.js" />
-      <change beforePath="$PROJECT_DIR$/test.ts" afterPath="$PROJECT_DIR$/test.ts" />
-      <change beforePath="$PROJECT_DIR$/traversal.ts" afterPath="$PROJECT_DIR$/traversal.ts" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -258,6 +260,11 @@
             <path>
               <item name="VP-Snakes" type="b2602c69:ProjectViewProjectNode" />
               <item name="VP-Snakes" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="board.ts" type="620a8d5e:NestingTreeNode" />
+            </path>
+            <path>
+              <item name="VP-Snakes" type="b2602c69:ProjectViewProjectNode" />
+              <item name="VP-Snakes" type="2a2b976b:PhpTreeStructureProvider$1" />
               <item name="game.ts" type="620a8d5e:NestingTreeNode" />
             </path>
             <path>
@@ -321,7 +328,7 @@
       <workItem from="1528822154149" duration="5844000" />
       <workItem from="1528892205263" duration="32451000" />
       <workItem from="1528933016727" duration="121000" />
-      <workItem from="1528956911909" duration="24960000" />
+      <workItem from="1528956911909" duration="25060000" />
     </task>
     <task id="LOCAL-00001" summary="Modularization, Refactoring, Bootstrap">
       <created>1528892659918</created>
@@ -358,11 +365,18 @@
       <option name="project" value="LOCAL" />
       <updated>1528931378825</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="[A* still doesn't go up]&#10;Developed OOP Architecture: &#10;Added Board class, &#10;Menu class, &#10;Snake class">
+      <created>1528995972773</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1528995972773</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="63376000" />
+    <option name="totallyTimeSpent" value="63476000" />
   </component>
   <component name="TodoView" selected-index="2">
     <todo-panel id="selected-file">
@@ -375,7 +389,6 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32934782" sideWeight="0.4978678" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="PHP-CGI Server" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32934782" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
@@ -384,7 +397,7 @@
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.5097826" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TypeScript" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32934782" sideWeight="0.49573562" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24147122" sideWeight="0.49565217" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24147122" sideWeight="0.49565217" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Docker" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
