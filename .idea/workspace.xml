@@ -4,17 +4,11 @@
     <bookmark url="file://$PROJECT_DIR$/index.js" line="10" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="62db97e7-74d5-4b1c-a936-8dd99fa4f1c7" name="Default" comment="">
+    <list default="true" id="62db97e7-74d5-4b1c-a936-8dd99fa4f1c7" name="Default" comment="[FixPush] Added DifficultySetting variable (Flexible Board)">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change beforePath="$PROJECT_DIR$/board.js" afterPath="$PROJECT_DIR$/board.js" />
       <change beforePath="$PROJECT_DIR$/board.js.map" afterPath="$PROJECT_DIR$/board.js.map" />
       <change beforePath="$PROJECT_DIR$/board.ts" afterPath="$PROJECT_DIR$/board.ts" />
-      <change beforePath="$PROJECT_DIR$/menu.js" afterPath="$PROJECT_DIR$/menu.js" />
-      <change beforePath="$PROJECT_DIR$/menu.js.map" afterPath="$PROJECT_DIR$/menu.js.map" />
-      <change beforePath="$PROJECT_DIR$/menu.ts" afterPath="$PROJECT_DIR$/menu.ts" />
-      <change beforePath="$PROJECT_DIR$/snake.js" afterPath="$PROJECT_DIR$/snake.js" />
-      <change beforePath="$PROJECT_DIR$/snake.js.map" afterPath="$PROJECT_DIR$/snake.js.map" />
-      <change beforePath="$PROJECT_DIR$/snake.ts" afterPath="$PROJECT_DIR$/snake.ts" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -58,11 +52,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="menu.ts" pinned="false" current-in-tab="true">
+      <file leaf-file-name="menu.ts" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/menu.ts">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="420">
-              <caret line="21" column="47" lean-forward="true" selection-start-line="21" selection-start-column="47" selection-end-line="21" selection-end-column="47" />
+            <state relative-caret-position="174">
+              <caret line="553" column="34" lean-forward="false" selection-start-line="553" selection-start-column="34" selection-end-line="553" selection-end-column="34" />
               <folding>
                 <element signature="n#!!block;n#play#0;n#!!block;n#StartSinglePlayer#0;n#Menu#0" expanded="false" />
                 <element signature="n#!!block;n#ShowHighScores#0;n#Menu#0" expanded="false" />
@@ -83,11 +77,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="board.ts" pinned="false" current-in-tab="false">
+      <file leaf-file-name="board.ts" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/board.ts">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="623">
-              <caret line="40" column="51" lean-forward="false" selection-start-line="40" selection-start-column="51" selection-end-line="40" selection-end-column="51" />
+            <state relative-caret-position="376">
+              <caret line="29" column="22" lean-forward="true" selection-start-line="29" selection-start-column="22" selection-end-line="29" selection-end-column="22" />
               <folding>
                 <element signature="n#!!block;n#gcd#0;n#Board#0" expanded="false" />
                 <element signature="n#!!block;n#LCM#0;n#Board#0" expanded="false" />
@@ -164,6 +158,7 @@
   <component name="Git.Settings">
     <option name="PREVIOUS_COMMIT_AUTHORS">
       <list>
+        <option value="Aq" />
         <option value="AquaSolid &lt;filip.markoski45@gmail.com&gt;" />
       </list>
     </option>
@@ -191,8 +186,8 @@
         <option value="$PROJECT_DIR$/snake.ts" />
         <option value="$PROJECT_DIR$/index.html" />
         <option value="$PROJECT_DIR$/game.ts" />
-        <option value="$PROJECT_DIR$/board.ts" />
         <option value="$PROJECT_DIR$/menu.ts" />
+        <option value="$PROJECT_DIR$/board.ts" />
       </list>
     </option>
   </component>
@@ -212,10 +207,10 @@
     <servers />
   </component>
   <component name="PhpWorkspaceProjectConfiguration" backward_compatibility_performed="true" interpreter_name="PHP" />
-  <component name="ProjectFrameBounds">
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="953" />
     <option name="width" value="974" />
-    <option name="height" value="1047" />
+    <option name="height" value="527" />
   </component>
   <component name="ProjectView">
     <navigator currentView="ProjectPane" proportions="" version="1">
@@ -310,7 +305,7 @@
       <workItem from="1528822154149" duration="5844000" />
       <workItem from="1528892205263" duration="32451000" />
       <workItem from="1528933016727" duration="121000" />
-      <workItem from="1528956911909" duration="33552000" />
+      <workItem from="1528956911909" duration="34177000" />
     </task>
     <task id="LOCAL-00001" summary="Modularization, Refactoring, Bootstrap">
       <created>1528892659918</created>
@@ -375,11 +370,18 @@
       <option name="project" value="LOCAL" />
       <updated>1529003360604</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="Added DifficultySetting variable (Flexible Board)">
+      <created>1529005239002</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1529005239002</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="71968000" />
+    <option name="totallyTimeSpent" value="72593000" />
   </component>
   <component name="TodoView" selected-index="2">
     <todo-panel id="selected-file">
@@ -391,17 +393,16 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="953" y="0" width="974" height="1047" extended-state="0" />
-    <editor active="true" />
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <layout>
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32934782" sideWeight="0.4978678" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="PHP-CGI Server" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32934782" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32934782" sideWeight="0.5042644" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32608697" sideWeight="0.5042644" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32934782" sideWeight="0.4978678" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.5097826" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TypeScript" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32934782" sideWeight="0.49573562" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.49562362" sideWeight="0.49565217" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.49520257" sideWeight="0.49565217" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Docker" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -503,7 +504,9 @@
     <MESSAGE value="[A* still doesn't go up]&#10;Developed OOP Architecture: &#10;Added Board class, &#10;Menu class, &#10;Snake class" />
     <MESSAGE value="[A* still doesn't go up] Developed OOP Architecture: Added Board class, Menu class, Snake class" />
     <MESSAGE value="Developed OOP Architecture: Added Board class, Menu class, Snake class and faulty AI" />
-    <option name="LAST_COMMIT_MESSAGE" value="Developed OOP Architecture: Added Board class, Menu class, Snake class and faulty AI" />
+    <MESSAGE value="Added DifficultySetting variable (Flexible Board)" />
+    <MESSAGE value="[FixPush] Added DifficultySetting variable (Flexible Board)" />
+    <option name="LAST_COMMIT_MESSAGE" value="[FixPush] Added DifficultySetting variable (Flexible Board)" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -880,18 +883,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/board.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="623">
-          <caret line="40" column="51" lean-forward="false" selection-start-line="40" selection-start-column="51" selection-end-line="40" selection-end-column="51" />
-          <folding>
-            <element signature="n#!!block;n#gcd#0;n#Board#0" expanded="false" />
-            <element signature="n#!!block;n#LCM#0;n#Board#0" expanded="false" />
-            <element signature="n#!!block;n#drawFood#0;n#Board#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/index.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="351">
@@ -910,13 +901,25 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/menu.ts">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="420">
-          <caret line="21" column="47" lean-forward="true" selection-start-line="21" selection-start-column="47" selection-end-line="21" selection-end-column="47" />
+        <state relative-caret-position="174">
+          <caret line="553" column="34" lean-forward="false" selection-start-line="553" selection-start-column="34" selection-end-line="553" selection-end-column="34" />
           <folding>
             <element signature="n#!!block;n#play#0;n#!!block;n#StartSinglePlayer#0;n#Menu#0" expanded="false" />
             <element signature="n#!!block;n#ShowHighScores#0;n#Menu#0" expanded="false" />
             <element signature="n#!!block;n#ShowTwoPlayerHighScores#0;n#Menu#0" expanded="false" />
             <element signature="n#!!block;n#getName#0;n#Menu#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/board.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="376">
+          <caret line="29" column="22" lean-forward="true" selection-start-line="29" selection-start-column="22" selection-end-line="29" selection-end-column="22" />
+          <folding>
+            <element signature="n#!!block;n#gcd#0;n#Board#0" expanded="false" />
+            <element signature="n#!!block;n#LCM#0;n#Board#0" expanded="false" />
+            <element signature="n#!!block;n#drawFood#0;n#Board#0" expanded="false" />
           </folding>
         </state>
       </provider>

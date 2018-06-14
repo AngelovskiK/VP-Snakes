@@ -3,19 +3,19 @@ var Board = /** @class */ (function () {
         this.container = container;
         this.width = width;
         this.height = height;
-        var common_divisior = this.common_divisors(width, height).reverse();
+        var common_divisor = this.common_divisors(width, height).reverse();
         switch (type) {
             // easy
             case 0: {
-                this.block_size = common_divisior[1];
+                this.block_size = common_divisor[1];
                 break;
             }
             case 1: {
-                this.block_size = common_divisior[2];
+                this.block_size = common_divisor[2];
                 break;
             }
             case 2: {
-                this.block_size = common_divisior[3];
+                this.block_size = common_divisor[3];
                 break;
             }
         }
