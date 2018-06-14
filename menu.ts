@@ -1,5 +1,7 @@
 const GAME_NAME = "Serpent Works";
 
+let difficultySelection = 2;
+
 class Menu {
 
     game: Game;
@@ -342,7 +344,7 @@ class Menu {
             // draw player 1's head and apple
             ctx.fillStyle = "#0000FF";
             ctx.fillRect(10 + p1x * BLOCK_SIZE, 40 + p1y * BLOCK_SIZE, 15, 15);
-            ctx.drawImage(game.apple1img, 10 + apple1.x * BLOCK_SIZE, 40 + apple1.y * BLOCK_SIZE);
+            ctx.drawImage(this.game.apple1img, 10 + apple1.x * BLOCK_SIZE, 40 + apple1.y * BLOCK_SIZE);
             // draw player 2's head and apple
             ctx.fillStyle = "#FF0000";
             ctx.fillRect(10 + p2x * BLOCK_SIZE, 40 + p2y * BLOCK_SIZE, 15, 15);
@@ -549,7 +551,7 @@ class Menu {
     ShowAISnake(container) {
         // start game, set up canvas, and create quit button
         let traversal = new Traversal();
-        let board: Board = new Board(container, WIDTH, HEIGHT);
+        let board: Board = new Board(container, WIDTH, HEIGHT, difficultySelection);
         board.start();
     }
 

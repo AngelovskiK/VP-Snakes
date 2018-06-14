@@ -1,4 +1,5 @@
 var GAME_NAME = "Serpent Works";
+var difficultySelection = 2;
 var Menu = /** @class */ (function () {
     function Menu() {
         this.game = new Game();
@@ -303,7 +304,7 @@ var Menu = /** @class */ (function () {
             // draw player 1's head and apple
             ctx.fillStyle = "#0000FF";
             ctx.fillRect(10 + p1x * BLOCK_SIZE, 40 + p1y * BLOCK_SIZE, 15, 15);
-            ctx.drawImage(game.apple1img, 10 + apple1.x * BLOCK_SIZE, 40 + apple1.y * BLOCK_SIZE);
+            ctx.drawImage(this.game.apple1img, 10 + apple1.x * BLOCK_SIZE, 40 + apple1.y * BLOCK_SIZE);
             // draw player 2's head and apple
             ctx.fillStyle = "#FF0000";
             ctx.fillRect(10 + p2x * BLOCK_SIZE, 40 + p2y * BLOCK_SIZE, 15, 15);
@@ -494,7 +495,7 @@ var Menu = /** @class */ (function () {
     Menu.prototype.ShowAISnake = function (container) {
         // start game, set up canvas, and create quit button
         var traversal = new Traversal();
-        var board = new Board(container, WIDTH, HEIGHT);
+        var board = new Board(container, WIDTH, HEIGHT, difficultySelection);
         board.start();
     };
     return Menu;

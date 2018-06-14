@@ -19,7 +19,7 @@ class Snake {
 
     get_next_move(food_point: Point, vSize: number, hSize: number): Point {
         let problem: Problem = new Problem(this.head, this.direction, [food_point], this.trail, vSize, hSize);
-        let answer = this.traversal.astar_graph_search(problem);
+        let answer = this.traversal.breadth_first_tree_search(problem);
         let solution = answer.solution();
         let solve = answer.solve();
 
