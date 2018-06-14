@@ -26,9 +26,15 @@ class Problem {
     goal: Point;
     grid: Array<Point>;
 
+    vSize: number;
+    hSize: number;
+
     constructor(player: Point, direction: Direction, food: Array<Point>, obstacles: Array<Point>,
                 vSize: number, hSize: number) {
         this.state = [player, food, obstacles, direction];
+
+        this.vSize = vSize;
+        this.hSize = hSize;
 
         this.grid = [];
 
@@ -80,7 +86,7 @@ class Problem {
         let previous_move: Point = this.getPreviousMove(player, direction);
         // console.log("previous_move", previous_move);
         // modified_obstacles.push(previous_move);
-        modified_obstacles.push.apply(modified_obstacles, [previous_move]);
+        // modified_obstacles.push.apply(modified_obstacles, [previous_move]);
         // console.log("modified_obstacles", modified_obstacles);
 
 
@@ -91,28 +97,28 @@ class Problem {
         if (Problem.contains(player, this.grid)) {
             // UP
             modified_player = new Point(player.x - 1, player.y);
-            if (Problem.contains(modified_player, this.grid) &&
+            if (modified_player.x > 0 &&
                 !(Problem.contains(modified_player, modified_obstacles))) {
                 let new_state = [modified_player, food, obstacles, Direction.Up];
                 successors["UP"] = new_state;
             }
             // DOWN
             modified_player = new Point(player.x + 1, player.y);
-            if (Problem.contains(modified_player, this.grid) &&
+            if (modified_player.x < this.vSize &&
                 !(Problem.contains(modified_player, modified_obstacles))) {
                 let new_state = [modified_player, food, obstacles, Direction.Down];
                 successors["DOWN"] = new_state;
             }
             // LEFT
             modified_player = new Point(player.x, player.y - 1);
-            if (Problem.contains(modified_player, this.grid) &&
+            if (modified_player.y > 0 &&
                 !(Problem.contains(modified_player, modified_obstacles))) {
                 let new_state = [modified_player, food, obstacles, Direction.Left];
                 successors["LEFT"] = new_state;
             }
             // RIGHT
             modified_player = new Point(player.x, player.y + 1);
-            if (Problem.contains(modified_player, this.grid) &&
+            if (modified_player.y < this.hSize &&
                 !(Problem.contains(modified_player, modified_obstacles))) {
                 let new_state = [modified_player, food, obstacles, Direction.Right];
                 successors["RIGHT"] = new_state;
@@ -185,9 +191,10 @@ class Problem {
     }
 
     static contains_node(object: ProblemNode, list: Array<ProblemNode>): boolean {
-        //console.log("Problem.contains:", object, list);
+
         for (let item of list) {
             if (object.equals(item)) {
+                console.log("Problem.contains:", object, item);
                 return true;
             }
         }

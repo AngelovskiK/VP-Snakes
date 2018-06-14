@@ -16,6 +16,7 @@ var Snake = /** @class */ (function () {
         var playerMovements = solve.map(function (state) { return state[0]; });
         console.log(solution);
         console.log(solve);
+        console.log(answer.path_cost);
         console.log(playerMovements);
         console.log("trail: ", this.trail);
         console.log("snake.head", this.head);
@@ -24,7 +25,7 @@ var Snake = /** @class */ (function () {
     Snake.prototype.draw = function (ctx, block_size, ten_percent, vSize, hSize) {
         ctx.fillStyle = this.color;
         this.trail.forEach(function (block) {
-            return ctx.fillRect(block.x * block_size, block.y * block_size, block_size - ten_percent * 4, block_size - ten_percent * 4);
+            return ctx.fillRect(block.y * block_size, block.x * block_size, block_size - ten_percent * 4, block_size - ten_percent * 4);
         });
     };
     Snake.prototype.move = function (direction) {

@@ -6,6 +6,27 @@
   <component name="ChangeListManager">
     <list default="true" id="62db97e7-74d5-4b1c-a936-8dd99fa4f1c7" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change beforePath="$PROJECT_DIR$/board.js" afterPath="$PROJECT_DIR$/board.js" />
+      <change beforePath="$PROJECT_DIR$/board.js.map" afterPath="$PROJECT_DIR$/board.js.map" />
+      <change beforePath="$PROJECT_DIR$/board.ts" afterPath="$PROJECT_DIR$/board.ts" />
+      <change beforePath="$PROJECT_DIR$/menu.js" afterPath="$PROJECT_DIR$/menu.js" />
+      <change beforePath="$PROJECT_DIR$/menu.js.map" afterPath="$PROJECT_DIR$/menu.js.map" />
+      <change beforePath="$PROJECT_DIR$/menu.ts" afterPath="$PROJECT_DIR$/menu.ts" />
+      <change beforePath="$PROJECT_DIR$/node.js" afterPath="$PROJECT_DIR$/node.js" />
+      <change beforePath="$PROJECT_DIR$/node.js.map" afterPath="$PROJECT_DIR$/node.js.map" />
+      <change beforePath="$PROJECT_DIR$/node.ts" afterPath="$PROJECT_DIR$/node.ts" />
+      <change beforePath="$PROJECT_DIR$/priority_queue.js" afterPath="$PROJECT_DIR$/priority_queue.js" />
+      <change beforePath="$PROJECT_DIR$/priority_queue.js.map" afterPath="$PROJECT_DIR$/priority_queue.js.map" />
+      <change beforePath="$PROJECT_DIR$/priority_queue.ts" afterPath="$PROJECT_DIR$/priority_queue.ts" />
+      <change beforePath="$PROJECT_DIR$/problem.js" afterPath="$PROJECT_DIR$/problem.js" />
+      <change beforePath="$PROJECT_DIR$/problem.js.map" afterPath="$PROJECT_DIR$/problem.js.map" />
+      <change beforePath="$PROJECT_DIR$/problem.ts" afterPath="$PROJECT_DIR$/problem.ts" />
+      <change beforePath="$PROJECT_DIR$/snake.js" afterPath="$PROJECT_DIR$/snake.js" />
+      <change beforePath="$PROJECT_DIR$/snake.js.map" afterPath="$PROJECT_DIR$/snake.js.map" />
+      <change beforePath="$PROJECT_DIR$/snake.ts" afterPath="$PROJECT_DIR$/snake.ts" />
+      <change beforePath="$PROJECT_DIR$/traversal.js" afterPath="$PROJECT_DIR$/traversal.js" />
+      <change beforePath="$PROJECT_DIR$/traversal.js.map" afterPath="$PROJECT_DIR$/traversal.js.map" />
+      <change beforePath="$PROJECT_DIR$/traversal.ts" afterPath="$PROJECT_DIR$/traversal.ts" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -13,50 +34,6 @@
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
-  </component>
-  <component name="DockManager">
-    <window id="2">
-      <content type="file-editors">
-        <state>
-          <leaf>
-            <file leaf-file-name="board.ts" pinned="false" current-in-tab="true">
-              <entry file="file://$PROJECT_DIR$/board.ts">
-                <provider selected="true" editor-type-id="text-editor">
-                  <state relative-caret-position="-432">
-                    <caret line="43" column="39" lean-forward="false" selection-start-line="43" selection-start-column="39" selection-end-line="43" selection-end-column="39" />
-                    <folding>
-                      <element signature="n#!!block;n#gcd#0;n#Board#0" expanded="false" />
-                      <element signature="n#!!block;n#common_divisors#0;n#Board#0" expanded="false" />
-                      <element signature="n#!!block;n#LCM#0;n#Board#0" expanded="false" />
-                      <element signature="n#!!block;n#draw#0;n#Board#0" expanded="false" />
-                      <element signature="n#!!block;n#erase#0;n#Board#0" expanded="false" />
-                    </folding>
-                  </state>
-                </provider>
-              </entry>
-            </file>
-          </leaf>
-        </state>
-      </content>
-    </window>
-    <window id="3">
-      <content type="file-editors">
-        <state>
-          <leaf>
-            <file leaf-file-name="game.ts" pinned="false" current-in-tab="true">
-              <entry file="file://$PROJECT_DIR$/game.ts">
-                <provider selected="true" editor-type-id="text-editor">
-                  <state relative-caret-position="-1026">
-                    <caret line="64" column="0" lean-forward="true" selection-start-line="64" selection-start-column="0" selection-end-line="64" selection-end-column="0" />
-                    <folding />
-                  </state>
-                </provider>
-              </entry>
-            </file>
-          </leaf>
-        </state>
-      </content>
-    </window>
   </component>
   <component name="FavoritesManager">
     <favorites_list name="VP-Snakes" />
@@ -76,28 +53,8 @@
       <file leaf-file-name="node.ts" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/node.ts">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="27">
-              <caret line="11" column="11" lean-forward="false" selection-start-line="11" selection-start-column="11" selection-end-line="11" selection-end-column="11" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="menu.ts" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/menu.ts">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="281">
-              <caret line="109" column="30" lean-forward="false" selection-start-line="109" selection-start-column="21" selection-end-line="109" selection-end-column="30" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="point.ts" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/point.ts">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="567">
-              <caret line="21" column="11" lean-forward="false" selection-start-line="21" selection-start-column="11" selection-end-line="21" selection-end-column="11" />
+            <state relative-caret-position="440">
+              <caret line="49" column="35" lean-forward="false" selection-start-line="49" selection-start-column="29" selection-end-line="49" selection-end-column="35" />
               <folding />
             </state>
           </provider>
@@ -106,18 +63,53 @@
       <file leaf-file-name="index.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/index.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="81">
-              <caret line="3" column="16" lean-forward="false" selection-start-line="3" selection-start-column="16" selection-end-line="3" selection-end-column="16" />
+            <state relative-caret-position="162">
+              <caret line="6" column="12" lean-forward="false" selection-start-line="6" selection-start-column="12" selection-end-line="6" selection-end-column="12" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="snake.ts" pinned="false" current-in-tab="true">
+      <file leaf-file-name="board.ts" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/board.ts">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="929">
+              <caret line="51" column="37" lean-forward="false" selection-start-line="51" selection-start-column="37" selection-end-line="51" selection-end-column="37" />
+              <folding>
+                <element signature="n#!!block;n#gcd#0;n#Board#0" expanded="false" />
+                <element signature="n#!!block;n#LCM#0;n#Board#0" expanded="false" />
+                <element signature="n#!!block;n#draw#0;n#Board#0" expanded="false" />
+                <element signature="n#!!block;n#drawFood#0;n#Board#0" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="snake.ts" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/snake.ts">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="413">
-              <caret line="52" column="18" lean-forward="true" selection-start-line="52" selection-start-column="18" selection-end-line="52" selection-end-column="18" />
+            <state relative-caret-position="371">
+              <caret line="21" column="41" lean-forward="true" selection-start-line="21" selection-start-column="41" selection-end-line="21" selection-end-column="41" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="traversal.ts" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/traversal.ts">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="481">
+              <caret line="85" column="33" lean-forward="true" selection-start-line="85" selection-start-column="33" selection-end-line="85" selection-end-column="33" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="priority_queue.ts" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/priority_queue.ts">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="425">
+              <caret line="30" column="20" lean-forward="true" selection-start-line="30" selection-start-column="20" selection-end-line="30" selection-end-column="20" />
               <folding />
             </state>
           </provider>
@@ -126,18 +118,28 @@
       <file leaf-file-name="problem.ts" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/problem.ts">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="675">
-              <caret line="166" column="57" lean-forward="true" selection-start-line="160" selection-start-column="16" selection-end-line="166" selection-end-column="57" />
+            <state relative-caret-position="2357">
+              <caret line="120" column="49" lean-forward="true" selection-start-line="120" selection-start-column="49" selection-end-line="120" selection-end-column="49" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="traversal.ts" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/traversal.ts">
+      <file leaf-file-name="point.ts" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/point.ts">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2214">
-              <caret line="82" column="31" lean-forward="false" selection-start-line="82" selection-start-column="31" selection-end-line="82" selection-end-column="31" />
+            <state relative-caret-position="328">
+              <caret line="14" column="53" lean-forward="false" selection-start-line="14" selection-start-column="38" selection-end-line="14" selection-end-column="53" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="test.ts" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/test.ts">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="602">
+              <caret line="47" column="36" lean-forward="true" selection-start-line="47" selection-start-column="36" selection-end-line="47" selection-end-column="36" />
               <folding />
             </state>
           </provider>
@@ -163,6 +165,7 @@
       <find>node</find>
       <find>length</find>
       <find>direction</find>
+      <find>drawImage</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -176,21 +179,21 @@
         <option value="$PROJECT_DIR$/point.js" />
         <option value="$PROJECT_DIR$/graph.ts" />
         <option value="$PROJECT_DIR$/test.js" />
-        <option value="$PROJECT_DIR$/priority_queue.ts" />
         <option value="$PROJECT_DIR$/index.php" />
-        <option value="$PROJECT_DIR$/traversal.ts" />
-        <option value="$PROJECT_DIR$/node.ts" />
         <option value="$PROJECT_DIR$/set.ts" />
-        <option value="$PROJECT_DIR$/problem.ts" />
         <option value="$PROJECT_DIR$/menu.js" />
         <option value="$PROJECT_DIR$/game.js" />
         <option value="$PROJECT_DIR$/index.js" />
         <option value="$PROJECT_DIR$/test.ts" />
         <option value="$PROJECT_DIR$/game.ts" />
-        <option value="$PROJECT_DIR$/menu.ts" />
         <option value="$PROJECT_DIR$/point.ts" />
         <option value="$PROJECT_DIR$/index.html" />
         <option value="$PROJECT_DIR$/board.ts" />
+        <option value="$PROJECT_DIR$/menu.ts" />
+        <option value="$PROJECT_DIR$/node.ts" />
+        <option value="$PROJECT_DIR$/priority_queue.ts" />
+        <option value="$PROJECT_DIR$/traversal.ts" />
+        <option value="$PROJECT_DIR$/problem.ts" />
         <option value="$PROJECT_DIR$/snake.ts" />
       </list>
     </option>
@@ -212,9 +215,10 @@
   </component>
   <component name="PhpWorkspaceProjectConfiguration" backward_compatibility_performed="true" interpreter_name="PHP" />
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="220" />
-    <option name="width" value="1575" />
-    <option name="height" value="1047" />
+    <option name="x" value="203" />
+    <option name="y" value="338" />
+    <option name="width" value="1116" />
+    <option name="height" value="513" />
   </component>
   <component name="ProjectView">
     <navigator currentView="ProjectPane" proportions="" version="1">
@@ -309,7 +313,7 @@
       <workItem from="1528822154149" duration="5844000" />
       <workItem from="1528892205263" duration="32451000" />
       <workItem from="1528933016727" duration="121000" />
-      <workItem from="1528956911909" duration="25113000" />
+      <workItem from="1528956911909" duration="31670000" />
     </task>
     <task id="LOCAL-00001" summary="Modularization, Refactoring, Bootstrap">
       <created>1528892659918</created>
@@ -360,11 +364,18 @@
       <option name="project" value="LOCAL" />
       <updated>1528996091035</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="[A* still doesn't go up] Developed OOP Architecture: Added Board class, Menu class, Snake class">
+      <created>1528996133675</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1528996133675</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="63529000" />
+    <option name="totallyTimeSpent" value="70086000" />
   </component>
   <component name="TodoView" selected-index="2">
     <todo-panel id="selected-file">
@@ -380,7 +391,7 @@
     <editor active="true" />
     <layout>
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32934782" sideWeight="0.4978678" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="PHP-CGI Server" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32934782" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="PHP-CGI Server" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32934782" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32934782" sideWeight="0.5042644" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32934782" sideWeight="0.4978678" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -744,14 +755,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/priority_queue.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="594">
-          <caret line="22" column="61" lean-forward="false" selection-start-line="22" selection-start-column="61" selection-end-line="22" selection-end-column="61" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/index.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="351">
@@ -800,50 +803,39 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/node.ts">
+    <entry file="file://$PROJECT_DIR$/snake.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/menu.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="573">
+          <caret line="552" column="17" lean-forward="false" selection-start-line="552" selection-start-column="17" selection-end-line="552" selection-end-column="17" />
+          <folding>
+            <element signature="n#!!block;n#play#0;n#!!block;n#StartSinglePlayer#0;n#Menu#0" expanded="false" />
+            <element signature="n#!!block;n#ShowHighScores#0;n#Menu#0" expanded="false" />
+            <element signature="n#!!block;n#ShowTwoPlayerHighScores#0;n#Menu#0" expanded="false" />
+            <element signature="n#!!block;n#getName#0;n#Menu#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/game.ts">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="27">
-          <caret line="11" column="11" lean-forward="false" selection-start-line="11" selection-start-column="11" selection-end-line="11" selection-end-column="11" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1269">
-          <caret line="47" column="48" lean-forward="true" selection-start-line="47" selection-start-column="48" selection-end-line="47" selection-end-column="48" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/traversal.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2214">
-          <caret line="82" column="31" lean-forward="false" selection-start-line="82" selection-start-column="31" selection-end-line="82" selection-end-column="31" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="81">
-          <caret line="3" column="16" lean-forward="false" selection-start-line="3" selection-start-column="16" selection-end-line="3" selection-end-column="16" />
+          <caret line="1" column="14" lean-forward="true" selection-start-line="1" selection-start-column="14" selection-end-line="1" selection-end-column="14" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/point.ts">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="567">
-          <caret line="21" column="11" lean-forward="false" selection-start-line="21" selection-start-column="11" selection-end-line="21" selection-end-column="11" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/snake.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        <state relative-caret-position="328">
+          <caret line="14" column="53" lean-forward="false" selection-start-line="14" selection-start-column="38" selection-end-line="14" selection-end-column="53" />
           <folding />
         </state>
       </provider>
@@ -856,48 +848,71 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/board.ts">
+    <entry file="file://$PROJECT_DIR$/index.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-432">
-          <caret line="43" column="39" lean-forward="false" selection-start-line="43" selection-start-column="39" selection-end-line="43" selection-end-column="39" />
-          <folding>
-            <element signature="n#!!block;n#gcd#0;n#Board#0" expanded="false" />
-            <element signature="n#!!block;n#common_divisors#0;n#Board#0" expanded="false" />
-            <element signature="n#!!block;n#LCM#0;n#Board#0" expanded="false" />
-            <element signature="n#!!block;n#draw#0;n#Board#0" expanded="false" />
-            <element signature="n#!!block;n#erase#0;n#Board#0" expanded="false" />
-          </folding>
+        <state relative-caret-position="162">
+          <caret line="6" column="12" lean-forward="false" selection-start-line="6" selection-start-column="12" selection-end-line="6" selection-end-column="12" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/menu.ts">
+    <entry file="file://$PROJECT_DIR$/test.ts">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="281">
-          <caret line="109" column="30" lean-forward="false" selection-start-line="109" selection-start-column="21" selection-end-line="109" selection-end-column="30" />
+        <state relative-caret-position="602">
+          <caret line="47" column="36" lean-forward="true" selection-start-line="47" selection-start-column="36" selection-end-line="47" selection-end-column="36" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/priority_queue.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="425">
+          <caret line="30" column="20" lean-forward="true" selection-start-line="30" selection-start-column="20" selection-end-line="30" selection-end-column="20" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/board.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="929">
+          <caret line="51" column="37" lean-forward="false" selection-start-line="51" selection-start-column="37" selection-end-line="51" selection-end-column="37" />
+          <folding>
+            <element signature="n#!!block;n#gcd#0;n#Board#0" expanded="false" />
+            <element signature="n#!!block;n#LCM#0;n#Board#0" expanded="false" />
+            <element signature="n#!!block;n#draw#0;n#Board#0" expanded="false" />
+            <element signature="n#!!block;n#drawFood#0;n#Board#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/problem.ts">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="675">
-          <caret line="166" column="57" lean-forward="true" selection-start-line="160" selection-start-column="16" selection-end-line="166" selection-end-column="57" />
+        <state relative-caret-position="2357">
+          <caret line="120" column="49" lean-forward="true" selection-start-line="120" selection-start-column="49" selection-end-line="120" selection-end-column="49" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/game.ts">
+    <entry file="file://$PROJECT_DIR$/node.ts">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1026">
-          <caret line="64" column="0" lean-forward="true" selection-start-line="64" selection-start-column="0" selection-end-line="64" selection-end-column="0" />
+        <state relative-caret-position="440">
+          <caret line="49" column="35" lean-forward="false" selection-start-line="49" selection-start-column="29" selection-end-line="49" selection-end-column="35" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/snake.ts">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="413">
-          <caret line="52" column="18" lean-forward="true" selection-start-line="52" selection-start-column="18" selection-end-line="52" selection-end-column="18" />
+        <state relative-caret-position="371">
+          <caret line="21" column="41" lean-forward="true" selection-start-line="21" selection-start-column="41" selection-end-line="21" selection-end-column="41" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/traversal.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="481">
+          <caret line="85" column="33" lean-forward="true" selection-start-line="85" selection-start-column="33" selection-end-line="85" selection-end-column="33" />
           <folding />
         </state>
       </provider>

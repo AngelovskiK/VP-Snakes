@@ -26,6 +26,7 @@ class Snake {
         let playerMovements = solve.map(state => state[0]);
         console.log(solution);
         console.log(solve);
+        console.log(answer.path_cost);
         console.log(playerMovements);
         console.log("trail: ", this.trail);
         console.log("snake.head", this.head);
@@ -36,7 +37,7 @@ class Snake {
     draw(ctx, block_size: number, ten_percent: number, vSize: number, hSize: number) {
         ctx.fillStyle = this.color;
         this.trail.forEach(block =>
-            ctx.fillRect(block.x * block_size, block.y * block_size,
+            ctx.fillRect(block.y * block_size, block.x * block_size,
                 block_size - ten_percent * 4, block_size - ten_percent * 4));
     }
 

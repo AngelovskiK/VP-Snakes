@@ -329,16 +329,20 @@ class Menu {
 
         let interval = 60;
 
-        let cycle = setInterval(game, interval);
+        let cycle = setInterval(play, interval);
 
-        function game() {
+        let game = this.game;
+        let getName = this.getName;
+        let ShowMenu = this.ShowMenu;
+
+        function play() {
             //refresh
             ctx.fillStyle = '#000000';
             ctx.fillRect(0, 0, WIDTH, HEIGHT);
             // draw player 1's head and apple
             ctx.fillStyle = "#0000FF";
             ctx.fillRect(10 + p1x * BLOCK_SIZE, 40 + p1y * BLOCK_SIZE, 15, 15);
-            ctx.drawImage(this.game.apple1img, 10 + apple1.x * BLOCK_SIZE, 40 + apple1.y * BLOCK_SIZE);
+            ctx.drawImage(game.apple1img, 10 + apple1.x * BLOCK_SIZE, 40 + apple1.y * BLOCK_SIZE);
             // draw player 2's head and apple
             ctx.fillStyle = "#FF0000";
             ctx.fillRect(10 + p2x * BLOCK_SIZE, 40 + p2y * BLOCK_SIZE, 15, 15);

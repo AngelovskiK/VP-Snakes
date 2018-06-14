@@ -19,9 +19,10 @@ var PriorityQueue = /** @class */ (function () {
     };
     PriorityQueue.prototype.find = function (item) {
         var index = this._heap.indexOf(item);
-        if (index >= 0) {
+        if (index > -1) {
             return this._heap[index];
         }
+        return null;
     };
     PriorityQueue.prototype.size = function () {
         return this._heap.length;

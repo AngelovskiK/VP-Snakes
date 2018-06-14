@@ -54,7 +54,9 @@ var ProblemNode = /** @class */ (function () {
         return result;
     };
     ProblemNode.prototype.equals = function (that) {
-        return this.state == that.state;
+        var player = this.state[0];
+        var other_player = that.state[0];
+        return player.equals(other_player);
     };
     return ProblemNode;
 }());

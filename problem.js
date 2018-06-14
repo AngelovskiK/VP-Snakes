@@ -8,6 +8,8 @@ var Direction;
 var Problem = /** @class */ (function () {
     function Problem(player, direction, food, obstacles, vSize, hSize) {
         this.state = [player, food, obstacles, direction];
+        this.vSize = vSize;
+        this.hSize = hSize;
         this.grid = [];
         for (var i = 0; i < vSize; i++) {
             for (var j = 0; j < hSize; j++) {
@@ -50,7 +52,7 @@ var Problem = /** @class */ (function () {
         var previous_move = this.getPreviousMove(player, direction);
         // console.log("previous_move", previous_move);
         // modified_obstacles.push(previous_move);
-        modified_obstacles.push.apply(modified_obstacles, [previous_move]);
+        // modified_obstacles.push.apply(modified_obstacles, [previous_move]);
         // console.log("modified_obstacles", modified_obstacles);
         // console.log("Player in grid: ", this.grid.indexOf(player) >= 0);
         // console.log("Player contained in grid: ", Problem.contains(player, this.grid));
@@ -58,28 +60,28 @@ var Problem = /** @class */ (function () {
         if (Problem.contains(player, this.grid)) {
             // UP
             modified_player = new Point(player.x - 1, player.y);
-            if (Problem.contains(modified_player, this.grid) &&
+            if (modified_player.x > 0 &&
                 !(Problem.contains(modified_player, modified_obstacles))) {
                 var new_state = [modified_player, food, obstacles, Direction.Up];
                 successors["UP"] = new_state;
             }
             // DOWN
             modified_player = new Point(player.x + 1, player.y);
-            if (Problem.contains(modified_player, this.grid) &&
+            if (modified_player.x < this.vSize &&
                 !(Problem.contains(modified_player, modified_obstacles))) {
                 var new_state = [modified_player, food, obstacles, Direction.Down];
                 successors["DOWN"] = new_state;
             }
             // LEFT
             modified_player = new Point(player.x, player.y - 1);
-            if (Problem.contains(modified_player, this.grid) &&
+            if (modified_player.y > 0 &&
                 !(Problem.contains(modified_player, modified_obstacles))) {
                 var new_state = [modified_player, food, obstacles, Direction.Left];
                 successors["LEFT"] = new_state;
             }
             // RIGHT
             modified_player = new Point(player.x, player.y + 1);
-            if (Problem.contains(modified_player, this.grid) &&
+            if (modified_player.y < this.hSize &&
                 !(Problem.contains(modified_player, modified_obstacles))) {
                 var new_state = [modified_player, food, obstacles, Direction.Right];
                 successors["RIGHT"] = new_state;
@@ -143,10 +145,10 @@ var Problem = /** @class */ (function () {
         return false;
     };
     Problem.contains_node = function (object, list) {
-        //console.log("Problem.contains:", object, list);
         for (var _i = 0, list_2 = list; _i < list_2.length; _i++) {
             var item = list_2[_i];
             if (object.equals(item)) {
+                console.log("Problem.contains:", object, item);
                 return true;
             }
         }
