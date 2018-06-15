@@ -1,0 +1,22 @@
+{
+  "name": "vp-snakes",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AngelovskiK/VP-Snakes.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AngelovskiK/VP-Snakes/issues"
+  },
+  "homepage": "https://github.com/AngelovskiK/VP-Snakes#readme",
+  "dependencies": {
+    "javascript-astar": "^0.4.1"
+  }
+}

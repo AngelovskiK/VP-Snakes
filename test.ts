@@ -15,6 +15,7 @@ class Test {
     }
 
     main() {
+
         let traversal = new Traversal();
 
         // let player: Point = new Point(0, 0);
@@ -44,9 +45,32 @@ class Test {
         // console.log(answer.solution());
         // console.log(answer.solve());
 
-        let trail: any = [{x:1, y:1}];
-        console.log(this.game.check(1,1,trail));
 
+        var graph = new Graph([
+            [1, 1, 1],
+            [1, 1, 1],
+            [1, 1, 1],
+            [1, 1, 1]
+        ]);
+        var start = graph.grid[0][0];
+        var end = graph.grid[1][1];
+        var result = astar.search(graph, start, end);
+
+        console.log(result);
+
+
+        let grid = [];
+        for (let i = 0; i < 4; i++) {
+            let row = [];
+            for (let j = 0; j < 3; j++) {
+                let current_point:Point = new Point(i,j);
+                    // you may move here with a weight of 1
+                    row.push(1);
+
+            }
+            grid.push(row);
+        }
+        console.log(grid);
     }
 
 }
