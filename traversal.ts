@@ -25,7 +25,7 @@ class Traversal {
         let queue = [];
         let visited = [];
         queue.push(new ProblemNode(problem.state));
-        console.log("Problem", problem);
+        // console.log("Problem", problem);
         //visited.push(new ProblemNode(problem.state));
         //while (queue.length > 0) {
         let i: number = 0;
@@ -76,16 +76,17 @@ class Traversal {
             }
 
             visited.push(node.state);
+            console.log(node.expand(problem));
             for (let child of node.expand(problem)) {
                 if (!Problem.contains_node_state(child.state, visited) &&
                     !Problem.contains_node(child, queue._heap)) {
                     queue.push(child);
                 } else if (Problem.contains_node(child, queue._heap)) {
-                    console.log("Problem.contains_node(child, queue._heap)");
+                    // console.log("Problem.contains_node(child, queue._heap)");
                     let existing: ProblemNode = queue.find(child);
                     if(!existing)
                         continue;
-                    console.log("Compute", child, existing);
+                    // console.log("Compute", child, existing);
                     if (compute(child) < compute(existing)) {
                         queue.remove(existing);
                         queue.push(child);

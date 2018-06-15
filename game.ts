@@ -5,8 +5,8 @@ let isPaused;
 
 const WIDTH = 640;
 const HEIGHT = 480;
-// let hSize = 40;
-// let vSize = 28;
+// let vertical_size = 40;
+// let horizontal_size = 28;
 const hSize = 12;
 const vSize = 8;
 

@@ -21,7 +21,7 @@ var Traversal = /** @class */ (function () {
         var queue = [];
         var visited = [];
         queue.push(new ProblemNode(problem.state));
-        console.log("Problem", problem);
+        // console.log("Problem", problem);
         //visited.push(new ProblemNode(problem.state));
         //while (queue.length > 0) {
         var i = 0;
@@ -66,6 +66,7 @@ var Traversal = /** @class */ (function () {
                 return node_1;
             }
             visited.push(node_1.state);
+            console.log(node_1.expand(problem));
             for (var _i = 0, _a = node_1.expand(problem); _i < _a.length; _i++) {
                 var child = _a[_i];
                 if (!Problem.contains_node_state(child.state, visited) &&
@@ -73,11 +74,11 @@ var Traversal = /** @class */ (function () {
                     queue.push(child);
                 }
                 else if (Problem.contains_node(child, queue._heap)) {
-                    console.log("Problem.contains_node(child, queue._heap)");
+                    // console.log("Problem.contains_node(child, queue._heap)");
                     var existing = queue.find(child);
                     if (!existing)
                         continue;
-                    console.log("Compute", child, existing);
+                    // console.log("Compute", child, existing);
                     if (compute(child) < compute(existing)) {
                         queue.remove(existing);
                         queue.push(child);
