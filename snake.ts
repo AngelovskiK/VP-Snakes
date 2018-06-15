@@ -11,9 +11,12 @@ class Snake {
     horizontal_size: number;
     vertical_size: number;
 
+    type_of_ai: number;
+
     // food: Array<Point>, obstacles: Array<Point>
     constructor(x: number, y: number, direction: Direction, color: string,
-                horizontal_size: number, vertical_size: number) {
+                horizontal_size: number, vertical_size: number,
+                type_of_ai: number) {
         this.head = new Point(x, y);
         this.direction = direction;
         this.color = color;
@@ -24,23 +27,28 @@ class Snake {
         this.vertical_size = vertical_size;
         console.log("horizontal_size", horizontal_size);
         console.log("vertical_size", vertical_size);
+
+        this.type_of_ai = type_of_ai;
     }
 
     get_next_move(food_point: Point): Point {
-        let problem: Problem = new Problem(this.head, this.direction, [food_point], this.trail, this.horizontal_size, this.vertical_size);
-        let answer: ProblemNode = this.traversal.astar_graph_search(problem);
-        let solution = answer.solution();
-        let solve = answer.solve();
+        if (this.type_of_ai === 0) {
+            let problem: Problem = new Problem(this.head, this.direction, [food_point], this.trail, this.horizontal_size, this.vertical_size);
+            let answer: ProblemNode = this.traversal.breadth_first_tree_search(problem);
+            let solution = answer.solution();
+            let solve = answer.solve();
 
-        let playerMovements = solve.map(state => state[0]);
-        // console.log(solution);
-        // console.log(solve);
-        // console.log(answer.path_cost);
-        // console.log(playerMovements);
-        // console.log("trail: ", this.trail);
-        // console.log("snake.head", this.head);
+            let playerMovements = solve.map(state => state[0]);
+            // console.log(solution);
+            // console.log(solve);
+            // console.log(answer.path_cost);
+            // console.log(playerMovements);
+            // console.log("trail: ", this.trail);
+            // console.log("snake.head", this.head);
 
-        return solve[1][0];
+            return solve[1][0];
+        }
+        return this.get_next_move_other(food_point);
     }
 
     get_next_move_other(food_point: Point): Point {
@@ -97,7 +105,7 @@ class Snake {
 
         /* Wrap World */
         if (this.head.x === this.vertical_size) {
-            this.head = new Point(0, this.head.y + 1);
+            this.head = new Point(0, this.head.y);
         } else if (this.head.x === -1) {
             this.head = new Point(this.vertical_size - 1, this.head.y);
         } else if (this.head.y === this.horizontal_size) {

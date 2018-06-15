@@ -20,7 +20,7 @@ var ProblemNode = /** @class */ (function () {
     };
     ProblemNode.prototype.expand = function (problem) {
         var result = [];
-        console.log("problem.actions(this.state)", problem.actions(this.state));
+        // console.log("problem.actions(this.state)", problem.actions(this.state));
         for (var _i = 0, _a = problem.actions(this.state); _i < _a.length; _i++) {
             var action = _a[_i];
             result.push(this.child_node(problem, action));

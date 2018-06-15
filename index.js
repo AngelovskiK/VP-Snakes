@@ -5,6 +5,8 @@ function main() {
 
     let test = new Test(1);
     test.main();
+
+    $('.youtube-video')[0].contentWindow.postMessage('{"event":"command","func":"' + 'playVideo' + '","args":""}', '*');
 }
 
 main();

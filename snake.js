@@ -1,6 +1,6 @@
 var Snake = /** @class */ (function () {
     // food: Array<Point>, obstacles: Array<Point>
-    function Snake(x, y, direction, color, horizontal_size, vertical_size) {
+    function Snake(x, y, direction, color, horizontal_size, vertical_size, type_of_ai) {
         this.traversal = new Traversal();
         this.head = new Point(x, y);
         this.direction = direction;
@@ -11,20 +11,24 @@ var Snake = /** @class */ (function () {
         this.vertical_size = vertical_size;
         console.log("horizontal_size", horizontal_size);
         console.log("vertical_size", vertical_size);
+        this.type_of_ai = type_of_ai;
     }
     Snake.prototype.get_next_move = function (food_point) {
-        var problem = new Problem(this.head, this.direction, [food_point], this.trail, this.horizontal_size, this.vertical_size);
-        var answer = this.traversal.astar_graph_search(problem);
-        var solution = answer.solution();
-        var solve = answer.solve();
-        var playerMovements = solve.map(function (state) { return state[0]; });
-        // console.log(solution);
-        // console.log(solve);
-        // console.log(answer.path_cost);
-        // console.log(playerMovements);
-        // console.log("trail: ", this.trail);
-        // console.log("snake.head", this.head);
-        return solve[1][0];
+        if (this.type_of_ai === 0) {
+            var problem = new Problem(this.head, this.direction, [food_point], this.trail, this.horizontal_size, this.vertical_size);
+            var answer = this.traversal.breadth_first_tree_search(problem);
+            var solution = answer.solution();
+            var solve = answer.solve();
+            var playerMovements = solve.map(function (state) { return state[0]; });
+            // console.log(solution);
+            // console.log(solve);
+            // console.log(answer.path_cost);
+            // console.log(playerMovements);
+            // console.log("trail: ", this.trail);
+            // console.log("snake.head", this.head);
+            return solve[1][0];
+        }
+        return this.get_next_move_other(food_point);
     };
     Snake.prototype.get_next_move_other = function (food_point) {
         var grid = [];
@@ -78,7 +82,7 @@ var Snake = /** @class */ (function () {
         }
         /* Wrap World */
         if (this.head.x === this.vertical_size) {
-            this.head = new Point(0, this.head.y + 1);
+            this.head = new Point(0, this.head.y);
         }
         else if (this.head.x === -1) {
             this.head = new Point(this.vertical_size - 1, this.head.y);

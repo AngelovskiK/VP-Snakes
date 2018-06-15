@@ -51,7 +51,7 @@ var Problem = /** @class */ (function () {
         modified_obstacles.push.apply(modified_obstacles, obstacles);
         var previous_move = this.getPreviousMove(player, direction);
         // console.log("previous_move", previous_move);
-        modified_obstacles.push(previous_move);
+        // modified_obstacles.push(previous_move);
         // modified_obstacles.push.apply(modified_obstacles, [previous_move]);
         // console.log("modified_obstacles", modified_obstacles);
         // console.log("Player in grid: ", this.grid.indexOf(player) >= 0);
