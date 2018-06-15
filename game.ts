@@ -3,8 +3,9 @@ let TwoPlayerHighScores = [];
 
 let isPaused;
 
-const WIDTH = 640;
-const HEIGHT = 480;
+var WIDTH = 640;
+var HEIGHT = 480;
+
 // let vertical_size = 40;
 // let horizontal_size = 28;
 const hSize = 12;

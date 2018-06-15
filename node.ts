@@ -27,7 +27,7 @@ class ProblemNode {
 
     expand(problem: Problem) {
         let result = [];
-        console.log("problem.actions(this.state)", problem.actions(this.state));
+        // console.log("problem.actions(this.state)", problem.actions(this.state));
         for (let action of problem.actions(this.state)) {
             result.push(this.child_node(problem, action))
         }

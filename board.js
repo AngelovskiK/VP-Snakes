@@ -1,25 +1,12 @@
 var Board = /** @class */ (function () {
-    function Board(container, width, height, type) {
+    function Board(container, width, height, difficulty, type_of_ai) {
         this.container = container;
         this.width = width;
         this.height = height;
         var common_divisor = this.common_divisors(width, height).reverse();
-        switch (type) {
-            // easy
-            case 0: {
-                this.block_size = common_divisor[1];
-                break;
-            }
-            case 1: {
-                this.block_size = common_divisor[2];
-                break;
-            }
-            case 2: {
-                this.block_size = common_divisor[3];
-                break;
-            }
-        }
+        this.block_size = common_divisor[difficulty];
         console.log(this.common_divisors(width, height));
+        console.log("this.block_size", this.block_size);
         var block_size_float = parseFloat(this.block_size.toString());
         this.ten_percent = (block_size_float * 0.01);
         console.log(this.ten_percent);
@@ -29,8 +16,9 @@ var Board = /** @class */ (function () {
         this.traversal = new Traversal();
         this.FOOD_COLOR = "red";
         this.food_exists = false;
-        this.food_point = new Point(0, 1);
+        this.food_point = new Point(5, 5);
         this.isPaused = false;
+        this.type_of_ai = type_of_ai;
     }
     Board.prototype.gcd = function (a, b) {
         return (b === 0) ? a : this.gcd(b, a % b);
@@ -63,7 +51,7 @@ var Board = /** @class */ (function () {
         var ctx = this.canvas.getContext("2d");
         ctx.font = "22px Arial";
         this.draw(ctx);
-        var snake = new Snake(2, 2, Direction.Right, "blue", this.vSize, this.hSize);
+        var snake = new Snake(2, 2, Direction.Right, "blue", this.vSize, this.hSize, this.type_of_ai);
         var direction = Direction.Right;
         document.addEventListener("keydown", function (e) {
             //handle direction changes and pauses
@@ -88,11 +76,11 @@ var Board = /** @class */ (function () {
                 case 80:
                     isPaused = !isPaused;
                     if (isPaused) {
-                        clearInterval(cycle);
+                        clearInterval(_this.cycle);
                     }
                     else {
-                        cycle = setInterval(function () {
-                            return _this.animate(ctx, "human", direction, snake, interval);
+                        _this.cycle = setInterval(function () {
+                            return _this.animate(ctx, "human", direction, snake, interval, _this.container, _this.menu, _this.cycle);
                         }, interval);
                     }
                     break;
@@ -100,7 +88,7 @@ var Board = /** @class */ (function () {
         });
         var interval = 60;
         // this uses a lambda wrapper function
-        var cycle = setInterval(function () { return _this.animate(ctx, "human", direction, snake, interval); }, interval);
+        this.cycle = setInterval(function () { return _this.animate(ctx, "human", direction, snake, interval, _this.container, _this.menu, _this.cycle); }, interval);
     };
     Board.prototype.start = function () {
         var _this = this;
@@ -109,18 +97,18 @@ var Board = /** @class */ (function () {
         var ctx = this.canvas.getContext("2d");
         ctx.font = "22px Arial";
         this.draw(ctx);
-        var snake = new Snake(2, 2, Direction.Right, "blue", this.vSize, this.hSize);
+        var snake = new Snake(2, 2, Direction.Right, "blue", this.vSize, this.hSize, this.type_of_ai);
         document.addEventListener("keydown", function (e) {
             switch (e.keyCode) {
                 // Letter P key
                 case 80:
                     isPaused = !isPaused;
                     if (isPaused) {
-                        clearInterval(cycle);
+                        clearInterval(_this.cycle);
                     }
                     else {
-                        cycle = setInterval(function () {
-                            return _this.animate(ctx, "ai_snake", Direction.Right, snake, interval);
+                        _this.cycle = setInterval(function () {
+                            return _this.animate(ctx, "ai_snake", Direction.Right, snake, interval, _this.container, _this.menu, _this.cycle);
                         }, interval);
                     }
                     break;
@@ -128,9 +116,9 @@ var Board = /** @class */ (function () {
         });
         var interval = 60;
         // this uses a lambda wrapper function
-        var cycle = setInterval(function () { return _this.animate(ctx, "ai_snake", Direction.Right, snake, interval); }, interval);
+        this.cycle = setInterval(function () { return _this.animate(ctx, "ai_snake", Direction.Right, snake, interval, _this.container, _this.menu, _this.cycle); }, interval);
     };
-    Board.prototype.animate = function (ctx, playerType, direction, snake, interval) {
+    Board.prototype.animate = function (ctx, playerType, direction, snake, interval, container, menu, cycle) {
         this.draw(ctx);
         if (!Point.isInList(snake.head, snake.trail)) {
             snake.trail.push(snake.head);
@@ -145,7 +133,7 @@ var Board = /** @class */ (function () {
             else {
                 // ai_snake
                 if (snake.trail.length === snake.length) {
-                    snake.head = snake.get_next_move_other(this.food_point);
+                    snake.head = snake.get_next_move(this.food_point);
                 }
                 else {
                     snake.head = snake.move(direction);
@@ -155,6 +143,13 @@ var Board = /** @class */ (function () {
                 snake.length += 1;
                 this.food_point = this.getRandomPointNotInList(snake.trail);
             }
+        }
+        else {
+            // get name
+            this.getName(this.canvas, ctx, "Enter player's name: ", function (name) {
+                menu.ShowMenu(container);
+                clearInterval(cycle);
+            });
         }
         ctx.fillText("Player 1 - Length: " + snake.length + " Speed: " + interval, this.block_size, this.block_size);
     };
@@ -208,6 +203,34 @@ var Board = /** @class */ (function () {
         quitButton.addEventListener("click", function () { return _this.menu.ShowMenu(_this.container); });
         this.btnQuit = quitButton;
         this.container.appendChild(quitButton);
+    };
+    Board.prototype.getName = function (canvas, ctx, text, cb) {
+        //setup screen
+        var name = '';
+        ctx.fillStyle = 'white';
+        ctx.fillRect(100, 180, 440, 60);
+        ctx.fillStyle = 'black';
+        ctx.fillText(text + name, 110, 210);
+        //listen to keystrokes
+        document.addEventListener("keyup", listenToName, true);
+        function listenToName(e) {
+            // if character or number add to name, if backspace shorten last char, if enter
+            // callback function and remove this event listener
+            if (e.key.length == 1 && e.key.match(/[a-z0-9]/i))
+                name += e.key;
+            else if (e.key == 'Backspace')
+                name = name.slice(0, -1);
+            else if (e.key == 'Enter') {
+                console.log(name);
+                cb(name);
+                document.removeEventListener("keyup", listenToName, true);
+            }
+            //refresh name dialog
+            ctx.fillStyle = 'black';
+            ctx.fillRect(100, 180, 440, 60);
+            ctx.fillStyle = 'white';
+            ctx.fillText(text + name, 110, 210);
+        }
     };
     return Board;
 }());

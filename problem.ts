@@ -85,7 +85,7 @@ class Problem {
 
         let previous_move: Point = this.getPreviousMove(player, direction);
         // console.log("previous_move", previous_move);
-        modified_obstacles.push(previous_move);
+        // modified_obstacles.push(previous_move);
         // modified_obstacles.push.apply(modified_obstacles, [previous_move]);
         // console.log("modified_obstacles", modified_obstacles);
 

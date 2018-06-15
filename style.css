@@ -19,6 +19,26 @@ body {
     text-align: center;
 }
 
+.container .difficultyItem {
+    margin-bottom: 10px;
+}
+
+.chosenDifficultyItem {
+    background: black;
+}
+
+.container .difficultyItem :hover {
+    margin-bottom: 20px;
+    background-color: black;
+!important;
+    color: white;
+}
+
+.container .difficultyItem :active {
+    margin-bottom: 20px;
+    color: black;
+}
+
 .container .menuItem {
     /*width: 60%;*/
     /*height: 30px;*/
@@ -27,7 +47,10 @@ body {
 }
 
 .title {
-    margin-bottom: 35px;
+    margin-bottom: 15px;
+    text-align: center;
+    font-size: 32px;
+    font-weight: bolder;
 }
 
 .red {
@@ -50,5 +73,13 @@ body {
 }
 
 img {
+    display: none;
+}
+
+span {
+    font-size: 20px;
+}
+
+iframe {
     display: none;
 }
