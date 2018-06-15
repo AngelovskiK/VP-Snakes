@@ -1,4 +1,11 @@
-class Board {
+import {Point} from './point';
+import {Menu} from './menu';
+import {Traversal} from './traversal';
+import {ajax} from './node_modules/jquery';
+import {Snake} from './snake';
+import {Direction, Problem} from './problem';
+
+export class Board {
     container: any;
 
     width: number;
@@ -114,8 +121,8 @@ class Board {
                     break;
                 //pause
                 case 80:
-                    isPaused = !isPaused;
-                    if (isPaused) {
+                    this.isPaused = !this.isPaused;
+                    if (this.isPaused) {
                         clearInterval(this.cycle);
                     }
                     else {
@@ -129,6 +136,10 @@ class Board {
         let interval: number = 60;
         // this uses a lambda wrapper function
         this.cycle = setInterval(() => this.animate(ctx, "human", direction, snake, interval, this.container, this.menu, this.cycle), interval);
+    }
+
+    startMultiPlayer(){
+
     }
 
     start() {
@@ -146,8 +157,8 @@ class Board {
             switch (e.keyCode) {
                 // Letter P key
                 case 80:
-                    isPaused = !isPaused;
-                    if (isPaused) {
+                    this.isPaused = !this.isPaused;
+                    if (this.isPaused) {
                         clearInterval(this.cycle);
                     } else {
                         this.cycle = setInterval(() =>
@@ -191,10 +202,22 @@ class Board {
             }
         } else {
             // get name
+            clearInterval(cycle);
             this.getName(this.canvas, ctx, "Enter player's name: ",
                 function (name) {
                     menu.ShowMenu(container);
-                    clearInterval(cycle);
+                    ajax({
+                        url: 'https://asocial-setting.000webhostapp.com/scores.php',
+                        data: {
+                            type: 'sp', name: name, score: snake.length
+                        },
+                        type: 'post',
+                        dataType: 'json',
+                        success: (result) =>{
+                            console.log(result);
+                        }
+                    });
+                    console.log(name);
                 });
 
         }
@@ -203,7 +226,7 @@ class Board {
 
     draw(ctx) {
         ctx.fillStyle = 'black';
-        ctx.fillRect(0, 0, WIDTH, HEIGHT);
+        ctx.fillRect(0, 0, this.width, this.height);
 
         for (let i = 0; i < this.vSize; i++) {
             for (let j = 0; j < this.hSize; j++) {
@@ -232,8 +255,8 @@ class Board {
         let x, y;
         let point: Point = null;
         do {
-            x = Math.floor(Math.random() * hSize);
-            y = Math.floor(Math.random() * vSize);
+            x = Math.floor(Math.random() * this.hSize);
+            y = Math.floor(Math.random() * this.vSize);
             point = new Point(x, y);
         } while (Point.isInList(point, obstacles));
         return point;
@@ -279,7 +302,6 @@ class Board {
             else if (e.key == 'Backspace')
                 name = name.slice(0, -1);
             else if (e.key == 'Enter') {
-                console.log(name);
                 cb(name);
                 document.removeEventListener("keyup", listenToName, true);
             }

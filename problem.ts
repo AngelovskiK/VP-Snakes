@@ -1,11 +1,13 @@
-enum Direction {
+export enum Direction {
     Up = 0,
     Down = 1,
     Left = 2,
     Right = 3,
 }
+import {Point} from './point';
+import {ProblemNode} from './node';
 
-class Problem {
+export class Problem {
 
     /**
      * |---------------> Y

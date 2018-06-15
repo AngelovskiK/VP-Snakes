@@ -1,4 +1,7 @@
-class ProblemNode {
+import {Point} from './point';
+import {Problem} from './problem';
+
+export class ProblemNode {
 
     state: any;
     parent: ProblemNode;

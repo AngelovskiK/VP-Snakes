@@ -1,13 +1,14 @@
-class Test {
+import {Traversal} from "./traversal";
+import  {Point} from "./point";
+import {astar, Graph} from "./node_modules/javascript-astar";
+
+export class Test {
     x: number;
     y: number;
-
-    game: Game;
 
     constructor(x: number, y: number = 0) {
         this.x = x;
         this.y = y;
-        this.game = new Game();
     }
 
     toString() {
@@ -63,7 +64,7 @@ class Test {
         for (let i = 0; i < 4; i++) {
             let row = [];
             for (let j = 0; j < 3; j++) {
-                let current_point:Point = new Point(i,j);
+                //let current_point:Point = new Point(i,j);
                     // you may move here with a weight of 1
                     row.push(1);
 

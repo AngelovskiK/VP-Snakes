@@ -3,7 +3,9 @@ const pq_parent = i => ((i + 1) >>> 1) - 1;
 const left = i => (i << 1) + 1;
 const right = i => (i + 1) << 1;
 
-class PriorityQueue {
+import {Problem} from './problem';
+
+export class PriorityQueue {
     _heap: any;
     _comparator: any;
 

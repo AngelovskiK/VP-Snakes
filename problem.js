@@ -1,10 +1,13 @@
+"use strict";
+exports.__esModule = true;
 var Direction;
 (function (Direction) {
     Direction[Direction["Up"] = 0] = "Up";
     Direction[Direction["Down"] = 1] = "Down";
     Direction[Direction["Left"] = 2] = "Left";
     Direction[Direction["Right"] = 3] = "Right";
-})(Direction || (Direction = {}));
+})(Direction = exports.Direction || (exports.Direction = {}));
+var point_1 = require("./point");
 var Problem = /** @class */ (function () {
     function Problem(player, direction, food, obstacles, vSize, hSize) {
         this.state = [player, food, obstacles, direction];
@@ -13,7 +16,7 @@ var Problem = /** @class */ (function () {
         this.grid = [];
         for (var i = 0; i < vSize; i++) {
             for (var j = 0; j < hSize; j++) {
-                this.grid.push(new Point(i, j));
+                this.grid.push(new point_1.Point(i, j));
             }
         }
         // console.log("Grid: ", this.grid);
@@ -59,28 +62,28 @@ var Problem = /** @class */ (function () {
         // if player is in grid
         if (Problem.contains(player, this.grid)) {
             // UP
-            modified_player = new Point(player.x - 1, player.y);
+            modified_player = new point_1.Point(player.x - 1, player.y);
             if (modified_player.x >= 0 &&
                 !(Problem.contains(modified_player, modified_obstacles))) {
                 var new_state = [modified_player, food, obstacles, Direction.Up];
                 successors["UP"] = new_state;
             }
             // DOWN
-            modified_player = new Point(player.x + 1, player.y);
+            modified_player = new point_1.Point(player.x + 1, player.y);
             if (modified_player.x <= this.vSize &&
                 !(Problem.contains(modified_player, modified_obstacles))) {
                 var new_state = [modified_player, food, obstacles, Direction.Down];
                 successors["DOWN"] = new_state;
             }
             // LEFT
-            modified_player = new Point(player.x, player.y - 1);
+            modified_player = new point_1.Point(player.x, player.y - 1);
             if (modified_player.y >= 0 &&
                 !(Problem.contains(modified_player, modified_obstacles))) {
                 var new_state = [modified_player, food, obstacles, Direction.Left];
                 successors["LEFT"] = new_state;
             }
             // RIGHT
-            modified_player = new Point(player.x, player.y + 1);
+            modified_player = new point_1.Point(player.x, player.y + 1);
             if (modified_player.y <= this.hSize &&
                 !(Problem.contains(modified_player, modified_obstacles))) {
                 var new_state = [modified_player, food, obstacles, Direction.Right];
@@ -117,16 +120,16 @@ var Problem = /** @class */ (function () {
             // This returns the opposite
             // If you're going up, you'll get the down position
             case Direction.Up: {
-                return new Point(player.x + 1, player.y);
+                return new point_1.Point(player.x + 1, player.y);
             }
             case Direction.Down: {
-                return new Point(player.x - 1, player.y);
+                return new point_1.Point(player.x - 1, player.y);
             }
             case Direction.Left: {
-                return new Point(player.x, player.y + 1);
+                return new point_1.Point(player.x, player.y + 1);
             }
             case Direction.Right: {
-                return new Point(player.x, player.y - 1);
+                return new point_1.Point(player.x, player.y - 1);
             }
             default: {
                 break;
@@ -158,7 +161,7 @@ var Problem = /** @class */ (function () {
         //console.log("Problem.contains:", object, list);
         for (var _i = 0, states_1 = states; _i < states_1.length; _i++) {
             var item = states_1[_i];
-            if (Point.equalsTwo(state[0], item[0])) {
+            if (point_1.Point.equalsTwo(state[0], item[0])) {
                 return true;
             }
         }
@@ -166,4 +169,4 @@ var Problem = /** @class */ (function () {
     };
     return Problem;
 }());
-//# sourceMappingURL=problem.js.map
+exports.Problem = Problem;

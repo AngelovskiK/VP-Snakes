@@ -1,4 +1,10 @@
-class Snake {
+import {Point} from './point';
+import {Direction, Problem} from './problem';
+import {ProblemNode} from './node';
+import {Traversal} from './traversal';
+import {astar, Graph} from './node_modules/javascript-astar';
+
+export class Snake {
     traversal = new Traversal();
 
     head: Point;

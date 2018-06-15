@@ -1,3 +1,8 @@
+"use strict";
+exports.__esModule = true;
+var problem_1 = require("./problem");
+var node_1 = require("./node");
+var priority_queue_1 = require("./priority_queue");
 var Traversal = /** @class */ (function () {
     function Traversal() {
     }
@@ -20,7 +25,7 @@ var Traversal = /** @class */ (function () {
     Traversal.prototype.breadth_first_tree_search = function (problem) {
         var queue = [];
         var visited = [];
-        queue.push(new ProblemNode(problem.state));
+        queue.push(new node_1.ProblemNode(problem.state));
         // console.log("Problem", problem);
         //visited.push(new ProblemNode(problem.state));
         //while (queue.length > 0) {
@@ -41,7 +46,7 @@ var Traversal = /** @class */ (function () {
             }
             // console.log("Node State", node.state[0]);
             // console.log("Condition", !Problem.contains_node_state(node.state, visited));
-            if (!Problem.contains_node_state(node.state, visited)) {
+            if (!problem_1.Problem.contains_node_state(node.state, visited)) {
                 visited.push(node.state);
                 queue.push.apply(queue, node.expand(problem));
             }
@@ -50,30 +55,30 @@ var Traversal = /** @class */ (function () {
         return null;
     };
     Traversal.prototype.best_first_graph_search = function (problem, compute) {
-        var node = new ProblemNode(problem.state);
+        var node = new node_1.ProblemNode(problem.state);
         if (problem.goal_test(node.state)) {
             return node;
         }
         // Min Queue
         var comparator = function (a, b) { return a < b; };
-        var queue = new PriorityQueue(comparator);
+        var queue = new priority_queue_1.PriorityQueue(comparator);
         queue.push(node);
         var visited = [];
         while (!queue.isEmpty()) {
-            var node_1 = queue.pop();
+            var node_2 = queue.pop();
             // console.log(node.state);
-            if (problem.goal_test(node_1.state)) {
-                return node_1;
+            if (problem.goal_test(node_2.state)) {
+                return node_2;
             }
-            visited.push(node_1.state);
-            console.log(node_1.expand(problem));
-            for (var _i = 0, _a = node_1.expand(problem); _i < _a.length; _i++) {
+            visited.push(node_2.state);
+            console.log(node_2.expand(problem));
+            for (var _i = 0, _a = node_2.expand(problem); _i < _a.length; _i++) {
                 var child = _a[_i];
-                if (!Problem.contains_node_state(child.state, visited) &&
-                    !Problem.contains_node(child, queue._heap)) {
+                if (!problem_1.Problem.contains_node_state(child.state, visited) &&
+                    !problem_1.Problem.contains_node(child, queue._heap)) {
                     queue.push(child);
                 }
-                else if (Problem.contains_node(child, queue._heap)) {
+                else if (problem_1.Problem.contains_node(child, queue._heap)) {
                     // console.log("Problem.contains_node(child, queue._heap)");
                     var existing = queue.find(child);
                     if (!existing)
@@ -96,4 +101,4 @@ var Traversal = /** @class */ (function () {
     };
     return Traversal;
 }());
-//# sourceMappingURL=traversal.js.map
+exports.Traversal = Traversal;

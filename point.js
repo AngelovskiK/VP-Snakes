@@ -1,3 +1,5 @@
+"use strict";
+exports.__esModule = true;
 var Point = /** @class */ (function () {
     function Point(x, y) {
         this.x = x;
@@ -23,4 +25,4 @@ var Point = /** @class */ (function () {
     };
     return Point;
 }());
-//# sourceMappingURL=point.js.map
+exports.Point = Point;

@@ -1,4 +1,8 @@
-class Traversal {
+import {Direction, Problem} from './problem';
+import {ProblemNode} from './node';
+import {PriorityQueue} from './priority_queue';
+
+export class Traversal {
 
     constructor() {
 

@@ -1,7 +1,10 @@
+"use strict";
+exports.__esModule = true;
 var pq_top = 0;
 var pq_parent = function (i) { return ((i + 1) >>> 1) - 1; };
 var left = function (i) { return (i << 1) + 1; };
 var right = function (i) { return (i + 1) << 1; };
+var problem_1 = require("./problem");
 var PriorityQueue = /** @class */ (function () {
     function PriorityQueue(comparator) {
         if (comparator === void 0) { comparator = function (a, b) { return a > b; }; }
@@ -15,7 +18,7 @@ var PriorityQueue = /** @class */ (function () {
         }
     };
     PriorityQueue.prototype.contains = function (item) {
-        return Problem.contains_node_state(item, this._heap);
+        return problem_1.Problem.contains_node_state(item, this._heap);
     };
     PriorityQueue.prototype.find = function (item) {
         var index = this._heap.indexOf(item);
@@ -65,8 +68,8 @@ var PriorityQueue = /** @class */ (function () {
         return this._comparator(this._heap[i], this._heap[j]);
     };
     PriorityQueue.prototype._swap = function (i, j) {
-        _a = [this._heap[j], this._heap[i]], this._heap[i] = _a[0], this._heap[j] = _a[1];
         var _a;
+        _a = [this._heap[j], this._heap[i]], this._heap[i] = _a[0], this._heap[j] = _a[1];
     };
     PriorityQueue.prototype._siftUp = function () {
         var node = this.size() - 1;
@@ -86,4 +89,4 @@ var PriorityQueue = /** @class */ (function () {
     };
     return PriorityQueue;
 }());
-//# sourceMappingURL=priority_queue.js.map
+exports.PriorityQueue = PriorityQueue;
