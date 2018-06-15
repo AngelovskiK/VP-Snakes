@@ -5,6 +5,8 @@ import {ajax} from './node_modules/jquery';
 import {Snake} from './snake';
 import {Direction, Problem} from './problem';
 
+let direction;
+
 export class Board {
     container: any;
 
@@ -23,10 +25,15 @@ export class Board {
     block_size: number;
     ten_percent: number;
 
+    SNAKE_COLOR: string;
     FOOD_COLOR: string;
+    SPECIAL_FOOD_COLOR: string;
 
     food_exists: boolean;
     food_point: Point;
+    special_food_point: Point;
+    special_food_type: String;
+    special_food_types: String[];
 
     isPaused: boolean;
     cycle: any;
@@ -53,9 +60,11 @@ export class Board {
         this.menu = new Menu();
         this.traversal = new Traversal();
 
+        this.SNAKE_COLOR = "blue";
         this.FOOD_COLOR = "red";
+        this.SPECIAL_FOOD_COLOR="pink";
         this.food_exists = false;
-        this.food_point = new Point(5, 5);
+        this.special_food_types = ["big", "small", "slow", "fast"];
 
         this.isPaused = false;
         this.type_of_ai = type_of_ai;
@@ -97,11 +106,18 @@ export class Board {
 
         this.draw(ctx);
 
-        let snake: Snake = new Snake(2, 2, Direction.Right, "blue", this.vSize, this.hSize, this.type_of_ai);
+        let snake: Snake = new Snake(2, 2, Direction.Right, this.SNAKE_COLOR, this.vSize, this.hSize, this.type_of_ai);
 
-        let direction: Direction = Direction.Right;
+        this.food_exists = true;
+        this.food_point = this.getRandomPointNotInList(snake.trail);
+        snake.trail.push(this.food_point);
+        this.special_food_point = this.getRandomPointNotInList(snake.trail);
+        this.special_food_type = this.special_food_types[Math.floor(Math.random()*(this.special_food_types.length))];
+        snake.trail.pop();
+        direction = Direction.Right;
         document.addEventListener("keydown", (e) => {
             //handle direction changes and pauses
+            console.log(e);
             switch (e.keyCode) {
                 //left
                 case 37:
@@ -151,7 +167,7 @@ export class Board {
 
         this.draw(ctx);
 
-        let snake: Snake = new Snake(2, 2, Direction.Right, "blue", this.vSize, this.hSize, this.type_of_ai);
+        let snake: Snake = new Snake(2, 2, Direction.Right, this.SNAKE_COLOR, this.vSize, this.hSize, this.type_of_ai);
 
         document.addEventListener("keydown", (e) => {
             switch (e.keyCode) {
@@ -184,8 +200,10 @@ export class Board {
 
             snake.draw(ctx, this.block_size, this.ten_percent);
             this.drawFood(ctx, this.food_point, this.FOOD_COLOR);
+            this.drawFood(ctx, this.special_food_point, this.SPECIAL_FOOD_COLOR);
 
-            if (playerType === "human") {
+            console.log("In While", playerType);
+            if (playerType == "human") {
                 snake.head = snake.move(direction);
             } else {
                 // ai_snake
@@ -195,10 +213,48 @@ export class Board {
                     snake.head = snake.move(direction);
                 }
             }
+            console.log(direction);
 
             if (snake.head.equals(this.food_point)) {
                 snake.length += 1;
                 this.food_point = this.getRandomPointNotInList(snake.trail);
+            }else if(snake.head.equals(this.special_food_point)){
+                console.log(playerType);
+                let player_type = playerType;
+                console.log(player_type);
+                
+                switch(this.special_food_type){
+                    case "big":{length+=2;
+                        break;}
+                        
+                    case "small":{length-=Math.round(length/10);
+                        break;}
+                        
+                    case "fast":{interval*=0.945;
+                        clearInterval(cycle);
+                        cycle = setInterval(() => this.animate(ctx, player_type, direction, snake, interval, this.container, this.menu, cycle), interval);
+                        setTimeout(()=>{
+                        interval *= 1/0.945;
+                        clearInterval(cycle);
+                        cycle = setInterval(() => this.animate(ctx, player_type, direction, snake, interval, this.container, this.menu, cycle), interval);
+                        }, 5000);
+                        break;}
+                        
+                    case "slow":{
+                        interval*=1.055;
+                        clearInterval(this.cycle);
+                        this.cycle = setInterval(() => this.animate(ctx, player_type, direction, snake, interval, this.container, this.menu, this.cycle), interval);
+                        setTimeout(()=>{
+                        interval *= 1/1.055;
+                        clearInterval(this.cycle);
+                        this.cycle = setInterval(() => this.animate(ctx, player_type, direction, snake, interval, this.container, this.menu, this.cycle), interval);
+                        }, 5000);
+                        break;
+                    }
+                        
+                }
+                this.special_food_point = this.getRandomPointNotInList(snake.trail);
+                this.special_food_type = this.special_food_types[Math.floor(Math.random()*(this.special_food_types.length))];
             }
         } else {
             // get name
@@ -221,6 +277,7 @@ export class Board {
                 });
 
         }
+        ctx.fillStyle = this.SNAKE_COLOR;
         ctx.fillText("Player 1 - Length: " + snake.length + " Speed: " + interval, this.block_size, this.block_size);
     }
 

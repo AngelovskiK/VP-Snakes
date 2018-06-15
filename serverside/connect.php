@@ -1,8 +1,8 @@
 <?php
-  header("Access-Control-Allow-Origin: *");
+header("Access-Control-Allow-Origin: *");
 
   // $conn = mysqli_connect("localhost", "id6193202_admin", "password", "id6193202_snakes");
-  $conn = mysqli_connect("localhost", "id6193202_admin", "password", "id6193202_snakes");
+$conn = mysqli_connect("localhost", "id6193202_admin", "password", "id6193202_snakes");
 
 
   // if (!$conn) {

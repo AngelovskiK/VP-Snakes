@@ -7,6 +7,7 @@ var traversal_1 = require("./traversal");
 var jquery_1 = require("./node_modules/jquery");
 var snake_1 = require("./snake");
 var problem_1 = require("./problem");
+var direction;
 var Board = /** @class */ (function () {
     function Board(container, width, height, difficulty, type_of_ai) {
         this.container = container;
@@ -23,9 +24,11 @@ var Board = /** @class */ (function () {
         this.hSize = this.height / this.block_size;
         this.menu = new menu_1.Menu();
         this.traversal = new traversal_1.Traversal();
+        this.SNAKE_COLOR = "blue";
         this.FOOD_COLOR = "red";
+        this.SPECIAL_FOOD_COLOR = "pink";
         this.food_exists = false;
-        this.food_point = new point_1.Point(5, 5);
+        this.special_food_types = ["big", "small", "slow", "fast"];
         this.isPaused = false;
         this.type_of_ai = type_of_ai;
     }
@@ -60,10 +63,17 @@ var Board = /** @class */ (function () {
         var ctx = this.canvas.getContext("2d");
         ctx.font = "22px Arial";
         this.draw(ctx);
-        var snake = new snake_1.Snake(2, 2, problem_1.Direction.Right, "blue", this.vSize, this.hSize, this.type_of_ai);
-        var direction = problem_1.Direction.Right;
+        var snake = new snake_1.Snake(2, 2, problem_1.Direction.Right, this.SNAKE_COLOR, this.vSize, this.hSize, this.type_of_ai);
+        this.food_exists = true;
+        this.food_point = this.getRandomPointNotInList(snake.trail);
+        snake.trail.push(this.food_point);
+        this.special_food_point = this.getRandomPointNotInList(snake.trail);
+        this.special_food_type = this.special_food_types[Math.floor(Math.random() * (this.special_food_types.length))];
+        snake.trail.pop();
+        direction = problem_1.Direction.Right;
         document.addEventListener("keydown", function (e) {
             //handle direction changes and pauses
+            console.log(e);
             switch (e.keyCode) {
                 //left
                 case 37:
@@ -108,7 +118,7 @@ var Board = /** @class */ (function () {
         var ctx = this.canvas.getContext("2d");
         ctx.font = "22px Arial";
         this.draw(ctx);
-        var snake = new snake_1.Snake(2, 2, problem_1.Direction.Right, "blue", this.vSize, this.hSize, this.type_of_ai);
+        var snake = new snake_1.Snake(2, 2, problem_1.Direction.Right, this.SNAKE_COLOR, this.vSize, this.hSize, this.type_of_ai);
         document.addEventListener("keydown", function (e) {
             switch (e.keyCode) {
                 // Letter P key
@@ -130,6 +140,7 @@ var Board = /** @class */ (function () {
         this.cycle = setInterval(function () { return _this.animate(ctx, "ai_snake", problem_1.Direction.Right, snake, interval, _this.container, _this.menu, _this.cycle); }, interval);
     };
     Board.prototype.animate = function (ctx, playerType, direction, snake, interval, container, menu, cycle) {
+        var _this = this;
         this.draw(ctx);
         if (!point_1.Point.isInList(snake.head, snake.trail)) {
             snake.trail.push(snake.head);
@@ -138,7 +149,9 @@ var Board = /** @class */ (function () {
             }
             snake.draw(ctx, this.block_size, this.ten_percent);
             this.drawFood(ctx, this.food_point, this.FOOD_COLOR);
-            if (playerType === "human") {
+            this.drawFood(ctx, this.special_food_point, this.SPECIAL_FOOD_COLOR);
+            console.log("In While", playerType);
+            if (playerType == "human") {
                 snake.head = snake.move(direction);
             }
             else {
@@ -150,9 +163,49 @@ var Board = /** @class */ (function () {
                     snake.head = snake.move(direction);
                 }
             }
+            console.log(direction);
             if (snake.head.equals(this.food_point)) {
                 snake.length += 1;
                 this.food_point = this.getRandomPointNotInList(snake.trail);
+            }
+            else if (snake.head.equals(this.special_food_point)) {
+                console.log(playerType);
+                var player_type_1 = playerType;
+                console.log(player_type_1);
+                switch (this.special_food_type) {
+                    case "big": {
+                        length += 2;
+                        break;
+                    }
+                    case "small": {
+                        length -= Math.round(length / 10);
+                        break;
+                    }
+                    case "fast": {
+                        interval *= 0.945;
+                        clearInterval(cycle);
+                        cycle = setInterval(function () { return _this.animate(ctx, player_type_1, direction, snake, interval, _this.container, _this.menu, cycle); }, interval);
+                        setTimeout(function () {
+                            interval *= 1 / 0.945;
+                            clearInterval(cycle);
+                            cycle = setInterval(function () { return _this.animate(ctx, player_type_1, direction, snake, interval, _this.container, _this.menu, cycle); }, interval);
+                        }, 5000);
+                        break;
+                    }
+                    case "slow": {
+                        interval *= 1.055;
+                        clearInterval(this.cycle);
+                        this.cycle = setInterval(function () { return _this.animate(ctx, player_type_1, direction, snake, interval, _this.container, _this.menu, _this.cycle); }, interval);
+                        setTimeout(function () {
+                            interval *= 1 / 1.055;
+                            clearInterval(_this.cycle);
+                            _this.cycle = setInterval(function () { return _this.animate(ctx, player_type_1, direction, snake, interval, _this.container, _this.menu, _this.cycle); }, interval);
+                        }, 5000);
+                        break;
+                    }
+                }
+                this.special_food_point = this.getRandomPointNotInList(snake.trail);
+                this.special_food_type = this.special_food_types[Math.floor(Math.random() * (this.special_food_types.length))];
             }
         }
         else {
@@ -174,6 +227,7 @@ var Board = /** @class */ (function () {
                 console.log(name);
             });
         }
+        ctx.fillStyle = this.SNAKE_COLOR;
         ctx.fillText("Player 1 - Length: " + snake.length + " Speed: " + interval, this.block_size, this.block_size);
     };
     Board.prototype.draw = function (ctx) {
