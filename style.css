@@ -1,0 +1,85 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: #333;
+}
+
+.container {
+    width: 640px;
+    height: 480px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font: 22px Tahoma;
+    text-align: center;
+}
+
+.container .difficultyItem {
+    margin-bottom: 10px;
+}
+
+.chosenDifficultyItem {
+    background: black;
+}
+
+.container .difficultyItem :hover {
+    margin-bottom: 20px;
+    background-color: black;
+!important;
+    color: white;
+}
+
+.container .difficultyItem :active {
+    margin-bottom: 20px;
+    color: black;
+}
+
+.container .menuItem {
+    /*width: 60%;*/
+    /*height: 30px;*/
+    /*display: block;*/
+    /*margin: 5px auto;*/
+}
+
+.title {
+    margin-bottom: 15px;
+    text-align: center;
+    font-size: 32px;
+    font-weight: bolder;
+}
+
+.red {
+    color: red;
+}
+
+.container .quit {
+    position: fixed;
+    top: 2px;
+    right: -4px;
+    background: none;
+    color: red;
+    border: 0;
+    font-weight: bold;
+    font: 32px Arial;
+}
+
+.hidden {
+    visibility: hidden;
+}
+
+img {
+    display: none;
+}
+
+span {
+    font-size: 20px;
+}
+
+iframe {
+    display: none;
+}
