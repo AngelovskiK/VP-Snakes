@@ -1,12 +1,12 @@
 const GAME_NAME = "Serpent Works";
 var DIFFICULTY: number = 2;
-
+let YOUTUBE_VIDEO: string;
 /*
 * Type Of AI
 * 0 - Uninformed Search => BFS
 * 1 - Informed Search   => A*
 * */
-var TYPE_OF_AI:number = 1;
+var TYPE_OF_AI: number = 1;
 
 class Menu {
 
@@ -197,7 +197,7 @@ class Menu {
         board.startMultiPlayer();
     }
 
-    StartMultiPlayerWithAI(container){
+    StartMultiPlayerWithAI(container) {
         let board: Board = new Board(container, WIDTH, HEIGHT, DIFFICULTY, TYPE_OF_AI);
         board.startMultiPlayerWithAI();
     }
@@ -215,12 +215,13 @@ class Menu {
         $.ajax({
             url: 'https://asocial-setting.000webhostapp.com/scores.php?type=sp',
             dataType: 'json',
-            success: (data)=>{
+            success: (data) => {
                 console.log(data);
                 data.forEach(element => {
-                    ordered_list.innerHTML += `<li> ${element.name} - ${element.score} </li>`;
+                    ordered_list.innerHTML += `<li> ${element.name} - ${element.score} - ${Math.floor(element.time/60)}:${element.time%60} </li>`;
                 });
-            }
+            },
+            failure: (e) => {console.log(e);}
         });
 
         let backButton = document.createElement("button");
@@ -247,7 +248,7 @@ class Menu {
         $.ajax({
             url: 'https://asocial-setting.000webhostapp.com/scores.php?type=tp',
             dataType: 'json',
-            success: (data)=>{
+            success: (data) => {
                 console.log(data);
                 data.forEach(element => {
                     ordered_list.innerHTML += `<li> ${element.name} - ${element.score} </li>`;
@@ -265,8 +266,6 @@ class Menu {
         container.appendChild(left_column);
         container.appendChild(menu);
     }
-
-
 
     getName(canvas, ctx, text, cb) {
         //setup screen
@@ -379,7 +378,16 @@ class Menu {
 <option value="${this.width + (this.width * 0.25)},${this.height + (this.height * 0.25)}">${this.width + (this.width * 0.25)} x ${this.height + (this.height * 0.25)}</option>
                   </select>
                 </div>
+                
+                <span id="current_youtube_video">Current YouTube Video ${YOUTUBE_VIDEO}</span><br><br>
+                <div class="form-group">
+                  <span for="sel1">Enter a YouTube Link:</span>
+                  <input type="url" class="form-control" id="selectYouTubeLink" onkeypress="Menu.changeYouTubeVideo(event)">
+                  <span id="spanYouTubeValidation" class="bg-danger text-danger"></span>
+                </div><br>
             </div>
+            
+            
             <div class="col-md-2"></div>    
         </div>
         `;
@@ -424,5 +432,49 @@ class Menu {
         document.getElementById("current_difficulty").innerHTML = msg.toString();
     }
 
+    static changeYouTubeVideo(event) {
+        if (event.keyCode === 13) {
+            event.preventDefault();
+            let current_src: string = document.getElementsByClassName("youtube-video")[0].getAttribute("src");
 
+            let video_url_parts: Array<string>;
+
+            let new_video_url = document.getElementById("selectYouTubeLink").value;
+
+            if (this.ValidURL(new_video_url)) {
+                console.log("Valid");
+                document.getElementById("spanYouTubeValidation").className = "bg-success text-success";
+                document.getElementById("spanYouTubeValidation").innerText = "Valid URL";
+
+            } else {
+                console.log("Invalid");
+                document.getElementById("spanYouTubeValidation").className = "bg-danger text-danger";
+                document.getElementById("spanYouTubeValidation").innerText = "Invalid URL";
+            }
+
+            if (new_video_url.indexOf("=") !== -1) {
+                console.log("includes = ");
+                video_url_parts = new_video_url.split("=");
+            } else {
+                console.log("does not includes = ");
+                video_url_parts = new_video_url.split("/");
+            }
+            console.log(video_url_parts[video_url_parts.length - 1]);
+            let video_id: string = video_url_parts[video_url_parts.length - 1];
+            let new_src = `https://www.youtube.com/embed/${video_id}?enablejsapi=1&version=3&playerapiid=ytplayer&autoplay=1`;
+            document.getElementsByClassName("youtube-video")[0].setAttribute("src", new_src);
+            $('.youtube-video')[0].contentWindow.postMessage('{"event":"command","func":"' + 'pauseVideo' + '","args":""}', '*');
+        }
+    }
+
+    static ValidURL(str) {
+        let pattern = "/^(?:\\w+:)?\\/\\/([^\\s\\.]+\\.\\S{2}|localhost[\\:?\\d]*)\\S*$/";
+        console.log(str);
+        let substring = "https://youtu.be";
+        let regular = "https://www.youtube.com/watch?v=";
+        if (str.indexOf(substring) !== -1 || str.indexOf(regular) !== -1) {
+            return true;
+        }
+        return false;
+    }
 }

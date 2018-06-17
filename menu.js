@@ -1,5 +1,6 @@
 var GAME_NAME = "Serpent Works";
 var DIFFICULTY = 2;
+var YOUTUBE_VIDEO;
 /*
 * Type Of AI
 * 0 - Uninformed Search => BFS
@@ -177,9 +178,10 @@ var Menu = /** @class */ (function () {
             success: function (data) {
                 console.log(data);
                 data.forEach(function (element) {
-                    ordered_list.innerHTML += "<li> " + element.name + " - " + element.score + " </li>";
+                    ordered_list.innerHTML += "<li> " + element.name + " - " + element.score + " - " + Math.floor(element.time / 60) + ":" + element.time % 60 + " </li>";
                 });
-            }
+            },
+            failure: function (e) { console.log(e); }
         });
         var backButton = document.createElement("button");
         backButton.appendChild(document.createTextNode("Go Back"));
@@ -289,7 +291,7 @@ var Menu = /** @class */ (function () {
         left_column.className = "col-md-2";
         var menu = document.createElement("div");
         menu.className = "col-md-8";
-        container.innerHTML += "\n        <div class=\"col-md-12\">\n            <div class=\"col-md-2\"></div>\n            <div class=\"col-md-8\">\n                <h1>Settings</h1><br/>\n                \n                <span id=\"current_difficulty\">Current Difficulty " + (DIFFICULTY == 1 ? "Easy" : DIFFICULTY == 2 ? "Normal" : "Hard") + "</span><br><br>\n                <div class=\"form-group\">\n                  <span for=\"sel1\">Select Difficulty:</span>\n                  <select class=\"form-control\" id=\"selectDifficulty\" onchange=\"Menu.changeDifficulty()\">\n                        <option value=\"1\">Easy</option>\n                        <option value=\"2\">Normal</option>\n                        <option value=\"3\">Hard</option>\n                  </select>\n                </div><br>\n                \n                <span id=\"current_resolution\">Current Resolution " + WIDTH + " x " + HEIGHT + "</span><br><br>\n                <div class=\"form-group\">\n                  <span for=\"sel1\">Select Resolution:</span>\n                  <select class=\"form-control\" id=\"resolution\" onchange=\"Menu.changeResolution()\">\n<option value=\"" + (this.width - (this.width * 0.25)) + "," + (this.height - (this.height * 0.25)) + "\">" + (this.width - (this.width * 0.25)) + " x " + (this.height - (this.height * 0.25)) + "</option>\n<option value=\"" + (this.width - (this.width * 0.125)) + "," + (this.height - (this.height * 0.125)) + "\">" + (this.width - (this.width * 0.125)) + " x " + (this.height - (this.height * 0.125)) + "</option>                  \n<option value=\"" + this.width + "," + this.height + "\">" + this.width + " x " + this.height + "</option>\n<option value=\"" + (this.width + (this.width * 0.125)) + "," + (this.height + (this.height * 0.125)) + "\">" + (this.width + (this.width * 0.125)) + " x " + (this.height + (this.height * 0.125)) + "</option>\n<option value=\"" + (this.width + (this.width * 0.25)) + "," + (this.height + (this.height * 0.25)) + "\">" + (this.width + (this.width * 0.25)) + " x " + (this.height + (this.height * 0.25)) + "</option>\n                  </select>\n                </div>\n            </div>\n            <div class=\"col-md-2\"></div>    \n        </div>\n        ";
+        container.innerHTML += "\n        <div class=\"col-md-12\">\n            <div class=\"col-md-2\"></div>\n            <div class=\"col-md-8\">\n                <h1>Settings</h1><br/>\n                \n                <span id=\"current_difficulty\">Current Difficulty " + (DIFFICULTY == 1 ? "Easy" : DIFFICULTY == 2 ? "Normal" : "Hard") + "</span><br><br>\n                <div class=\"form-group\">\n                  <span for=\"sel1\">Select Difficulty:</span>\n                  <select class=\"form-control\" id=\"selectDifficulty\" onchange=\"Menu.changeDifficulty()\">\n                        <option value=\"1\">Easy</option>\n                        <option value=\"2\">Normal</option>\n                        <option value=\"3\">Hard</option>\n                  </select>\n                </div><br>\n                \n                <span id=\"current_resolution\">Current Resolution " + WIDTH + " x " + HEIGHT + "</span><br><br>\n                <div class=\"form-group\">\n                  <span for=\"sel1\">Select Resolution:</span>\n                  <select class=\"form-control\" id=\"resolution\" onchange=\"Menu.changeResolution()\">\n<option value=\"" + (this.width - (this.width * 0.25)) + "," + (this.height - (this.height * 0.25)) + "\">" + (this.width - (this.width * 0.25)) + " x " + (this.height - (this.height * 0.25)) + "</option>\n<option value=\"" + (this.width - (this.width * 0.125)) + "," + (this.height - (this.height * 0.125)) + "\">" + (this.width - (this.width * 0.125)) + " x " + (this.height - (this.height * 0.125)) + "</option>                  \n<option value=\"" + this.width + "," + this.height + "\">" + this.width + " x " + this.height + "</option>\n<option value=\"" + (this.width + (this.width * 0.125)) + "," + (this.height + (this.height * 0.125)) + "\">" + (this.width + (this.width * 0.125)) + " x " + (this.height + (this.height * 0.125)) + "</option>\n<option value=\"" + (this.width + (this.width * 0.25)) + "," + (this.height + (this.height * 0.25)) + "\">" + (this.width + (this.width * 0.25)) + " x " + (this.height + (this.height * 0.25)) + "</option>\n                  </select>\n                </div>\n                \n                <span id=\"current_youtube_video\">Current YouTube Video " + YOUTUBE_VIDEO + "</span><br><br>\n                <div class=\"form-group\">\n                  <span for=\"sel1\">Enter a YouTube Link:</span>\n                  <input type=\"url\" class=\"form-control\" id=\"selectYouTubeLink\" onkeypress=\"Menu.changeYouTubeVideo(event)\">\n                  <span id=\"spanYouTubeValidation\" class=\"bg-danger text-danger\"></span>\n                </div><br>\n            </div>\n            \n            \n            <div class=\"col-md-2\"></div>    \n        </div>\n        ";
         var btnPlayVideo = document.createElement("button");
         btnPlayVideo.appendChild(document.createTextNode("Play Music"));
         btnPlayVideo.addEventListener("click", function () { return $('.youtube-video')[0].contentWindow.postMessage('{"event":"command","func":"' + 'playVideo' + '","args":""}', '*'); });
@@ -323,6 +325,47 @@ var Menu = /** @class */ (function () {
         console.log(DIFFICULTY);
         var msg = "Difficulty changed to " + (DIFFICULTY == 1 ? "Easy" : DIFFICULTY == 2 ? "Normal" : "Hard");
         document.getElementById("current_difficulty").innerHTML = msg.toString();
+    };
+    Menu.changeYouTubeVideo = function (event) {
+        if (event.keyCode === 13) {
+            event.preventDefault();
+            var current_src = document.getElementsByClassName("youtube-video")[0].getAttribute("src");
+            var video_url_parts = void 0;
+            var new_video_url = document.getElementById("selectYouTubeLink").value;
+            if (this.ValidURL(new_video_url)) {
+                console.log("Valid");
+                document.getElementById("spanYouTubeValidation").className = "bg-success text-success";
+                document.getElementById("spanYouTubeValidation").innerText = "Valid URL";
+            }
+            else {
+                console.log("Invalid");
+                document.getElementById("spanYouTubeValidation").className = "bg-danger text-danger";
+                document.getElementById("spanYouTubeValidation").innerText = "Invalid URL";
+            }
+            if (new_video_url.indexOf("=") !== -1) {
+                console.log("includes = ");
+                video_url_parts = new_video_url.split("=");
+            }
+            else {
+                console.log("does not includes = ");
+                video_url_parts = new_video_url.split("/");
+            }
+            console.log(video_url_parts[video_url_parts.length - 1]);
+            var video_id = video_url_parts[video_url_parts.length - 1];
+            var new_src = "https://www.youtube.com/embed/" + video_id + "?enablejsapi=1&version=3&playerapiid=ytplayer&autoplay=1";
+            document.getElementsByClassName("youtube-video")[0].setAttribute("src", new_src);
+            $('.youtube-video')[0].contentWindow.postMessage('{"event":"command","func":"' + 'pauseVideo' + '","args":""}', '*');
+        }
+    };
+    Menu.ValidURL = function (str) {
+        var pattern = "/^(?:\\w+:)?\\/\\/([^\\s\\.]+\\.\\S{2}|localhost[\\:?\\d]*)\\S*$/";
+        console.log(str);
+        var substring = "https://youtu.be";
+        var regular = "https://www.youtube.com/watch?v=";
+        if (str.indexOf(substring) !== -1 || str.indexOf(regular) !== -1) {
+            return true;
+        }
+        return false;
     };
     return Menu;
 }());

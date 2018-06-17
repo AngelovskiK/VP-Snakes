@@ -36,13 +36,16 @@ class Board {
 
     // new code
     interval: number;
-
+    milis: number;
+    difficulty:number;
     // end of new code
 
     constructor(container, width, height, difficulty, type_of_ai) {
         this.container = container;
         this.width = width;
         this.height = height;
+
+        this.difficulty = difficulty;
 
         let common_divisor = this.common_divisors(width, height).reverse();
         this.block_size = common_divisor[difficulty + 1];
@@ -100,6 +103,7 @@ class Board {
     }
 
     startSinglePlayer() {
+        this.milis = 0;
         this.erase();
         this.addBackToMenuButton();
 
@@ -166,7 +170,7 @@ class Board {
         ctx.font = "22px Arial";
 
         this.draw(ctx);
-
+        this.milis = 0;
         let snakeOne: Snake = new Snake(2, 2, Direction.Right, this.SNAKE_COLOR, this.vSize, this.hSize, this.type_of_ai);
 
         let snakeTwo: Snake = new Snake(4, 4, Direction.Left, this.SNAKE_TWO_COLOR, this.vSize, this.hSize, this.type_of_ai);
@@ -237,6 +241,7 @@ class Board {
     chosen_point: Point;
 
     animateTwoPlayer(ctx, playerType, directionOne, directionTwo, snakeOne: Snake, snakeTwo: Snake, interval, container, menu) {
+        this.milis+=interval;
 
         this.draw(ctx);
 
@@ -377,11 +382,13 @@ class Board {
                     menu.ShowMenu(container);
                     $.ajax({
                         url: 'https://asocial-setting.000webhostapp.com/scores.php',
-                        data: JSON.stringify({
-                            type: 'tp',
+                        data: {
+                            type: 'mp',
                             name: name,
-                            score: snakeOne.length + snakeTwo.length
-                        }),
+                            score: snakeOne.length + snakeTwo.length,
+                            time: this.milis/1000,
+                            difficulty: this.difficulty
+                        },
                         type: 'post',
                         dataType: 'json',
                         success: (result) => {
@@ -392,10 +399,11 @@ class Board {
                 });
 
         }
+
         ctx.fillStyle = snakeOne.color;
-        ctx.fillText("Player 1 - Length: " + snakeOne.length + " Speed: " + interval, this.block_size, this.block_size);
+        ctx.fillText("Player 1 - Length: " + snakeOne.length + " Time: " + Math.floor(this.milis/1000), this.block_size, this.block_size);
         ctx.fillStyle = snakeTwo.color;
-        ctx.fillText("Player 2 - Length: " + snakeTwo.length + " Speed: " + interval, this.block_size * 2, this.block_size * 2);
+        ctx.fillText("Player 2 - Length: " + snakeTwo.length, this.block_size, this.block_size * 2);
 
     }
 
@@ -444,6 +452,7 @@ class Board {
 
     animate(ctx, playerType, direction, snake: Snake, interval, container, menu) {
         this.draw(ctx);
+        this.milis += interval;
 
         if (!Point.isInList(snake.head, snake.trail)) {
             snake.trail.push(snake.head);
@@ -576,7 +585,7 @@ class Board {
                     $.ajax({
                         url: 'https://asocial-setting.000webhostapp.com/scores.php',
                         data: {
-                            type: 'sp', name: name, score: snake.length
+                            type: 'sp', name: name, score: snake.length, time: this.milis/1000, difficulty: this.difficulty
                         },
                         type: 'post',
                         dataType: 'json',
@@ -589,7 +598,7 @@ class Board {
 
         }
         ctx.fillStyle = snake.color;
-        ctx.fillText("Player 1 - Length: " + snake.length + " Speed: " + interval, this.block_size, this.block_size);
+        ctx.fillText("Player 1 - Length: " + snake.length + " Time: " + Math.floor(this.milis/1000), this.block_size, this.block_size);
     }
 
     draw(ctx) {
@@ -716,6 +725,7 @@ class Board {
     }
 
     startMultiPlayerWithAI() {
+            this.milis = 0;
             this.erase();
             this.addBackToMenuButton();
 

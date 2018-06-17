@@ -5,6 +5,7 @@ var Board = /** @class */ (function () {
         this.container = container;
         this.width = width;
         this.height = height;
+        this.difficulty = difficulty;
         var common_divisor = this.common_divisors(width, height).reverse();
         this.block_size = common_divisor[difficulty + 1];
         console.log(this.common_divisors(width, height));
@@ -53,6 +54,7 @@ var Board = /** @class */ (function () {
     };
     Board.prototype.startSinglePlayer = function () {
         var _this = this;
+        this.milis = 0;
         this.erase();
         this.addBackToMenuButton();
         var ctx = this.canvas.getContext("2d");
@@ -112,6 +114,7 @@ var Board = /** @class */ (function () {
         var ctx = this.canvas.getContext("2d");
         ctx.font = "22px Arial";
         this.draw(ctx);
+        this.milis = 0;
         var snakeOne = new Snake(2, 2, Direction.Right, this.SNAKE_COLOR, this.vSize, this.hSize, this.type_of_ai);
         var snakeTwo = new Snake(4, 4, Direction.Left, this.SNAKE_TWO_COLOR, this.vSize, this.hSize, this.type_of_ai);
         // new code
@@ -177,6 +180,7 @@ var Board = /** @class */ (function () {
         }, interval);
     };
     Board.prototype.animateTwoPlayer = function (ctx, playerType, directionOne, directionTwo, snakeOne, snakeTwo, interval, container, menu) {
+        this.milis += interval;
         this.draw(ctx);
         if (!Point.areInList([snakeOne.head, snakeTwo.head], snakeOne.trail.concat(snakeTwo.trail))) {
             snakeOne.trail.push(snakeOne.head);
@@ -306,11 +310,13 @@ var Board = /** @class */ (function () {
                 menu.ShowMenu(container);
                 $.ajax({
                     url: 'https://asocial-setting.000webhostapp.com/scores.php',
-                    data: JSON.stringify({
-                        type: 'tp',
+                    data: {
+                        type: 'mp',
                         name: name,
-                        score: snakeOne.length + snakeTwo.length
-                    }),
+                        score: snakeOne.length + snakeTwo.length,
+                        time: this.milis / 1000,
+                        difficulty: this.difficulty
+                    },
                     type: 'post',
                     dataType: 'json',
                     success: function (result) {
@@ -321,9 +327,9 @@ var Board = /** @class */ (function () {
             });
         }
         ctx.fillStyle = snakeOne.color;
-        ctx.fillText("Player 1 - Length: " + snakeOne.length + " Speed: " + interval, this.block_size, this.block_size);
+        ctx.fillText("Player 1 - Length: " + snakeOne.length + " Time: " + Math.floor(this.milis / 1000), this.block_size, this.block_size);
         ctx.fillStyle = snakeTwo.color;
-        ctx.fillText("Player 2 - Length: " + snakeTwo.length + " Speed: " + interval, this.block_size * 2, this.block_size * 2);
+        ctx.fillText("Player 2 - Length: " + snakeTwo.length, this.block_size, this.block_size * 2);
     };
     Board.prototype.start = function () {
         var _this = this;
@@ -367,6 +373,7 @@ var Board = /** @class */ (function () {
     Board.prototype.animate = function (ctx, playerType, direction, snake, interval, container, menu) {
         var _this = this;
         this.draw(ctx);
+        this.milis += interval;
         if (!Point.isInList(snake.head, snake.trail)) {
             snake.trail.push(snake.head);
             while (snake.trail.length > snake.length) {
@@ -487,7 +494,7 @@ var Board = /** @class */ (function () {
                 $.ajax({
                     url: 'https://asocial-setting.000webhostapp.com/scores.php',
                     data: {
-                        type: 'sp', name: name, score: snake.length
+                        type: 'sp', name: name, score: snake.length, time: this.milis / 1000, difficulty: this.difficulty
                     },
                     type: 'post',
                     dataType: 'json',
@@ -499,7 +506,7 @@ var Board = /** @class */ (function () {
             });
         }
         ctx.fillStyle = snake.color;
-        ctx.fillText("Player 1 - Length: " + snake.length + " Speed: " + interval, this.block_size, this.block_size);
+        ctx.fillText("Player 1 - Length: " + snake.length + " Time: " + Math.floor(this.milis / 1000), this.block_size, this.block_size);
     };
     Board.prototype.draw = function (ctx) {
         ctx.fillStyle = 'black';
@@ -606,6 +613,7 @@ var Board = /** @class */ (function () {
     };
     Board.prototype.startMultiPlayerWithAI = function () {
         var _this = this;
+        this.milis = 0;
         this.erase();
         this.addBackToMenuButton();
         var ctx = this.canvas.getContext("2d");
