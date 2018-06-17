@@ -1,18 +1,15 @@
-"use strict";
-exports.__esModule = true;
-var traversal_1 = require("./traversal");
-var javascript_astar_1 = require("./node_modules/javascript-astar");
 var Test = /** @class */ (function () {
     function Test(x, y) {
         if (y === void 0) { y = 0; }
         this.x = x;
         this.y = y;
+        this.game = new Game();
     }
     Test.prototype.toString = function () {
         return "(" + this.x + ", " + this.y + ")";
     };
     Test.prototype.main = function () {
-        var traversal = new traversal_1.Traversal();
+        var traversal = new Traversal();
         // let player: Point = new Point(0, 0);
         // let food: Array<Point> = [new Point(3, 2), new Point(3, 3)];
         // let obstacles: Array<Point> = [new Point(0, 1), new Point(2, 0), new Point(2, 2)];
@@ -37,7 +34,7 @@ var Test = /** @class */ (function () {
         // console.log(answer);
         // console.log(answer.solution());
         // console.log(answer.solve());
-        var graph = new javascript_astar_1.Graph([
+        var graph = new Graph([
             [1, 1, 1],
             [1, 1, 1],
             [1, 1, 1],
@@ -45,13 +42,13 @@ var Test = /** @class */ (function () {
         ]);
         var start = graph.grid[0][0];
         var end = graph.grid[1][1];
-        var result = javascript_astar_1.astar.search(graph, start, end);
+        var result = astar.search(graph, start, end);
         console.log(result);
         var grid = [];
         for (var i = 0; i < 4; i++) {
             var row = [];
             for (var j = 0; j < 3; j++) {
-                //let current_point:Point = new Point(i,j);
+                var current_point = new Point(i, j);
                 // you may move here with a weight of 1
                 row.push(1);
             }
@@ -61,4 +58,4 @@ var Test = /** @class */ (function () {
     };
     return Test;
 }());
-exports.Test = Test;
+//# sourceMappingURL=test.js.map

@@ -1,4 +1,4 @@
-export class Point {
+class Point {
     x: number;
     y: number;
 
@@ -23,6 +23,17 @@ export class Point {
         for(let point of list){
             if(target.equals(point)){
                 return true;
+            }
+        }
+        return false;
+    }
+
+    static areInList(targets:Array<Point>,list: Array<Point>){
+        for(let point of list){
+            for(let target of targets){
+                if(target.equals(point)){
+                    return true;
+                }
             }
         }
         return false;

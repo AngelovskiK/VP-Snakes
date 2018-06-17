@@ -1,5 +1,3 @@
-"use strict";
-exports.__esModule = true;
 var ProblemNode = /** @class */ (function () {
     function ProblemNode(state, parent, action, path_cost) {
         if (parent === void 0) { parent = null; }
@@ -63,4 +61,4 @@ var ProblemNode = /** @class */ (function () {
     };
     return ProblemNode;
 }());
-exports.ProblemNode = ProblemNode;
+//# sourceMappingURL=node.js.map

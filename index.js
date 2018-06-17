@@ -1,13 +1,13 @@
-"use strict";
-exports.__esModule = true;
-var menu_1 = require("./menu");
-var test_1 = require("./test");
 function main() {
-    var container = document.getElementById("container");
-    var menu = new menu_1.Menu();
+    let container = document.getElementById("container");
+    let menu  = new Menu();
     menu.ShowMenu(container);
-    var test = new test_1.Test(1);
+
+    let test = new Test(1);
     test.main();
+
+    $('.youtube-video')[0].contentWindow.postMessage('{"event":"command","func":"' + 'playVideo' + '","args":""}', '*');
 }
+
 main();
 console.log("index.js");

@@ -1,13 +1,14 @@
-"use strict";
-exports.__esModule = true;
 var GAME_NAME = "Serpent Works";
 var DIFFICULTY = 2;
+/*
+* Type Of AI
+* 0 - Uninformed Search => BFS
+* 1 - Informed Search   => A*
+* */
 var TYPE_OF_AI = 1;
-var board_1 = require("./board");
-var jquery_1 = require("./node_modules/jquery");
 var Menu = /** @class */ (function () {
     function Menu() {
-        //this.game = new Game();
+        this.game = new Game();
         this.width = 640;
         this.height = 480;
     }
@@ -73,25 +74,26 @@ var Menu = /** @class */ (function () {
         var stack_div = document.createElement("div");
         stack_div.className = "col-md-12";
         var btnSinglePlayer = document.createElement("button");
-        btnSinglePlayer.appendChild(document.createTextNode("1 Player"));
+        btnSinglePlayer.appendChild(document.createTextNode("One Player"));
         btnSinglePlayer.className = 'btn btn-block btn-danger menuItem';
         btnSinglePlayer.addEventListener("click", function (e) {
             _this.StartSinglePlayer(container);
         });
         var btnTwoPlayer = document.createElement("button");
-        btnTwoPlayer.appendChild(document.createTextNode("2 Player"));
+        btnTwoPlayer.appendChild(document.createTextNode("Two Player"));
         btnTwoPlayer.className = 'btn btn-block btn-danger menuItem';
         btnTwoPlayer.addEventListener("click", function (e) {
-            //this.StartMultiPlayer(container);
+            // this.StartMultiPlayer(container);
+            _this.StartMultiPlayer(container);
         });
         var btnSinglePlayerHighScores = document.createElement("button");
-        btnSinglePlayerHighScores.appendChild(document.createTextNode("1 Player High Scores"));
+        btnSinglePlayerHighScores.appendChild(document.createTextNode("One Player High Scores"));
         btnSinglePlayerHighScores.className = 'btn btn-block btn-danger menuItem';
         btnSinglePlayerHighScores.addEventListener("click", function (e) {
             _this.ShowHighScores(container);
         });
         var btnTwoPlayerHighScores = document.createElement("button");
-        btnTwoPlayerHighScores.appendChild(document.createTextNode("2 Player High Scores"));
+        btnTwoPlayerHighScores.appendChild(document.createTextNode("Two Player High Scores"));
         btnTwoPlayerHighScores.className = 'btn btn-block btn-danger menuItem';
         btnTwoPlayerHighScores.addEventListener("click", function (e) {
             _this.ShowTwoPlayerHighScores(container);
@@ -142,8 +144,12 @@ var Menu = /** @class */ (function () {
         container.appendChild(menu);
     };
     Menu.prototype.StartSinglePlayer = function (container) {
-        var board = new board_1.Board(container, this.width, this.height, DIFFICULTY, TYPE_OF_AI);
+        var board = new Board(container, WIDTH, HEIGHT, DIFFICULTY, TYPE_OF_AI);
         board.startSinglePlayer();
+    };
+    Menu.prototype.StartMultiPlayer = function (container) {
+        var board = new Board(container, WIDTH, HEIGHT, DIFFICULTY, TYPE_OF_AI);
+        board.startMultiPlayer();
     };
     Menu.prototype.ShowHighScores = function (container) {
         var _this = this;
@@ -152,22 +158,13 @@ var Menu = /** @class */ (function () {
         left_column.className = "col-md-2";
         var menu = document.createElement("div");
         menu.className = "col-md-8";
-        var ordered_list = document.createElement("ol");
-        jquery_1.ajax({
-            url: 'https://asocial-setting.000webhostapp.com/scores.php?type=sp',
-            dataType: 'json',
-            success: function (data) {
-                console.log(data);
-                data.forEach(function (element) {
-                    ordered_list.innerHTML += "<li> " + element.name + " - " + element.score + " </li>";
-                });
-            }
-        });
+        for (var score in HighScores) {
+            container.innerHTML += (parseInt(score) + 1) + '. ' + HighScores[score].name + ' - ' + HighScores[score].score + '<br/>';
+        }
         var backButton = document.createElement("button");
         backButton.appendChild(document.createTextNode("Go Back"));
         backButton.addEventListener("click", function () { return _this.ShowMenu(container); });
         backButton.className = 'btn btn-block btn-danger menuItem';
-        menu.appendChild(ordered_list);
         menu.appendChild(backButton);
         container.appendChild(left_column);
         container.appendChild(menu);
@@ -179,6 +176,9 @@ var Menu = /** @class */ (function () {
         left_column.className = "col-md-2";
         var menu = document.createElement("div");
         menu.className = "col-md-8";
+        for (var score in TwoPlayerHighScores) {
+            container.innerHTML += (parseInt(score) + 1) + '. ' + TwoPlayerHighScores[score].name + ' - ' + TwoPlayerHighScores[score].score + '<br/>';
+        }
         var backButton = document.createElement("button");
         backButton.appendChild(document.createTextNode("Go Back"));
         backButton.addEventListener("click", function () { return _this.ShowMenu(container); });
@@ -215,12 +215,12 @@ var Menu = /** @class */ (function () {
         }
     };
     Menu.prototype.ShowBFSSnake = function (container) {
-        var board = new board_1.Board(container, this.width, this.height, DIFFICULTY, TYPE_OF_AI);
+        var board = new Board(container, WIDTH, HEIGHT, DIFFICULTY, TYPE_OF_AI);
         board.start();
     };
     Menu.prototype.ShowAStarSnake = function (container) {
         // start game, set up canvas, and create quit button
-        var board = new board_1.Board(container, this.width, this.height, DIFFICULTY, TYPE_OF_AI);
+        var board = new Board(container, WIDTH, HEIGHT, DIFFICULTY, TYPE_OF_AI);
         board.start();
     };
     Menu.prototype.ShowInstructions = function (container) {
@@ -259,14 +259,14 @@ var Menu = /** @class */ (function () {
         left_column.className = "col-md-2";
         var menu = document.createElement("div");
         menu.className = "col-md-8";
-        container.innerHTML += "\n        <div class=\"col-md-12\">\n            <div class=\"col-md-2\"></div>\n            <div class=\"col-md-8\">\n                <h1>Settings</h1><br/>\n                \n                <span id=\"current_difficulty\">Current Difficulty " + (DIFFICULTY == 1 ? "Easy" : DIFFICULTY == 2 ? "Normal" : "Hard") + "</span><br><br>\n                <div class=\"form-group\">\n                  <span for=\"sel1\">Select Difficulty:</span>\n                  <select class=\"form-control\" id=\"selectDifficulty\" onchange=\"Menu.changeDifficulty()\">\n                        <option value=\"1\">Easy</option>\n                        <option value=\"2\">Normal</option>\n                        <option value=\"3\">Hard</option>\n                  </select>\n                </div><br>\n                \n                <span id=\"current_resolution\">Current Resolution " + this.width + " x " + this.height + "</span><br><br>\n                <div class=\"form-group\">\n                  <span for=\"sel1\">Select Resolution:</span>\n                  <select class=\"form-control\" id=\"resolution\" onchange=\"Menu.changeResolution()\">\n<option value=\"" + (this.width - (this.width * 0.25)) + "," + (this.height - (this.height * 0.25)) + "\">" + (this.width - (this.width * 0.25)) + " x " + (this.height - (this.height * 0.25)) + "</option>\n<option value=\"" + (this.width - (this.width * 0.125)) + "," + (this.height - (this.height * 0.125)) + "\">" + (this.width - (this.width * 0.125)) + " x " + (this.height - (this.height * 0.125)) + "</option>                  \n<option value=\"" + this.width + "," + this.height + "\">" + this.width + " x " + this.height + "</option>\n<option value=\"" + (this.width + (this.width * 0.125)) + "," + (this.height + (this.height * 0.125)) + "\">" + (this.width + (this.width * 0.125)) + " x " + (this.height + (this.height * 0.125)) + "</option>\n<option value=\"" + (this.width + (this.width * 0.25)) + "," + (this.height + (this.height * 0.25)) + "\">" + (this.width + (this.width * 0.25)) + " x " + (this.height + (this.height * 0.25)) + "</option>\n                  </select>\n                </div>\n            </div>\n            <div class=\"col-md-2\"></div>    \n        </div>\n        ";
+        container.innerHTML += "\n        <div class=\"col-md-12\">\n            <div class=\"col-md-2\"></div>\n            <div class=\"col-md-8\">\n                <h1>Settings</h1><br/>\n                \n                <span id=\"current_difficulty\">Current Difficulty " + (DIFFICULTY == 1 ? "Easy" : DIFFICULTY == 2 ? "Normal" : "Hard") + "</span><br><br>\n                <div class=\"form-group\">\n                  <span for=\"sel1\">Select Difficulty:</span>\n                  <select class=\"form-control\" id=\"selectDifficulty\" onchange=\"Menu.changeDifficulty()\">\n                        <option value=\"1\">Easy</option>\n                        <option value=\"2\">Normal</option>\n                        <option value=\"3\">Hard</option>\n                  </select>\n                </div><br>\n                \n                <span id=\"current_resolution\">Current Resolution " + WIDTH + " x " + HEIGHT + "</span><br><br>\n                <div class=\"form-group\">\n                  <span for=\"sel1\">Select Resolution:</span>\n                  <select class=\"form-control\" id=\"resolution\" onchange=\"Menu.changeResolution()\">\n<option value=\"" + (this.width - (this.width * 0.25)) + "," + (this.height - (this.height * 0.25)) + "\">" + (this.width - (this.width * 0.25)) + " x " + (this.height - (this.height * 0.25)) + "</option>\n<option value=\"" + (this.width - (this.width * 0.125)) + "," + (this.height - (this.height * 0.125)) + "\">" + (this.width - (this.width * 0.125)) + " x " + (this.height - (this.height * 0.125)) + "</option>                  \n<option value=\"" + this.width + "," + this.height + "\">" + this.width + " x " + this.height + "</option>\n<option value=\"" + (this.width + (this.width * 0.125)) + "," + (this.height + (this.height * 0.125)) + "\">" + (this.width + (this.width * 0.125)) + " x " + (this.height + (this.height * 0.125)) + "</option>\n<option value=\"" + (this.width + (this.width * 0.25)) + "," + (this.height + (this.height * 0.25)) + "\">" + (this.width + (this.width * 0.25)) + " x " + (this.height + (this.height * 0.25)) + "</option>\n                  </select>\n                </div>\n            </div>\n            <div class=\"col-md-2\"></div>    \n        </div>\n        ";
         var btnPlayVideo = document.createElement("button");
         btnPlayVideo.appendChild(document.createTextNode("Play Music"));
-        btnPlayVideo.addEventListener("click", function () { return jquery_1.$('.youtube-video')[0].contentWindow.postMessage('{"event":"command","func":"' + 'playVideo' + '","args":""}', '*'); });
+        btnPlayVideo.addEventListener("click", function () { return $('.youtube-video')[0].contentWindow.postMessage('{"event":"command","func":"' + 'playVideo' + '","args":""}', '*'); });
         btnPlayVideo.className = 'btn btn-block btn-danger menuItem';
         var btnPauseVideo = document.createElement("button");
         btnPauseVideo.appendChild(document.createTextNode("Pause Music"));
-        btnPauseVideo.addEventListener("click", function () { return jquery_1.$('.youtube-video')[0].contentWindow.postMessage('{"event":"command","func":"' + 'pauseVideo' + '","args":""}', '*'); });
+        btnPauseVideo.addEventListener("click", function () { return $('.youtube-video')[0].contentWindow.postMessage('{"event":"command","func":"' + 'pauseVideo' + '","args":""}', '*'); });
         btnPauseVideo.className = 'btn btn-block btn-danger menuItem';
         var btnBack = document.createElement("button");
         btnBack.appendChild(document.createTextNode("Go Back"));
@@ -280,43 +280,20 @@ var Menu = /** @class */ (function () {
     };
     Menu.changeResolution = function () {
         // console.log($("#resolution")[0].value);
-        var width_and_height = jquery_1.$("#resolution")[0].value.split(",");
-        var WIDTH = parseInt(width_and_height[0]);
-        var HEIGHT = parseInt(width_and_height[1]);
+        var width_and_height = $("#resolution")[0].value.split(",");
+        WIDTH = parseInt(width_and_height[0]);
+        HEIGHT = parseInt(width_and_height[1]);
+        console.log(WIDTH, HEIGHT);
         var msg = "Resolution changed to " + WIDTH + " x " + HEIGHT;
         document.getElementById("current_resolution").innerHTML = msg.toString();
     };
     Menu.changeDifficulty = function () {
-        var new_difficulty = document.getElementById("selectDifficulty").nodeValue;
-        DIFFICULTY = parseInt(new_difficulty);
+        var new_difficulty = document.getElementById("selectDifficulty").value;
+        DIFFICULTY = new_difficulty;
         console.log(DIFFICULTY);
         var msg = "Difficulty changed to " + (DIFFICULTY == 1 ? "Easy" : DIFFICULTY == 2 ? "Normal" : "Hard");
         document.getElementById("current_difficulty").innerHTML = msg.toString();
     };
-    Menu.prototype.addHighScore = function (score, name) {
-        console.log('sgsgsg');
-        //console.log(this.postData('https://asocial-setting.000webhostapp.com/scores.php', {type: 'sp', name: name, score: score}));
-    };
-    Menu.prototype.add2playerHighScore = function (score, name) {
-        this.postData('https://asocial-setting.000webhostapp.com/scores.php', { type: 'mp', name: name, score: score });
-    };
-    Menu.prototype.postData = function (url, data) {
-        // Default options are marked with *
-        return fetch(url, {
-            body: JSON.stringify(data),
-            cache: 'no-cache',
-            credentials: 'same-origin',
-            headers: {
-                'user-agent': 'Mozilla/4.0 MDN Example',
-                'content-type': 'application/json'
-            },
-            method: 'POST',
-            mode: 'cors',
-            redirect: 'follow',
-            referrer: 'no-referrer'
-        })
-            .then(function (response) { return response; })["catch"](function (error) { return error; }); // parses response to JSON
-    };
     return Menu;
 }());
-exports.Menu = Menu;
+//# sourceMappingURL=menu.js.map

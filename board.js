@@ -1,19 +1,12 @@
-"use strict";
-exports.__esModule = true;
-var point_1 = require("./point");
-var menu_1 = require("./menu");
-var traversal_1 = require("./traversal");
-var jquery_1 = require("./node_modules/jquery");
-var snake_1 = require("./snake");
-var problem_1 = require("./problem");
-var direction;
 var Board = /** @class */ (function () {
+    // end of new code
     function Board(container, width, height, difficulty, type_of_ai) {
+        this.has_point = false;
         this.container = container;
         this.width = width;
         this.height = height;
         var common_divisor = this.common_divisors(width, height).reverse();
-        this.block_size = common_divisor[difficulty];
+        this.block_size = common_divisor[difficulty + 1];
         console.log(this.common_divisors(width, height));
         console.log("this.block_size", this.block_size);
         var block_size_float = parseFloat(this.block_size.toString());
@@ -21,13 +14,16 @@ var Board = /** @class */ (function () {
         console.log(this.ten_percent);
         this.vSize = this.width / this.block_size;
         this.hSize = this.height / this.block_size;
-        this.menu = new menu_1.Menu();
-        this.traversal = new traversal_1.Traversal();
+        this.menu = new Menu();
+        this.traversal = new Traversal();
         this.SNAKE_COLOR = "blue";
+        this.SNAKE_TWO_COLOR = "purple";
         this.FOOD_COLOR = "red";
-        this.SPECIAL_FOOD_COLOR = "pink";
+        this.SPECIAL_FOOD_COLOR = "Fuchsia";
         this.food_exists = false;
-        this.special_food_types = ["big", "small", "slow", "fast"];
+        this.special_food_types = ["big", "small", "color"];
+        this.BLOCK_COLOR = "white";
+        this.BOTTOM_COLOR = "gray";
         this.isPaused = false;
         this.type_of_ai = type_of_ai;
     }
@@ -62,43 +58,44 @@ var Board = /** @class */ (function () {
         var ctx = this.canvas.getContext("2d");
         ctx.font = "22px Arial";
         this.draw(ctx);
-        var snake = new snake_1.Snake(2, 2, problem_1.Direction.Right, this.SNAKE_COLOR, this.vSize, this.hSize, this.type_of_ai);
+        var snake = new Snake(2, 2, Direction.Right, this.SNAKE_COLOR, this.vSize, this.hSize, this.type_of_ai);
+        // new code
         this.food_exists = true;
         this.food_point = this.getRandomPointNotInList(snake.trail);
         snake.trail.push(this.food_point);
         this.special_food_point = this.getRandomPointNotInList(snake.trail);
         this.special_food_type = this.special_food_types[Math.floor(Math.random() * (this.special_food_types.length))];
         snake.trail.pop();
-        direction = problem_1.Direction.Right;
+        // end of new code
+        var direction = Direction.Right;
         document.addEventListener("keydown", function (e) {
             //handle direction changes and pauses
-            console.log(e);
             switch (e.keyCode) {
                 //left
                 case 37:
-                    direction = problem_1.Direction.Left;
+                    direction = Direction.Left;
                     break;
                 //up
                 case 38:
-                    direction = problem_1.Direction.Up;
+                    direction = Direction.Up;
                     break;
                 //right
                 case 39:
-                    direction = problem_1.Direction.Right;
+                    direction = Direction.Right;
                     break;
                 //down
                 case 40:
-                    direction = problem_1.Direction.Down;
+                    direction = Direction.Down;
                     break;
                 //pause
                 case 80:
-                    _this.isPaused = !_this.isPaused;
-                    if (_this.isPaused) {
+                    isPaused = !isPaused;
+                    if (isPaused) {
                         clearInterval(_this.cycle);
                     }
                     else {
                         _this.cycle = setInterval(function () {
-                            return _this.animate(ctx, "human", direction, snake, interval, _this.container, _this.menu, _this.cycle);
+                            return _this.animate(ctx, "human", direction, snake, interval, _this.container, _this.menu);
                         }, interval);
                     }
                     break;
@@ -106,9 +103,224 @@ var Board = /** @class */ (function () {
         });
         var interval = 60;
         // this uses a lambda wrapper function
-        this.cycle = setInterval(function () { return _this.animate(ctx, "human", direction, snake, interval, _this.container, _this.menu, _this.cycle); }, interval);
+        this.cycle = setInterval(function () { return _this.animate(ctx, "human", direction, snake, interval, _this.container, _this.menu); }, interval);
     };
     Board.prototype.startMultiPlayer = function () {
+        var _this = this;
+        this.erase();
+        this.addBackToMenuButton();
+        var ctx = this.canvas.getContext("2d");
+        ctx.font = "22px Arial";
+        this.draw(ctx);
+        var snakeOne = new Snake(2, 2, Direction.Right, this.SNAKE_COLOR, this.vSize, this.hSize, this.type_of_ai);
+        var snakeTwo = new Snake(4, 4, Direction.Left, this.SNAKE_TWO_COLOR, this.vSize, this.hSize, this.type_of_ai);
+        // new code
+        this.food_exists = true;
+        this.food_point = this.getRandomPointNotInList(snakeOne.trail.concat(snakeTwo.trail));
+        this.special_food_point = this.getRandomPointNotInList([this.food_point].concat(snakeOne.trail, snakeTwo.trail));
+        this.special_food_type = this.special_food_types[Math.floor(Math.random() * (this.special_food_types.length))];
+        // end of new code
+        var directionOne = Direction.Right;
+        var directionTwo = Direction.Right;
+        document.addEventListener("keydown", function (e) {
+            switch (e.key) {
+                case "ArrowLeft": {
+                    directionOne = Direction.Left;
+                    break;
+                }
+                case "ArrowUp": {
+                    directionOne = Direction.Up;
+                    break;
+                }
+                case "ArrowRight": {
+                    directionOne = Direction.Right;
+                    break;
+                }
+                case "ArrowDown": {
+                    directionOne = Direction.Down;
+                    break;
+                }
+                case "a": {
+                    directionTwo = Direction.Left;
+                    break;
+                }
+                case "w": {
+                    directionTwo = Direction.Up;
+                    break;
+                }
+                case "d": {
+                    directionTwo = Direction.Right;
+                    break;
+                }
+                case "s": {
+                    directionTwo = Direction.Down;
+                    break;
+                }
+                case "p": {
+                    isPaused = !isPaused;
+                    if (isPaused) {
+                        clearInterval(_this.cycle);
+                    }
+                    else {
+                        _this.cycle = setInterval(function () {
+                            return _this.animateTwoPlayer(ctx, "human", directionOne, directionTwo, snakeOne, snakeTwo, _this.interval, _this.container, _this.menu);
+                        }, _this.interval);
+                    }
+                    break;
+                }
+            }
+        });
+        var interval = 60;
+        // this uses a lambda wrapper function
+        this.cycle = setInterval(function () {
+            return _this.animateTwoPlayer(ctx, "human", directionOne, directionTwo, snakeOne, snakeTwo, interval, _this.container, _this.menu);
+        }, interval);
+    };
+    Board.prototype.animateTwoPlayer = function (ctx, playerType, directionOne, directionTwo, snakeOne, snakeTwo, interval, container, menu) {
+        this.draw(ctx);
+        if (!Point.areInList([snakeOne.head, snakeTwo.head], snakeOne.trail.concat(snakeTwo.trail))) {
+            snakeOne.trail.push(snakeOne.head);
+            snakeTwo.trail.push(snakeTwo.head);
+            while (snakeOne.trail.length > snakeOne.length) {
+                snakeOne.trail.shift();
+            }
+            while (snakeTwo.trail.length > snakeTwo.length) {
+                snakeTwo.trail.shift();
+            }
+            snakeOne.draw(ctx, this.block_size, this.ten_percent);
+            snakeTwo.draw(ctx, this.block_size, this.ten_percent);
+            this.drawFood(ctx, this.food_point, this.FOOD_COLOR);
+            // new code
+            this.drawFood(ctx, this.special_food_point, this.SPECIAL_FOOD_COLOR);
+            // end of new code
+            if (playerType === "human") {
+                snakeOne.head = snakeOne.move(directionOne);
+                snakeTwo.head = snakeTwo.move(directionTwo);
+            }
+            else {
+                // ai_snake
+                if (snakeOne.trail.length === snakeOne.length) {
+                    snakeOne.head = snakeOne.get_next_move(this.food_point);
+                }
+                else {
+                    snakeOne.head = snakeOne.move(directionOne);
+                }
+            }
+            if (snakeOne.head.equals(this.food_point)) {
+                this.food_point = this.getRandomPointNotInList(snakeOne.trail.concat(snakeTwo.trail));
+                snakeOne.length += 1;
+            }
+            else if (snakeTwo.head.equals(this.food_point)) {
+                this.food_point = this.getRandomPointNotInList(snakeOne.trail.concat(snakeTwo.trail));
+                snakeTwo.length += 1;
+            }
+            else if (snakeOne.head.equals(this.special_food_point)) {
+                this.special_food_point = this.getRandomPointNotInList(snakeOne.trail.concat(snakeTwo.trail));
+                console.log(this.special_food_type);
+                switch (this.special_food_type) {
+                    case "big": {
+                        snakeOne.length += 2;
+                        break;
+                    }
+                    case "small": {
+                        snakeOne.length -= Math.round(snakeOne.length / 10);
+                        break;
+                    }
+                    case "color": {
+                        if (this.BLOCK_COLOR === "white") {
+                            this.BOTTOM_COLOR = "white";
+                            this.BLOCK_COLOR = "black";
+                            snakeOne.color = "lime";
+                            snakeTwo.color = "aqua";
+                        }
+                        else if (this.BLOCK_COLOR === "black") {
+                            this.BOTTOM_COLOR = "tomato";
+                            this.BLOCK_COLOR = "purple";
+                            snakeOne.color = "orange";
+                            snakeTwo.color = "DeepPink";
+                        }
+                        else if (this.BLOCK_COLOR === "purple") {
+                            this.BOTTOM_COLOR = "pink";
+                            this.BLOCK_COLOR = "wheat";
+                            snakeOne.color = "WhiteSmoke";
+                            snakeTwo.color = "LightSkyBlue ";
+                        }
+                        else {
+                            this.BOTTOM_COLOR = "gray";
+                            this.BLOCK_COLOR = "white";
+                            snakeOne.color = "blue";
+                            snakeTwo.color = "purple";
+                        }
+                        break;
+                    }
+                }
+                this.special_food_type = this.special_food_types[Math.floor(Math.random() * (this.special_food_types.length))];
+            }
+            else if (snakeTwo.head.equals(this.special_food_point)) {
+                this.special_food_point = this.getRandomPointNotInList(snakeOne.trail.concat(snakeTwo.trail));
+                switch (this.special_food_type) {
+                    case "big": {
+                        snakeTwo.length += 2;
+                        break;
+                    }
+                    case "small": {
+                        snakeTwo.length -= Math.round(snakeTwo.length / 10);
+                        break;
+                    }
+                    case "color": {
+                        if (this.BLOCK_COLOR === "white") {
+                            this.BOTTOM_COLOR = "white";
+                            this.BLOCK_COLOR = "black";
+                            snakeTwo.color = "lime";
+                        }
+                        else if (this.BLOCK_COLOR === "black") {
+                            this.BOTTOM_COLOR = "tomato";
+                            this.BLOCK_COLOR = "purple";
+                            snakeTwo.color = "orange";
+                        }
+                        else if (this.BLOCK_COLOR === "purple") {
+                            this.BOTTOM_COLOR = "pink";
+                            this.BLOCK_COLOR = "wheat";
+                            snakeTwo.color = "whitesmoke";
+                        }
+                        else {
+                            this.BOTTOM_COLOR = "gray";
+                            this.BLOCK_COLOR = "white";
+                            snakeTwo.color = "blue";
+                        }
+                        break;
+                    }
+                }
+                this.special_food_type = this.special_food_types[Math.floor(Math.random() * (this.special_food_types.length))];
+            }
+            // end of new code
+        }
+        else {
+            // get name
+            this.clearAllCycles();
+            if ($) {
+                console.log("jQuery loaded");
+            }
+            this.getName(this.canvas, ctx, "Enter team's name: ", function (name) {
+                menu.ShowMenu(container);
+                $.ajax({
+                    url: 'https://asocial-setting.000webhostapp.com/scores.php',
+                    data: {
+                        type: 'tp', name: name, score: snakeOne.length + snakeTwo.length
+                    },
+                    type: 'post',
+                    dataType: 'json',
+                    success: function (result) {
+                        console.log(result);
+                    }
+                });
+                console.log(name);
+            });
+        }
+        ctx.fillStyle = snakeOne.color;
+        ctx.fillText("Player 1 - Length: " + snakeOne.length + " Speed: " + interval, this.block_size, this.block_size);
+        ctx.fillStyle = snakeTwo.color;
+        ctx.fillText("Player 2 - Length: " + snakeTwo.length + " Speed: " + interval, this.block_size * 2, this.block_size * 2);
     };
     Board.prototype.start = function () {
         var _this = this;
@@ -117,102 +329,159 @@ var Board = /** @class */ (function () {
         var ctx = this.canvas.getContext("2d");
         ctx.font = "22px Arial";
         this.draw(ctx);
-        var snake = new snake_1.Snake(2, 2, problem_1.Direction.Right, this.SNAKE_COLOR, this.vSize, this.hSize, this.type_of_ai);
+        var snake = new Snake(2, 2, Direction.Right, this.SNAKE_COLOR, this.vSize, this.hSize, this.type_of_ai);
+        // new code
+        this.food_exists = true;
+        this.food_point = this.getRandomPointNotInList(snake.trail);
+        snake.trail.push(this.food_point);
+        this.special_food_point = this.getRandomPointNotInList(snake.trail);
+        this.special_food_type = this.special_food_types[Math.floor(Math.random() * (this.special_food_types.length))];
+        snake.trail.pop();
+        // end of new code
         document.addEventListener("keydown", function (e) {
             switch (e.keyCode) {
                 // Letter P key
                 case 80:
-                    _this.isPaused = !_this.isPaused;
-                    if (_this.isPaused) {
+                    isPaused = !isPaused;
+                    if (isPaused) {
                         clearInterval(_this.cycle);
                     }
                     else {
                         _this.cycle = setInterval(function () {
-                            return _this.animate(ctx, "ai_snake", problem_1.Direction.Right, snake, interval, _this.container, _this.menu, _this.cycle);
-                        }, interval);
+                            return _this.animate(ctx, "ai_snake", Direction.Right, snake, _this.interval, _this.container, _this.menu);
+                        }, _this.interval);
                     }
                     break;
             }
         });
-        var interval = 60;
+        this.interval = 60;
+        this.has_point = false;
+        this.chosen_point = this.food_point;
         // this uses a lambda wrapper function
-        this.cycle = setInterval(function () { return _this.animate(ctx, "ai_snake", problem_1.Direction.Right, snake, interval, _this.container, _this.menu, _this.cycle); }, interval);
+        this.cycle = setInterval(function () { return _this.animate(ctx, "ai_snake", Direction.Right, snake, _this.interval, _this.container, _this.menu); }, this.interval);
+        console.log("this.cycle: ", this.cycle);
     };
-    Board.prototype.animate = function (ctx, playerType, direction, snake, interval, container, menu, cycle) {
+    Board.prototype.animate = function (ctx, playerType, direction, snake, interval, container, menu) {
         var _this = this;
         this.draw(ctx);
-        if (!point_1.Point.isInList(snake.head, snake.trail)) {
+        if (!Point.isInList(snake.head, snake.trail)) {
             snake.trail.push(snake.head);
             while (snake.trail.length > snake.length) {
                 snake.trail.shift();
             }
             snake.draw(ctx, this.block_size, this.ten_percent);
             this.drawFood(ctx, this.food_point, this.FOOD_COLOR);
+            // new code
             this.drawFood(ctx, this.special_food_point, this.SPECIAL_FOOD_COLOR);
-            console.log("In While", playerType);
-            if (playerType == "human") {
+            // end of new code
+            if (playerType === "human") {
                 snake.head = snake.move(direction);
             }
             else {
                 // ai_snake
                 if (snake.trail.length === snake.length) {
+                    // new code
+                    // console.log("this.has_point", this.has_point);
+                    // console.log("this.chosen_point", this.chosen_point);
+                    // if (this.has_point === false) {
+                    //     if (Problem.manhattan_distance(snake.head, this.special_food_point) > Problem.manhattan_distance(snake.head, this.food_point)) {
+                    //         this.chosen_point = this.special_food_point;
+                    //     } else {
+                    //         this.chosen_point = this.food_point;
+                    //     }
+                    //     this.has_point = true;
+                    // }
+                    // console.log("this.chosen_point", this.chosen_point);
                     snake.head = snake.get_next_move(this.food_point);
+                    // end of new code
                 }
                 else {
                     snake.head = snake.move(direction);
                 }
             }
-            console.log(direction);
             if (snake.head.equals(this.food_point)) {
-                snake.length += 1;
+                // this.has_point = false;
                 this.food_point = this.getRandomPointNotInList(snake.trail);
+                snake.length += 1;
             }
             else if (snake.head.equals(this.special_food_point)) {
-                console.log(playerType);
-                var player_type_1 = playerType;
-                console.log(player_type_1);
+                // this.has_point = false;
+                this.special_food_point = this.getRandomPointNotInList(snake.trail);
+                console.log(this.special_food_type);
                 switch (this.special_food_type) {
                     case "big": {
-                        length += 2;
+                        snake.length += 2;
                         break;
                     }
                     case "small": {
-                        length -= Math.round(length / 10);
+                        snake.length -= Math.round(snake.length / 10);
+                        break;
+                    }
+                    case "color": {
+                        if (this.BLOCK_COLOR === "white") {
+                            this.BOTTOM_COLOR = "white";
+                            this.BLOCK_COLOR = "black";
+                            snake.color = "lime";
+                        }
+                        else if (this.BLOCK_COLOR === "black") {
+                            this.BOTTOM_COLOR = "tomato";
+                            this.BLOCK_COLOR = "purple";
+                            snake.color = "orange";
+                        }
+                        else if (this.BLOCK_COLOR === "purple") {
+                            this.BOTTOM_COLOR = "pink";
+                            this.BLOCK_COLOR = "wheat";
+                            snake.color = "whiteSmoke";
+                        }
+                        else {
+                            this.BOTTOM_COLOR = "gray";
+                            this.BLOCK_COLOR = "white";
+                            snake.color = "blue";
+                        }
                         break;
                     }
                     case "fast": {
-                        interval *= 0.945;
-                        clearInterval(cycle);
-                        cycle = setInterval(function () { return _this.animate(ctx, player_type_1, direction, snake, interval, _this.container, _this.menu, cycle); }, interval);
+                        var modified_interval_1 = interval - 10;
+                        // console.log("[interval, modified_interval]: ", interval, modified_interval);
+                        clearInterval(this.cycle);
+                        this.clearAllCycles();
                         setTimeout(function () {
-                            interval *= 1 / 0.945;
-                            clearInterval(cycle);
-                            cycle = setInterval(function () { return _this.animate(ctx, player_type_1, direction, snake, interval, _this.container, _this.menu, cycle); }, interval);
+                            _this.cycle = setInterval(function () { return _this.animate(ctx, playerType, direction, snake, modified_interval_1, _this.container, _this.menu); }, modified_interval_1);
+                            clearInterval(_this.cycle);
+                            _this.clearAllCycles();
                         }, 5000);
+                        this.cycle = setInterval(function () { return _this.animate(ctx, playerType, direction, snake, interval, _this.container, _this.menu); }, interval);
+                        // console.log("[interval, modified_interval]: ", interval, modified_interval);
                         break;
                     }
                     case "slow": {
-                        interval *= 1.055;
+                        var modified_interval_2 = interval + 10;
+                        // console.log("[interval, modified_interval]: ", interval, modified_interval);
                         clearInterval(this.cycle);
-                        this.cycle = setInterval(function () { return _this.animate(ctx, player_type_1, direction, snake, interval, _this.container, _this.menu, _this.cycle); }, interval);
+                        this.clearAllCycles();
                         setTimeout(function () {
-                            interval *= 1 / 1.055;
+                            _this.cycle = setInterval(function () { return _this.animate(ctx, playerType, direction, snake, modified_interval_2, _this.container, _this.menu); }, modified_interval_2);
                             clearInterval(_this.cycle);
-                            _this.cycle = setInterval(function () { return _this.animate(ctx, player_type_1, direction, snake, interval, _this.container, _this.menu, _this.cycle); }, interval);
+                            _this.clearAllCycles();
                         }, 5000);
+                        this.cycle = setInterval(function () { return _this.animate(ctx, playerType, direction, snake, interval, _this.container, _this.menu); }, interval);
+                        // console.log("[interval, modified_interval]: ", interval, modified_interval);
                         break;
                     }
                 }
-                this.special_food_point = this.getRandomPointNotInList(snake.trail);
-                this.special_food_type = this.special_food_types[Math.floor(Math.random() * (this.special_food_types.length))];
+                this.special_food_type = "color"; //this.special_food_types[Math.floor(Math.random() * (this.special_food_types.length))];
             }
+            // end of new code
         }
         else {
             // get name
-            clearInterval(cycle);
+            this.clearAllCycles();
+            if ($) {
+                console.log("jQuery loaded");
+            }
             this.getName(this.canvas, ctx, "Enter player's name: ", function (name) {
                 menu.ShowMenu(container);
-                jquery_1.ajax({
+                $.ajax({
                     url: 'https://asocial-setting.000webhostapp.com/scores.php',
                     data: {
                         type: 'sp', name: name, score: snake.length
@@ -226,23 +495,17 @@ var Board = /** @class */ (function () {
                 console.log(name);
             });
         }
-        ctx.fillStyle = this.SNAKE_COLOR;
+        ctx.fillStyle = snake.color;
         ctx.fillText("Player 1 - Length: " + snake.length + " Speed: " + interval, this.block_size, this.block_size);
     };
     Board.prototype.draw = function (ctx) {
         ctx.fillStyle = 'black';
-        ctx.fillRect(0, 0, this.width, this.height);
+        ctx.fillRect(0, 0, WIDTH, HEIGHT);
         for (var i = 0; i < this.vSize; i++) {
             for (var j = 0; j < this.hSize; j++) {
-                if (i === 0 && j === 0) {
-                    ctx.fillStyle = "red";
-                    ctx.fillRect(i * this.block_size, j * this.block_size, this.block_size, this.block_size);
-                }
-                else {
-                    ctx.fillStyle = "gray";
-                    ctx.fillRect(i * this.block_size, j * this.block_size, this.block_size, this.block_size);
-                }
-                ctx.fillStyle = "white";
+                ctx.fillStyle = this.BOTTOM_COLOR;
+                ctx.fillRect(i * this.block_size, j * this.block_size, this.block_size, this.block_size);
+                ctx.fillStyle = this.BLOCK_COLOR;
                 ctx.fillRect(i * this.block_size + this.ten_percent, j * this.block_size + this.ten_percent, this.block_size - 2 * this.ten_percent, this.block_size - 2 * this.ten_percent);
             }
         }
@@ -256,10 +519,10 @@ var Board = /** @class */ (function () {
         var x, y;
         var point = null;
         do {
-            x = Math.floor(Math.random() * this.hSize);
-            y = Math.floor(Math.random() * this.vSize);
-            point = new point_1.Point(x, y);
-        } while (point_1.Point.isInList(point, obstacles));
+            x = Math.floor(Math.random() * hSize);
+            y = Math.floor(Math.random() * vSize);
+            point = new Point(x, y);
+        } while (Point.isInList(point, obstacles));
         return point;
     };
     Board.prototype.erase = function () {
@@ -276,17 +539,40 @@ var Board = /** @class */ (function () {
         var quitButton = document.createElement("button");
         quitButton.className = 'quit';
         quitButton.appendChild(document.createTextNode("✖"));
-        quitButton.addEventListener("click", function () { return _this.menu.ShowMenu(_this.container); });
+        quitButton.addEventListener("click", function () {
+            console.log("Exited");
+            _this.clearAllCycles();
+            _this.menu.ShowMenu(_this.container);
+        });
         this.btnQuit = quitButton;
         this.container.appendChild(quitButton);
+    };
+    Board.prototype.clearAllCycles = function () {
+        for (var i = 0; i < 1000; i += 1) {
+            clearInterval(this.cycle);
+            clearInterval(i);
+        }
+        console.log("clear All Cycles");
     };
     Board.prototype.getName = function (canvas, ctx, text, cb) {
         //setup screen
         var name = '';
-        ctx.fillStyle = 'white';
-        ctx.fillRect(100, 180, 440, 60);
+        this.erase();
+        this.addBackToMenuButton();
+        var context = this.canvas.getContext("2d");
+        ctx = context;
+        var x = Math.round(this.width / 2);
+        var y = Math.round((this.height / 2) - (this.height * 0.1));
+        ctx.font = "22px Arial";
         ctx.fillStyle = 'black';
-        ctx.fillText(text + name, 110, 210);
+        ctx.fillRect(0, 0, WIDTH, HEIGHT);
+        ctx.font = "46px Verdana";
+        ctx.fillStyle = "white";
+        ctx.textAlign = "center";
+        ctx.fillText("Game Over!", x, y);
+        ctx.fillStyle = 'white';
+        ctx.fillText(text, x, y + 50);
+        ctx.fillText(name, x, y + 100);
         //listen to keystrokes
         document.addEventListener("keyup", listenToName, true);
         function listenToName(e) {
@@ -297,16 +583,23 @@ var Board = /** @class */ (function () {
             else if (e.key == 'Backspace')
                 name = name.slice(0, -1);
             else if (e.key == 'Enter') {
+                console.log(name);
                 cb(name);
                 document.removeEventListener("keyup", listenToName, true);
             }
             //refresh name dialog
+            ctx.font = "22px Arial";
             ctx.fillStyle = 'black';
-            ctx.fillRect(100, 180, 440, 60);
+            ctx.fillRect(0, 0, WIDTH, HEIGHT);
+            ctx.font = "46px Verdana";
+            ctx.fillStyle = "white";
+            ctx.textAlign = "center";
+            ctx.fillText("Game Over!", x, y);
             ctx.fillStyle = 'white';
-            ctx.fillText(text + name, 110, 210);
+            ctx.fillText(text, x, y + 50);
+            ctx.fillText(name, x, y + 100);
         }
     };
     return Board;
 }());
-exports.Board = Board;
+//# sourceMappingURL=board.js.map

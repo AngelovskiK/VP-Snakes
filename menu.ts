@@ -1,22 +1,22 @@
 const GAME_NAME = "Serpent Works";
 var DIFFICULTY: number = 2;
+
+/*
+* Type Of AI
+* 0 - Uninformed Search => BFS
+* 1 - Informed Search   => A*
+* */
 var TYPE_OF_AI:number = 1;
 
-import {Board} from './board';
-import {$, ajax} from './node_modules/jquery'
+class Menu {
 
-export class Menu {
-
-//    HEIGHT : number = Game.HEIGHT;
-  //  WIDTH : number = Game.WIDTH;
-
-    //game: Game;
+    game: Game;
 
     width: number;
     height: number;
 
     constructor() {
-        //this.game = new Game();
+        this.game = new Game();
 
         this.width = 640;
         this.height = 480;
@@ -94,33 +94,33 @@ export class Menu {
 
         let select = document.createElement("select");
 
-
         let stack_div = document.createElement("div");
         stack_div.className = "col-md-12";
 
         let btnSinglePlayer = document.createElement("button");
-        btnSinglePlayer.appendChild(document.createTextNode("1 Player"));
+        btnSinglePlayer.appendChild(document.createTextNode("One Player"));
         btnSinglePlayer.className = 'btn btn-block btn-danger menuItem';
         btnSinglePlayer.addEventListener("click", (e) => {
             this.StartSinglePlayer(container);
         });
 
         let btnTwoPlayer = document.createElement("button");
-        btnTwoPlayer.appendChild(document.createTextNode("2 Player"));
+        btnTwoPlayer.appendChild(document.createTextNode("Two Player"));
         btnTwoPlayer.className = 'btn btn-block btn-danger menuItem';
         btnTwoPlayer.addEventListener("click", (e) => {
-            //this.StartMultiPlayer(container);
+            // this.StartMultiPlayer(container);
+            this.StartMultiPlayer(container);
         });
 
         let btnSinglePlayerHighScores = document.createElement("button");
-        btnSinglePlayerHighScores.appendChild(document.createTextNode("1 Player High Scores"));
+        btnSinglePlayerHighScores.appendChild(document.createTextNode("One Player High Scores"));
         btnSinglePlayerHighScores.className = 'btn btn-block btn-danger menuItem';
         btnSinglePlayerHighScores.addEventListener("click", (e) => {
             this.ShowHighScores(container);
         });
 
         let btnTwoPlayerHighScores = document.createElement("button");
-        btnTwoPlayerHighScores.appendChild(document.createTextNode("2 Player High Scores"));
+        btnTwoPlayerHighScores.appendChild(document.createTextNode("Two Player High Scores"));
         btnTwoPlayerHighScores.className = 'btn btn-block btn-danger menuItem';
         btnTwoPlayerHighScores.addEventListener("click", (e) => {
             this.ShowTwoPlayerHighScores(container);
@@ -179,8 +179,13 @@ export class Menu {
     }
 
     StartSinglePlayer(container) {
-        let board: Board = new Board(container, this.width, this.height, DIFFICULTY, TYPE_OF_AI);
+        let board: Board = new Board(container, WIDTH, HEIGHT, DIFFICULTY, TYPE_OF_AI);
         board.startSinglePlayer();
+    }
+
+    StartMultiPlayer(container) {
+        let board: Board = new Board(container, WIDTH, HEIGHT, DIFFICULTY, TYPE_OF_AI);
+        board.startMultiPlayer();
     }
 
     ShowHighScores(container) {
@@ -190,26 +195,14 @@ export class Menu {
 
         let menu = document.createElement("div");
         menu.className = "col-md-8";
-
-        let ordered_list = document.createElement("ol");
-        
-        ajax({
-            url: 'https://asocial-setting.000webhostapp.com/scores.php?type=sp',
-            dataType: 'json',
-            success: (data)=>{
-                console.log(data);
-                data.forEach(element => {
-                    ordered_list.innerHTML += `<li> ${element.name} - ${element.score} </li>`;
-                });
-            }
-        })
-
+        for (let score in HighScores) {
+            container.innerHTML += (parseInt(score) + 1) + '. ' + HighScores[score].name + ' - ' + HighScores[score].score + '<br/>';
+        }
         let backButton = document.createElement("button");
         backButton.appendChild(document.createTextNode("Go Back"));
         backButton.addEventListener("click", () => this.ShowMenu(container));
         backButton.className = 'btn btn-block btn-danger menuItem';
 
-        menu.appendChild(ordered_list);
         menu.appendChild(backButton);
         container.appendChild(left_column);
         container.appendChild(menu);
@@ -222,7 +215,9 @@ export class Menu {
 
         let menu = document.createElement("div");
         menu.className = "col-md-8";
-        
+        for (let score in TwoPlayerHighScores) {
+            container.innerHTML += (parseInt(score) + 1) + '. ' + TwoPlayerHighScores[score].name + ' - ' + TwoPlayerHighScores[score].score + '<br/>';
+        }
         let backButton = document.createElement("button");
         backButton.appendChild(document.createTextNode("Go Back"));
         backButton.addEventListener("click", () => this.ShowMenu(container));
@@ -267,13 +262,13 @@ export class Menu {
     }
 
     ShowBFSSnake(container) {
-        let board: Board = new Board(container, this.width, this.height, DIFFICULTY, TYPE_OF_AI);
+        let board: Board = new Board(container, WIDTH, HEIGHT, DIFFICULTY, TYPE_OF_AI);
         board.start();
     }
 
     ShowAStarSnake(container) {
         // start game, set up canvas, and create quit button
-        let board: Board = new Board(container, this.width, this.height, DIFFICULTY, TYPE_OF_AI);
+        let board: Board = new Board(container, WIDTH, HEIGHT, DIFFICULTY, TYPE_OF_AI);
         board.start();
     }
 
@@ -333,7 +328,7 @@ export class Menu {
                   </select>
                 </div><br>
                 
-                <span id="current_resolution">Current Resolution ${this.width} x ${this.height}</span><br><br>
+                <span id="current_resolution">Current Resolution ${WIDTH} x ${HEIGHT}</span><br><br>
                 <div class="form-group">
                   <span for="sel1">Select Resolution:</span>
                   <select class="form-control" id="resolution" onchange="Menu.changeResolution()">
@@ -374,44 +369,20 @@ export class Menu {
     static changeResolution() {
         // console.log($("#resolution")[0].value);
         let width_and_height = $("#resolution")[0].value.split(",");
-        let WIDTH = parseInt(width_and_height[0]);
-        let HEIGHT = parseInt(width_and_height[1]);
+        WIDTH = parseInt(width_and_height[0]);
+        HEIGHT = parseInt(width_and_height[1]);
+        console.log(WIDTH, HEIGHT);
         let msg: string = `Resolution changed to ${WIDTH} x ${HEIGHT}`;
         document.getElementById("current_resolution").innerHTML = msg.toString();
     }
 
     static changeDifficulty() {
-        let new_difficulty = document.getElementById("selectDifficulty").nodeValue;
-        DIFFICULTY = parseInt(new_difficulty);
+        let new_difficulty = document.getElementById("selectDifficulty").value;
+        DIFFICULTY = new_difficulty;
         console.log(DIFFICULTY);
         let msg: string = `Difficulty changed to ${DIFFICULTY == 1 ? "Easy" : DIFFICULTY == 2 ? "Normal" : "Hard"}`;
         document.getElementById("current_difficulty").innerHTML = msg.toString();
     }
 
-    public addHighScore(score, name){
-        console.log('sgsgsg');
-        //console.log(this.postData('https://asocial-setting.000webhostapp.com/scores.php', {type: 'sp', name: name, score: score}));
-       
-    }
-    public add2playerHighScore(score, name){
-        this.postData('https://asocial-setting.000webhostapp.com/scores.php', {type: 'mp', name: name, score: score});
-    }
-    private postData(url, data) {
-        // Default options are marked with *
-        return fetch(url, {
-            body: JSON.stringify(data), // must match 'Content-Type' header
-            cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
-            credentials: 'same-origin', // include, same-origin, *omit
-            headers: {
-            'user-agent': 'Mozilla/4.0 MDN Example',
-            'content-type': 'application/json'
-        },
-        method: 'POST', // *GET, POST, PUT, DELETE, etc.
-        mode: 'cors', // no-cors, cors, *same-origin
-        redirect: 'follow', // manual, *follow, error
-        referrer: 'no-referrer', // *client, no-referrer
-    })
-    .then(response => response)
-    .catch(error => error); // parses response to JSON
-    }
+
 }
