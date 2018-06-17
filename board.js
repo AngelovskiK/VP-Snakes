@@ -199,11 +199,12 @@ var Board = /** @class */ (function () {
             }
             else {
                 // ai_snake
-                if (snakeOne.trail.length === snakeOne.length) {
-                    snakeOne.head = snakeOne.get_next_move(this.food_point);
+                snakeOne.head = snakeOne.move(directionOne);
+                if (snakeTwo.trail.length === snakeTwo.length) {
+                    snakeTwo.head = snakeTwo.get_next_move(this.food_point);
                 }
                 else {
-                    snakeOne.head = snakeOne.move(directionOne);
+                    snakeTwo.head = snakeTwo.move(directionTwo);
                 }
             }
             if (snakeOne.head.equals(this.food_point)) {
@@ -305,9 +306,11 @@ var Board = /** @class */ (function () {
                 menu.ShowMenu(container);
                 $.ajax({
                     url: 'https://asocial-setting.000webhostapp.com/scores.php',
-                    data: {
-                        type: 'tp', name: name, score: snakeOne.length + snakeTwo.length
-                    },
+                    data: JSON.stringify({
+                        type: 'tp',
+                        name: name,
+                        score: snakeOne.length + snakeTwo.length
+                    }),
                     type: 'post',
                     dataType: 'json',
                     success: function (result) {
@@ -575,10 +578,11 @@ var Board = /** @class */ (function () {
         ctx.fillText(name, x, y + 100);
         //listen to keystrokes
         document.addEventListener("keyup", listenToName, true);
+        var allKeyboardKeysRegex = /^[a-zA-Z0-9~`!@#\$%\^&\*\(\)_\-\+={\[\}\]\|\\:;"'<,>\.\?\/  ]*$/;
         function listenToName(e) {
             // if character or number add to name, if backspace shorten last char, if enter
             // callback function and remove this event listener
-            if (e.key.length == 1 && e.key.match(/[a-z0-9]/i))
+            if (e.key.length == 1 && e.key.match(allKeyboardKeysRegex))
                 name += e.key;
             else if (e.key == 'Backspace')
                 name = name.slice(0, -1);
@@ -599,6 +603,77 @@ var Board = /** @class */ (function () {
             ctx.fillText(text, x, y + 50);
             ctx.fillText(name, x, y + 100);
         }
+    };
+    Board.prototype.startMultiPlayerWithAI = function () {
+        var _this = this;
+        this.erase();
+        this.addBackToMenuButton();
+        var ctx = this.canvas.getContext("2d");
+        ctx.font = "22px Arial";
+        this.draw(ctx);
+        var snakeOne = new Snake(2, 2, Direction.Right, this.SNAKE_COLOR, this.vSize, this.hSize, this.type_of_ai);
+        var snakeTwo = new Snake(4, 4, Direction.Left, this.SNAKE_TWO_COLOR, this.vSize, this.hSize, this.type_of_ai);
+        // new code
+        this.food_exists = true;
+        this.food_point = this.getRandomPointNotInList(snakeOne.trail.concat(snakeTwo.trail));
+        this.special_food_point = this.getRandomPointNotInList([this.food_point].concat(snakeOne.trail, snakeTwo.trail));
+        this.special_food_type = this.special_food_types[Math.floor(Math.random() * (this.special_food_types.length))];
+        // end of new code
+        var directionOne = Direction.Right;
+        var directionTwo = Direction.Right;
+        document.addEventListener("keydown", function (e) {
+            switch (e.key) {
+                case "ArrowLeft": {
+                    directionOne = Direction.Left;
+                    break;
+                }
+                case "ArrowUp": {
+                    directionOne = Direction.Up;
+                    break;
+                }
+                case "ArrowRight": {
+                    directionOne = Direction.Right;
+                    break;
+                }
+                case "ArrowDown": {
+                    directionOne = Direction.Down;
+                    break;
+                }
+                case "a": {
+                    directionTwo = Direction.Left;
+                    break;
+                }
+                case "w": {
+                    directionTwo = Direction.Up;
+                    break;
+                }
+                case "d": {
+                    directionTwo = Direction.Right;
+                    break;
+                }
+                case "s": {
+                    directionTwo = Direction.Down;
+                    break;
+                }
+                case "p": {
+                    isPaused = !isPaused;
+                    if (isPaused) {
+                        clearInterval(_this.cycle);
+                    }
+                    else {
+                        _this.cycle = setInterval(function () {
+                            return _this.animateTwoPlayer(ctx, "human", directionOne, directionTwo, snakeOne, snakeTwo, _this.interval, _this.container, _this.menu);
+                        }, _this.interval);
+                    }
+                    break;
+                }
+            }
+        });
+        var interval = 60;
+        // this uses a lambda wrapper function
+        this.cycle = setInterval(function () {
+            return _this.animateTwoPlayer(ctx, "ai_snake", directionOne, directionTwo, snakeOne, snakeTwo, interval, _this.container, _this.menu);
+        }, interval);
     };
     return Board;
 }());

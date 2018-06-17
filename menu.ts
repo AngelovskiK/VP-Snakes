@@ -112,6 +112,14 @@ class Menu {
             this.StartMultiPlayer(container);
         });
 
+        let btnTwoPlayerBot = document.createElement("button");
+        btnTwoPlayerBot.appendChild(document.createTextNode("Two Player with AI friend"));
+        btnTwoPlayerBot.className = 'btn btn-block btn-danger menuItem';
+        btnTwoPlayerBot.addEventListener("click", (e) => {
+            // this.StartMultiPlayer(container);
+            this.StartMultiPlayerWithAI(container);
+        });
+
         let btnSinglePlayerHighScores = document.createElement("button");
         btnSinglePlayerHighScores.appendChild(document.createTextNode("One Player High Scores"));
         btnSinglePlayerHighScores.className = 'btn btn-block btn-danger menuItem';
@@ -165,6 +173,7 @@ class Menu {
 
         stack_div.appendChild(btnSinglePlayer);
         stack_div.appendChild(btnTwoPlayer);
+        stack_div.appendChild(btnTwoPlayerBot);
         stack_div.appendChild(btnSinglePlayerHighScores);
         stack_div.appendChild(btnTwoPlayerHighScores);
         stack_div.appendChild(btnBFSSnake);
@@ -188,6 +197,11 @@ class Menu {
         board.startMultiPlayer();
     }
 
+    StartMultiPlayerWithAI(container){
+        let board: Board = new Board(container, WIDTH, HEIGHT, DIFFICULTY, TYPE_OF_AI);
+        board.startMultiPlayerWithAI();
+    }
+
     ShowHighScores(container) {
         container.innerHTML = "";
         let left_column = document.createElement("div");
@@ -195,14 +209,26 @@ class Menu {
 
         let menu = document.createElement("div");
         menu.className = "col-md-8";
-        for (let score in HighScores) {
-            container.innerHTML += (parseInt(score) + 1) + '. ' + HighScores[score].name + ' - ' + HighScores[score].score + '<br/>';
-        }
+
+        let ordered_list = document.createElement("ol");
+
+        $.ajax({
+            url: 'https://asocial-setting.000webhostapp.com/scores.php?type=sp',
+            dataType: 'json',
+            success: (data)=>{
+                console.log(data);
+                data.forEach(element => {
+                    ordered_list.innerHTML += `<li> ${element.name} - ${element.score} </li>`;
+                });
+            }
+        });
+
         let backButton = document.createElement("button");
         backButton.appendChild(document.createTextNode("Go Back"));
         backButton.addEventListener("click", () => this.ShowMenu(container));
         backButton.className = 'btn btn-block btn-danger menuItem';
 
+        menu.appendChild(ordered_list);
         menu.appendChild(backButton);
         container.appendChild(left_column);
         container.appendChild(menu);
@@ -215,18 +241,32 @@ class Menu {
 
         let menu = document.createElement("div");
         menu.className = "col-md-8";
-        for (let score in TwoPlayerHighScores) {
-            container.innerHTML += (parseInt(score) + 1) + '. ' + TwoPlayerHighScores[score].name + ' - ' + TwoPlayerHighScores[score].score + '<br/>';
-        }
+
+        let ordered_list = document.createElement("ol");
+
+        $.ajax({
+            url: 'https://asocial-setting.000webhostapp.com/scores.php?type=tp',
+            dataType: 'json',
+            success: (data)=>{
+                console.log(data);
+                data.forEach(element => {
+                    ordered_list.innerHTML += `<li> ${element.name} - ${element.score} </li>`;
+                });
+            }
+        });
+
         let backButton = document.createElement("button");
         backButton.appendChild(document.createTextNode("Go Back"));
         backButton.addEventListener("click", () => this.ShowMenu(container));
         backButton.className = 'btn btn-block btn-danger menuItem';
 
+        menu.appendChild(ordered_list);
         menu.appendChild(backButton);
         container.appendChild(left_column);
         container.appendChild(menu);
     }
+
+
 
     getName(canvas, ctx, text, cb) {
         //setup screen

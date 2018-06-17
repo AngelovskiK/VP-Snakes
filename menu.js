@@ -86,6 +86,13 @@ var Menu = /** @class */ (function () {
             // this.StartMultiPlayer(container);
             _this.StartMultiPlayer(container);
         });
+        var btnTwoPlayerBot = document.createElement("button");
+        btnTwoPlayerBot.appendChild(document.createTextNode("Two Player with AI friend"));
+        btnTwoPlayerBot.className = 'btn btn-block btn-danger menuItem';
+        btnTwoPlayerBot.addEventListener("click", function (e) {
+            // this.StartMultiPlayer(container);
+            _this.StartMultiPlayerWithAI(container);
+        });
         var btnSinglePlayerHighScores = document.createElement("button");
         btnSinglePlayerHighScores.appendChild(document.createTextNode("One Player High Scores"));
         btnSinglePlayerHighScores.className = 'btn btn-block btn-danger menuItem';
@@ -132,6 +139,7 @@ var Menu = /** @class */ (function () {
         });
         stack_div.appendChild(btnSinglePlayer);
         stack_div.appendChild(btnTwoPlayer);
+        stack_div.appendChild(btnTwoPlayerBot);
         stack_div.appendChild(btnSinglePlayerHighScores);
         stack_div.appendChild(btnTwoPlayerHighScores);
         stack_div.appendChild(btnBFSSnake);
@@ -151,6 +159,10 @@ var Menu = /** @class */ (function () {
         var board = new Board(container, WIDTH, HEIGHT, DIFFICULTY, TYPE_OF_AI);
         board.startMultiPlayer();
     };
+    Menu.prototype.StartMultiPlayerWithAI = function (container) {
+        var board = new Board(container, WIDTH, HEIGHT, DIFFICULTY, TYPE_OF_AI);
+        board.startMultiPlayerWithAI();
+    };
     Menu.prototype.ShowHighScores = function (container) {
         var _this = this;
         container.innerHTML = "";
@@ -158,13 +170,22 @@ var Menu = /** @class */ (function () {
         left_column.className = "col-md-2";
         var menu = document.createElement("div");
         menu.className = "col-md-8";
-        for (var score in HighScores) {
-            container.innerHTML += (parseInt(score) + 1) + '. ' + HighScores[score].name + ' - ' + HighScores[score].score + '<br/>';
-        }
+        var ordered_list = document.createElement("ol");
+        $.ajax({
+            url: 'https://asocial-setting.000webhostapp.com/scores.php?type=sp',
+            dataType: 'json',
+            success: function (data) {
+                console.log(data);
+                data.forEach(function (element) {
+                    ordered_list.innerHTML += "<li> " + element.name + " - " + element.score + " </li>";
+                });
+            }
+        });
         var backButton = document.createElement("button");
         backButton.appendChild(document.createTextNode("Go Back"));
         backButton.addEventListener("click", function () { return _this.ShowMenu(container); });
         backButton.className = 'btn btn-block btn-danger menuItem';
+        menu.appendChild(ordered_list);
         menu.appendChild(backButton);
         container.appendChild(left_column);
         container.appendChild(menu);
@@ -176,13 +197,22 @@ var Menu = /** @class */ (function () {
         left_column.className = "col-md-2";
         var menu = document.createElement("div");
         menu.className = "col-md-8";
-        for (var score in TwoPlayerHighScores) {
-            container.innerHTML += (parseInt(score) + 1) + '. ' + TwoPlayerHighScores[score].name + ' - ' + TwoPlayerHighScores[score].score + '<br/>';
-        }
+        var ordered_list = document.createElement("ol");
+        $.ajax({
+            url: 'https://asocial-setting.000webhostapp.com/scores.php?type=tp',
+            dataType: 'json',
+            success: function (data) {
+                console.log(data);
+                data.forEach(function (element) {
+                    ordered_list.innerHTML += "<li> " + element.name + " - " + element.score + " </li>";
+                });
+            }
+        });
         var backButton = document.createElement("button");
         backButton.appendChild(document.createTextNode("Go Back"));
         backButton.addEventListener("click", function () { return _this.ShowMenu(container); });
         backButton.className = 'btn btn-block btn-danger menuItem';
+        menu.appendChild(ordered_list);
         menu.appendChild(backButton);
         container.appendChild(left_column);
         container.appendChild(menu);
