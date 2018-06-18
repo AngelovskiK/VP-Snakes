@@ -24,24 +24,40 @@ https://asocial-setting.000webhostapp.com
 Изгледот и дизајнот на играта е создаден статички и динамички со употреба на HTML, CSS и JavaScript. Главната рамка во која се прикажува играта ја нарекуваме canvas, преведено во платно (според translate.google.com) и таа се наоѓа во container што е <div> HTML element. При секоја промена на распоредот на играта платното се менува. Во сликите подоле можете да ги погледнете визулените репрезентации на мените, уредувањата(settings), самата игра со тавелата итн.
 
 #### Menu
-![Menu](https://imgur.com/6tBIxOa)
+![Menu](screenshots/menu.png)
 
 #### Settings
-![Settings](https://imgur.com/5yoqQNl)
+![Settings](screenshots/settings.png)
 
 #### Game Over
-![Game Over](https://imgur.com/maDJ7jg)
+![Game Over](screenshots/game_over_astar.png)
 
 #### HighScores
-![HighScores](https://imgur.com/0nTJpjh)
+![HighScores](screenshots/single_player_normal_scoreboard.png)
 
-А* Single Player               |  Human Single Player Hard Black
-:------------------------------:|:-------------------------------:
-![](https://imgur.com/goPEvSb)  |  ![](https://imgur.com/Kp8OwNn)
+А* Single Player
+![](screenshots/astar_single_player.png)  
 
-Human Single Player Hard Wheat               |  Human AI Two Player Purple
-:------------------------------:|:-------------------------------:
-![](https://imgur.com/SpBlkLY)  |  ![](https://imgur.com/8pwkaIv)
+Human Single Player Hard Black
+![](screenshots/single_player_human_hard_black_2.png)
+
+Human Single Player Hard Wheat                 
+![](screenshots/single_player_human_hard_wheat.png)
+  
+Human AI Two Player Purple
+![](screenshots/two_player_ai_human_purple.png)
+
+Линкови во случај да не се прикажуваат сликите тука погоре:
+
++ Menu - https://imgur.com/6tBIxOa 
++ Settings - https://imgur.com/5yoqQNl 
++ Game Over - https://imgur.com/maDJ7jg
++ HighScores - https://imgur.com/0nTJpjh
++ А* Single Player - https://imgur.com/goPEvSb
++ Human Single Player Hard Black - https://imgur.com/Kp8OwNn 
++ Human Single Player Hard Wheat - https://imgur.com/SpBlkLY
++ Human AI Two Player Purple - https://imgur.com/8pwkaIv 
+
 
 ### Што научивме?
 Овој проект по предметот Визуелно Програмирање во 2018та година нѐ научи на многу работи кои беа надвор од опсегот на самиот предмет. Како прво, требаше да стекнеме интимно познавање на програмскиот јазик JavaScript и дополнително со цел да си помогнеме во концептуализицијата на апстракцијата на проблемот и TypeScript кој е преведен во готов JavaScript, ова не е компајлирање, туку е транспајлирање. 
