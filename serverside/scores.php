@@ -9,9 +9,10 @@ if (isset($_POST['type'])) {
         echo mysqli_error($conn);
     else
         echo "Success";
-} else if (isset($_GET['type'])) {
+} else if (isset($_GET['type']) && isset($_GET['difficulty'])) {
     $type = $_GET["type"] == "sp" ? 0 : 1;
-    $sql = "SELECT `name`, `score`, `time`, `difficulty` FROM `scores` WHERE `type`='$type' ORDER BY score DESC, time ASC LIMIT 10";
+    $difficulty = $_GET["difficulty"];
+    $sql = "SELECT * FROM `scores` WHERE `type`='$type' AND `difficulty`='$difficulty' ORDER BY score DESC, time ASC LIMIT 10";
     $rows = [];
     $result = $conn->query($sql);
     if ($result->num_rows > 0) {

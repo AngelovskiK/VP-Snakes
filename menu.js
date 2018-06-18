@@ -171,24 +171,168 @@ var Menu = /** @class */ (function () {
         left_column.className = "col-md-2";
         var menu = document.createElement("div");
         menu.className = "col-md-8";
+        var difficulty_menu_left = document.createElement("div");
+        var difficulty_menu_center = document.createElement("div");
+        var difficulty_menu_right = document.createElement("div");
+        difficulty_menu_left.className = "col-md-4";
+        difficulty_menu_center.className = "col-md-4";
+        difficulty_menu_right.className = "col-md-4";
+        var hightscore_div = document.createElement("div");
+        hightscore_div.className = "col-md-12";
         var ordered_list = document.createElement("ol");
-        $.ajax({
-            url: 'https://asocial-setting.000webhostapp.com/scores.php?type=sp',
-            dataType: 'json',
-            success: function (data) {
-                console.log(data);
-                data.forEach(function (element) {
-                    ordered_list.innerHTML += "<li> " + element.name + " - " + element.score + " - " + Math.floor(element.time / 60) + ":" + element.time % 60 + " </li>";
-                });
-            },
-            failure: function (e) { console.log(e); }
+        var btnEasy = document.createElement("button");
+        btnEasy.appendChild(document.createTextNode("Easy"));
+        btnEasy.className = "" + (DIFFICULTY == 1 ? 'btn btn-block btn-danger difficultyItem chosenDifficultyItem' : 'btn btn-block btn-danger difficultyItem');
+        btnEasy.addEventListener("click", function (e) {
+            DIFFICULTY = 1;
+            btnEasy.className = 'btn btn-block btn-danger difficultyItem chosenDifficultyItem';
+            btnNormal.className = 'btn btn-block btn-danger difficultyItem';
+            btnHard.className = 'btn btn-block btn-danger difficultyItem ';
+            var current_difficulty = DIFFICULTY;
+            hightscore_div.innerHTML = "";
+            ordered_list = document.createElement("ol");
+            $.ajax({
+                url: 'https://asocial-setting.000webhostapp.com/scores.php?type=sp&difficulty=1',
+                dataType: 'json',
+                success: function (data) {
+                    console.log(data);
+                    data.forEach(function (element) {
+                        if (current_difficulty === 1 && element.difficulty == 1) {
+                            ordered_list.innerHTML += "<li> " + element.name + " - " + element.score + " - " + Math.floor(element.time / 60) + ":" + (element.time % 60 < 10 ? "0" + (element.time % 60).toString() : element.time % 60) + " - " + (element.difficulty == 1 ? "Easy" : "") + "</li>";
+                        }
+                        else if (current_difficulty === 2 && element.difficulty == 2) {
+                            ordered_list.innerHTML += "<li> " + element.name + " - " + element.score + " - " + Math.floor(element.time / 60) + ":" + (element.time % 60 < 10 ? "0" + (element.time % 60).toString() : element.time % 60) + " - " + (element.difficulty == 2 ? "Normal" : "") + "</li>";
+                        }
+                        else if (current_difficulty === 3 && element.difficulty == 3) {
+                            ordered_list.innerHTML += "<li> " + element.name + " - " + element.score + " - " + Math.floor(element.time / 60) + ":" + (element.time % 60 < 10 ? "0" + (element.time % 60).toString() : element.time % 60) + " - " + (element.difficulty == 3 ? "Hard" : "") + "</li>";
+                        }
+                        else {
+                            console.log(element);
+                        }
+                    });
+                }
+            });
+            hightscore_div.appendChild(document.createTextNode("Single Player Highscores"));
+            hightscore_div.appendChild(document.createElement("br"));
+            hightscore_div.appendChild(document.createTextNode("Showing for " + (current_difficulty == 1 ? "Easy" : current_difficulty == 2 ? "Normal" : "Hard")));
+            hightscore_div.appendChild(document.createElement("br"));
+            hightscore_div.appendChild(document.createElement("br"));
+            hightscore_div.appendChild(ordered_list);
+            menu.appendChild(hightscore_div);
         });
+        difficulty_menu_left.appendChild(btnEasy);
+        var btnNormal = document.createElement("button");
+        btnNormal.appendChild(document.createTextNode("Normal"));
+        btnNormal.className = "" + (DIFFICULTY == 2 ? 'btn btn-block btn-danger difficultyItem chosenDifficultyItem' : 'btn btn-block btn-danger difficultyItem');
+        btnNormal.addEventListener("click", function (e) {
+            DIFFICULTY = 2;
+            btnEasy.className = 'btn btn-block btn-danger difficultyItem ';
+            btnNormal.className = 'btn btn-block btn-danger difficultyItem chosenDifficultyItem';
+            btnHard.className = 'btn btn-block btn-danger difficultyItem ';
+            var current_difficulty = DIFFICULTY;
+            hightscore_div.innerHTML = "";
+            ordered_list = document.createElement("ol");
+            $.ajax({
+                url: 'https://asocial-setting.000webhostapp.com/scores.php?type=sp&difficulty=2',
+                dataType: 'json',
+                success: function (data) {
+                    console.log(data);
+                    data.forEach(function (element) {
+                        if (current_difficulty === 1 && element.difficulty == 1) {
+                            ordered_list.innerHTML += "<li> " + element.name + " - " + element.score + " - " + Math.floor(element.time / 60) + ":" + (element.time % 60 < 10 ? "0" + (element.time % 60).toString() : element.time % 60) + " - " + (element.difficulty == 1 ? "Easy" : "") + "</li>";
+                        }
+                        else if (current_difficulty === 2 && element.difficulty == 2) {
+                            ordered_list.innerHTML += "<li> " + element.name + " - " + element.score + " - " + Math.floor(element.time / 60) + ":" + (element.time % 60 < 10 ? "0" + (element.time % 60).toString() : element.time % 60) + " - " + (element.difficulty == 2 ? "Normal" : "") + "</li>";
+                        }
+                        else if (current_difficulty === 3 && element.difficulty == 3) {
+                            ordered_list.innerHTML += "<li> " + element.name + " - " + element.score + " - " + Math.floor(element.time / 60) + ":" + (element.time % 60 < 10 ? "0" + (element.time % 60).toString() : element.time % 60) + " - " + (element.difficulty == 3 ? "Hard" : "") + "</li>";
+                        }
+                    });
+                }
+            });
+            hightscore_div.appendChild(document.createTextNode("Single Player Highscores"));
+            hightscore_div.appendChild(document.createElement("br"));
+            hightscore_div.appendChild(document.createTextNode("Showing for " + (current_difficulty == 1 ? "Easy" : current_difficulty == 2 ? "Normal" : "Hard")));
+            hightscore_div.appendChild(document.createElement("br"));
+            hightscore_div.appendChild(document.createElement("br"));
+            hightscore_div.appendChild(ordered_list);
+            menu.appendChild(hightscore_div);
+        });
+        difficulty_menu_center.appendChild(btnNormal);
+        var btnHard = document.createElement("button");
+        btnHard.appendChild(document.createTextNode("Hard"));
+        btnHard.className = "" + (DIFFICULTY == 3 ? 'btn btn-block btn-danger difficultyItem chosenDifficultyItem' : 'btn btn-block btn-danger difficultyItem');
+        btnHard.addEventListener("click", function (e) {
+            DIFFICULTY = 3;
+            btnEasy.className = 'btn btn-block btn-danger difficultyItem ';
+            btnNormal.className = 'btn btn-block btn-danger difficultyItem ';
+            btnHard.className = 'btn btn-block btn-danger difficultyItem chosenDifficultyItem';
+            var current_difficulty = DIFFICULTY;
+            hightscore_div.innerHTML = "";
+            ordered_list = document.createElement("ol");
+            $.ajax({
+                url: 'https://asocial-setting.000webhostapp.com/scores.php?type=sp&difficulty=3',
+                dataType: 'json',
+                success: function (data) {
+                    console.log(data);
+                    data.forEach(function (element) {
+                        if (current_difficulty === 1 && element.difficulty == 1) {
+                            ordered_list.innerHTML += "<li> " + element.name + " - " + element.score + " - " + Math.floor(element.time / 60) + ":" + (element.time % 60 < 10 ? "0" + (element.time % 60).toString() : element.time % 60) + " - " + (element.difficulty == 1 ? "Easy" : "") + "</li>";
+                        }
+                        else if (current_difficulty === 2 && element.difficulty == 2) {
+                            ordered_list.innerHTML += "<li> " + element.name + " - " + element.score + " - " + Math.floor(element.time / 60) + ":" + (element.time % 60 < 10 ? "0" + (element.time % 60).toString() : element.time % 60) + " - " + (element.difficulty == 2 ? "Normal" : "") + "</li>";
+                        }
+                        else if (current_difficulty === 3 && element.difficulty == 3) {
+                            ordered_list.innerHTML += "<li> " + element.name + " - " + element.score + " - " + Math.floor(element.time / 60) + ":" + (element.time % 60 < 10 ? "0" + (element.time % 60).toString() : element.time % 60) + " - " + (element.difficulty == 3 ? "Hard" : "") + "</li>";
+                        }
+                    });
+                }
+            });
+            hightscore_div.appendChild(document.createTextNode("Single Player Highscores"));
+            hightscore_div.appendChild(document.createElement("br"));
+            hightscore_div.appendChild(document.createTextNode("Showing for " + (current_difficulty == 1 ? "Easy" : current_difficulty == 2 ? "Normal" : "Hard")));
+            hightscore_div.appendChild(document.createElement("br"));
+            hightscore_div.appendChild(document.createElement("br"));
+            hightscore_div.appendChild(ordered_list);
+            menu.appendChild(hightscore_div);
+        });
+        difficulty_menu_right.appendChild(btnHard);
+        menu.appendChild(difficulty_menu_left);
+        menu.appendChild(difficulty_menu_center);
+        menu.appendChild(difficulty_menu_right);
         var backButton = document.createElement("button");
         backButton.appendChild(document.createTextNode("Go Back"));
         backButton.addEventListener("click", function () { return _this.ShowMenu(container); });
         backButton.className = 'btn btn-block btn-danger menuItem';
-        menu.appendChild(ordered_list);
         menu.appendChild(backButton);
+        menu.appendChild(document.createElement("br"));
+        var current_difficulty = DIFFICULTY;
+        ordered_list.innerHTML = "";
+        $.ajax({
+            url: 'https://asocial-setting.000webhostapp.com/scores.php?type=sp&difficulty=' + current_difficulty,
+            dataType: 'json',
+            success: function (data) {
+                console.log(data);
+                data.forEach(function (element) {
+                    if (current_difficulty === 1 && element.difficulty == 1) {
+                        ordered_list.innerHTML += "<li> " + element.name + " - " + element.score + " - " + Math.floor(element.time / 60) + ":" + (element.time % 60 < 10 ? "0" + (element.time % 60).toString() : element.time % 60) + " - " + (element.difficulty == 1 ? "Easy" : "") + "</li>";
+                    }
+                    else if (current_difficulty === 2 && element.difficulty == 2) {
+                        ordered_list.innerHTML += "<li> " + element.name + " - " + element.score + " - " + Math.floor(element.time / 60) + ":" + (element.time % 60 < 10 ? "0" + (element.time % 60).toString() : element.time % 60) + " - " + (element.difficulty == 2 ? "Normal" : "") + "</li>";
+                    }
+                    else if (current_difficulty === 3 && element.difficulty == 3) {
+                        ordered_list.innerHTML += "<li> " + element.name + " - " + element.score + " - " + Math.floor(element.time / 60) + ":" + (element.time % 60 < 10 ? "0" + (element.time % 60).toString() : element.time % 60) + " - " + (element.difficulty == 3 ? "Hard" : "") + "</li>";
+                    }
+                });
+            }
+        });
+        hightscore_div.appendChild(document.createTextNode("Single Player Highscores"));
+        hightscore_div.appendChild(document.createElement("br"));
+        hightscore_div.appendChild(document.createTextNode("Showing for " + (current_difficulty == 1 ? "Easy" : current_difficulty == 2 ? "Normal" : "Hard")));
+        hightscore_div.appendChild(document.createElement("br"));
+        hightscore_div.appendChild(document.createElement("br"));
+        hightscore_div.appendChild(ordered_list);
+        menu.appendChild(hightscore_div);
         container.appendChild(left_column);
         container.appendChild(menu);
     };
@@ -199,23 +343,167 @@ var Menu = /** @class */ (function () {
         left_column.className = "col-md-2";
         var menu = document.createElement("div");
         menu.className = "col-md-8";
+        var difficulty_menu_left = document.createElement("div");
+        var difficulty_menu_center = document.createElement("div");
+        var difficulty_menu_right = document.createElement("div");
+        difficulty_menu_left.className = "col-md-4";
+        difficulty_menu_center.className = "col-md-4";
+        difficulty_menu_right.className = "col-md-4";
+        var hightscore_div = document.createElement("div");
         var ordered_list = document.createElement("ol");
-        $.ajax({
-            url: 'https://asocial-setting.000webhostapp.com/scores.php?type=tp',
-            dataType: 'json',
-            success: function (data) {
-                console.log(data);
-                data.forEach(function (element) {
-                    ordered_list.innerHTML += "<li> " + element.name + " - " + element.score + " </li>";
-                });
-            }
+        var btnEasy = document.createElement("button");
+        btnEasy.appendChild(document.createTextNode("Easy"));
+        btnEasy.className = "" + (DIFFICULTY == 1 ? 'btn btn-block btn-danger difficultyItem chosenDifficultyItem' : 'btn btn-block btn-danger difficultyItem');
+        btnEasy.addEventListener("click", function (e) {
+            DIFFICULTY = 1;
+            btnEasy.className = 'btn btn-block btn-danger difficultyItem chosenDifficultyItem';
+            btnNormal.className = 'btn btn-block btn-danger difficultyItem';
+            btnHard.className = 'btn btn-block btn-danger difficultyItem ';
+            var current_difficulty = DIFFICULTY;
+            hightscore_div.innerHTML = "";
+            ordered_list = document.createElement("ol");
+            $.ajax({
+                url: 'https://asocial-setting.000webhostapp.com/scores.php?type=mp&difficulty=1',
+                dataType: 'json',
+                success: function (data) {
+                    console.log(data);
+                    data.forEach(function (element) {
+                        if (current_difficulty === 1 && element.difficulty == 1) {
+                            ordered_list.innerHTML += "<li> " + element.name + " - " + element.score + " - " + Math.floor(element.time / 60) + ":" + (element.time % 60 < 10 ? "0" + (element.time % 60).toString() : element.time % 60) + " - " + (element.difficulty == 1 ? "Easy" : "") + "</li>";
+                        }
+                        else if (current_difficulty === 2 && element.difficulty == 2) {
+                            ordered_list.innerHTML += "<li> " + element.name + " - " + element.score + " - " + Math.floor(element.time / 60) + ":" + (element.time % 60 < 10 ? "0" + (element.time % 60).toString() : element.time % 60) + " - " + (element.difficulty == 2 ? "Normal" : "") + "</li>";
+                        }
+                        else if (current_difficulty === 3 && element.difficulty == 3) {
+                            ordered_list.innerHTML += "<li> " + element.name + " - " + element.score + " - " + Math.floor(element.time / 60) + ":" + (element.time % 60 < 10 ? "0" + (element.time % 60).toString() : element.time % 60) + " - " + (element.difficulty == 3 ? "Hard" : "") + "</li>";
+                        }
+                        else {
+                            console.log(element);
+                        }
+                    });
+                }
+            });
+            hightscore_div.appendChild(document.createTextNode("Two Player Highscores"));
+            hightscore_div.appendChild(document.createElement("br"));
+            hightscore_div.appendChild(document.createTextNode("Showing for " + (current_difficulty == 1 ? "Easy" : current_difficulty == 2 ? "Normal" : "Hard")));
+            hightscore_div.appendChild(document.createElement("br"));
+            hightscore_div.appendChild(document.createElement("br"));
+            hightscore_div.appendChild(ordered_list);
+            menu.appendChild(hightscore_div);
         });
+        difficulty_menu_left.appendChild(btnEasy);
+        var btnNormal = document.createElement("button");
+        btnNormal.appendChild(document.createTextNode("Normal"));
+        btnNormal.className = "" + (DIFFICULTY == 2 ? 'btn btn-block btn-danger difficultyItem chosenDifficultyItem' : 'btn btn-block btn-danger difficultyItem');
+        btnNormal.addEventListener("click", function (e) {
+            DIFFICULTY = 2;
+            btnEasy.className = 'btn btn-block btn-danger difficultyItem ';
+            btnNormal.className = 'btn btn-block btn-danger difficultyItem chosenDifficultyItem';
+            btnHard.className = 'btn btn-block btn-danger difficultyItem ';
+            var current_difficulty = DIFFICULTY;
+            hightscore_div.innerHTML = "";
+            ordered_list = document.createElement("ol");
+            $.ajax({
+                url: 'https://asocial-setting.000webhostapp.com/scores.php?type=mp&difficulty=2',
+                dataType: 'json',
+                success: function (data) {
+                    console.log(data);
+                    data.forEach(function (element) {
+                        if (current_difficulty === 1 && element.difficulty == 1) {
+                            ordered_list.innerHTML += "<li> " + element.name + " - " + element.score + " - " + Math.floor(element.time / 60) + ":" + (element.time % 60 < 10 ? "0" + (element.time % 60).toString() : element.time % 60) + " - " + (element.difficulty == 1 ? "Easy" : "") + "</li>";
+                        }
+                        else if (current_difficulty === 2 && element.difficulty == 2) {
+                            ordered_list.innerHTML += "<li> " + element.name + " - " + element.score + " - " + Math.floor(element.time / 60) + ":" + (element.time % 60 < 10 ? "0" + (element.time % 60).toString() : element.time % 60) + " - " + (element.difficulty == 2 ? "Normal" : "") + "</li>";
+                        }
+                        else if (current_difficulty === 3 && element.difficulty == 3) {
+                            ordered_list.innerHTML += "<li> " + element.name + " - " + element.score + " - " + Math.floor(element.time / 60) + ":" + (element.time % 60 < 10 ? "0" + (element.time % 60).toString() : element.time % 60) + " - " + (element.difficulty == 3 ? "Hard" : "") + "</li>";
+                        }
+                    });
+                }
+            });
+            hightscore_div.appendChild(document.createTextNode("Two Player Highscores"));
+            hightscore_div.appendChild(document.createElement("br"));
+            hightscore_div.appendChild(document.createTextNode("Showing for " + (current_difficulty == 1 ? "Easy" : current_difficulty == 2 ? "Normal" : "Hard")));
+            hightscore_div.appendChild(document.createElement("br"));
+            hightscore_div.appendChild(document.createElement("br"));
+            hightscore_div.appendChild(ordered_list);
+            menu.appendChild(hightscore_div);
+        });
+        difficulty_menu_center.appendChild(btnNormal);
+        var btnHard = document.createElement("button");
+        btnHard.appendChild(document.createTextNode("Hard"));
+        btnHard.className = "" + (DIFFICULTY == 3 ? 'btn btn-block btn-danger difficultyItem chosenDifficultyItem' : 'btn btn-block btn-danger difficultyItem');
+        btnHard.addEventListener("click", function (e) {
+            DIFFICULTY = 3;
+            btnEasy.className = 'btn btn-block btn-danger difficultyItem ';
+            btnNormal.className = 'btn btn-block btn-danger difficultyItem ';
+            btnHard.className = 'btn btn-block btn-danger difficultyItem chosenDifficultyItem';
+            var current_difficulty = DIFFICULTY;
+            hightscore_div.innerHTML = "";
+            ordered_list = document.createElement("ol");
+            $.ajax({
+                url: 'https://asocial-setting.000webhostapp.com/scores.php?type=mp&difficulty=3',
+                dataType: 'json',
+                success: function (data) {
+                    console.log(data);
+                    data.forEach(function (element) {
+                        if (current_difficulty === 1 && element.difficulty == 1) {
+                            ordered_list.innerHTML += "<li> " + element.name + " - " + element.score + " - " + Math.floor(element.time / 60) + ":" + (element.time % 60 < 10 ? "0" + (element.time % 60).toString() : element.time % 60) + " - " + (element.difficulty == 1 ? "Easy" : "") + "</li>";
+                        }
+                        else if (current_difficulty === 2 && element.difficulty == 2) {
+                            ordered_list.innerHTML += "<li> " + element.name + " - " + element.score + " - " + Math.floor(element.time / 60) + ":" + (element.time % 60 < 10 ? "0" + (element.time % 60).toString() : element.time % 60) + " - " + (element.difficulty == 2 ? "Normal" : "") + "</li>";
+                        }
+                        else if (current_difficulty === 3 && element.difficulty == 3) {
+                            ordered_list.innerHTML += "<li> " + element.name + " - " + element.score + " - " + Math.floor(element.time / 60) + ":" + (element.time % 60 < 10 ? "0" + (element.time % 60).toString() : element.time % 60) + " - " + (element.difficulty == 3 ? "Hard" : "") + "</li>";
+                        }
+                    });
+                }
+            });
+            hightscore_div.appendChild(document.createTextNode("Two Player Highscores"));
+            hightscore_div.appendChild(document.createElement("br"));
+            hightscore_div.appendChild(document.createTextNode("Showing for " + (current_difficulty == 1 ? "Easy" : current_difficulty == 2 ? "Normal" : "Hard")));
+            hightscore_div.appendChild(document.createElement("br"));
+            hightscore_div.appendChild(document.createElement("br"));
+            hightscore_div.appendChild(ordered_list);
+            menu.appendChild(hightscore_div);
+        });
+        difficulty_menu_right.appendChild(btnHard);
+        menu.appendChild(difficulty_menu_left);
+        menu.appendChild(difficulty_menu_center);
+        menu.appendChild(difficulty_menu_right);
         var backButton = document.createElement("button");
         backButton.appendChild(document.createTextNode("Go Back"));
         backButton.addEventListener("click", function () { return _this.ShowMenu(container); });
         backButton.className = 'btn btn-block btn-danger menuItem';
-        menu.appendChild(ordered_list);
         menu.appendChild(backButton);
+        menu.appendChild(document.createElement("br"));
+        var current_difficulty = DIFFICULTY;
+        ordered_list.innerHTML = "";
+        $.ajax({
+            url: 'https://asocial-setting.000webhostapp.com/scores.php?type=mp&difficulty=' + current_difficulty,
+            dataType: 'json',
+            success: function (data) {
+                console.log(data);
+                data.forEach(function (element) {
+                    if (current_difficulty === 1 && element.difficulty == 1) {
+                        ordered_list.innerHTML += "<li> " + element.name + " - " + element.score + " - " + Math.floor(element.time / 60) + ":" + (element.time % 60 < 10 ? "0" + (element.time % 60).toString() : element.time % 60) + " - " + (element.difficulty == 1 ? "Easy" : "") + "</li>";
+                    }
+                    else if (current_difficulty === 2 && element.difficulty == 2) {
+                        ordered_list.innerHTML += "<li> " + element.name + " - " + element.score + " - " + Math.floor(element.time / 60) + ":" + (element.time % 60 < 10 ? "0" + (element.time % 60).toString() : element.time % 60) + " - " + (element.difficulty == 2 ? "Normal" : "") + "</li>";
+                    }
+                    else if (current_difficulty === 3 && element.difficulty == 3) {
+                        ordered_list.innerHTML += "<li> " + element.name + " - " + element.score + " - " + Math.floor(element.time / 60) + ":" + (element.time % 60 < 10 ? "0" + (element.time % 60).toString() : element.time % 60) + " - " + (element.difficulty == 3 ? "Hard" : "") + "</li>";
+                    }
+                });
+            }
+        });
+        hightscore_div.appendChild(document.createTextNode("Two Player Highscores"));
+        hightscore_div.appendChild(document.createElement("br"));
+        hightscore_div.appendChild(document.createTextNode("Showing for " + (current_difficulty == 1 ? "Easy" : current_difficulty == 2 ? "Normal" : "Hard")));
+        hightscore_div.appendChild(document.createElement("br"));
+        hightscore_div.appendChild(document.createElement("br"));
+        hightscore_div.appendChild(ordered_list);
+        menu.appendChild(hightscore_div);
         container.appendChild(left_column);
         container.appendChild(menu);
     };
@@ -251,7 +539,7 @@ var Menu = /** @class */ (function () {
         board.start();
     };
     Menu.prototype.ShowAStarSnake = function (container) {
-        // start game, set up canvas, and create quit button
+        console.log("DIFFICULTY: ", DIFFICULTY);
         var board = new Board(container, WIDTH, HEIGHT, DIFFICULTY, TYPE_OF_AI);
         board.start();
     };
