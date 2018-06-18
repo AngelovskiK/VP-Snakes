@@ -1,13 +1,12 @@
-## Serpent Works - A Visual Programming Course Project
-
-### Made by Filip Markoski 161528 and Kristijan Angelovski 165025
-
-### [Project Documentation on Google Docs](https://docs.google.com/document/d/1d2pVpP63YgnebYulIAM9r4uPUE_zVzQy09burxjTp2A/edit?usp=sharing)
 
 ## Serpent Works - Проектна по Визуело Програмирање 2018
 
-Играта е поставена на следниов линк:
-https://asocial-setting.000webhostapp.com
+### Направено од:
+ + ##### Филип Маркоски 161528
+ + ##### Кристијан Ангеловски 165025
+
+###Играта е поставена на следниов линк:
+####https://asocial-setting.000webhostapp.com
 
 ### Опис на проблемот, играта
 Играта Serpent Works е базирана на класичната добро-позната аркадна игра Snake. Инструкции за играта се понудени и во самата игра при кликање на копчето Instructions кое се наоѓа во менито, но исто така ќе ги образложиме и тука.  
